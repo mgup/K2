@@ -1,0 +1,13 @@
+AllCops:
+  Exclude:
+    - '**/Rakefile'
+    - 'bin/**/*'
+    - 'db/**/*'
+    - 'config/**/*'
+
+  RunRailsCops: true
+
+Style/AsciiComments:
+  Enabled: false
+Style/ClassAndModuleChildren:
+  Enabled: false
