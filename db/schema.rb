@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150929130027) do
+ActiveRecord::Schema.define(version: 20150929142715) do
 
   create_table "office_document_types", force: :cascade do |t|
     t.string   "prefix",     limit: 255
@@ -22,6 +22,23 @@ ActiveRecord::Schema.define(version: 20150929130027) do
   end
 
   add_index "office_document_types", ["deleted_at"], name: "index_office_document_types_on_deleted_at", using: :btree
+
+  create_table "office_orders", force: :cascade do |t|
+    t.integer  "document_type_id",      limit: 4
+    t.integer  "number",                limit: 4
+    t.string   "postfix",               limit: 255
+    t.date     "date"
+    t.string   "title",                 limit: 255
+    t.datetime "deleted_at"
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.string   "document_file_name",    limit: 255
+    t.string   "document_content_type", limit: 255
+    t.integer  "document_file_size",    limit: 4
+    t.datetime "document_updated_at"
+  end
+
+  add_index "office_orders", ["document_type_id"], name: "index_office_orders_on_document_type_id", using: :btree
 
   create_table "roles", force: :cascade do |t|
     t.string   "name",              limit: 255,                 null: false

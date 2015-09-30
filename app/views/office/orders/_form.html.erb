@@ -1,0 +1,17 @@
+<%= form_for(@office_order) do |f| %>
+  <% if @office_order.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@office_order.errors.count, "error") %> prohibited this office_order from being saved:</h2>
+
+      <ul>
+      <% @office_order.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

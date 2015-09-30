@@ -2,10 +2,13 @@ source 'https://rubygems.org'
 
 gem 'acl9'
 gem 'devise'
+gem 'font-awesome-sass'
+gem 'foundation-rails'
 gem 'mysql2', '~> 0.3.13'
 gem 'paperclip'
 gem 'paranoia'
 gem 'rails', '4.2.4'
+gem 'rails-i18n'
 gem 'therubyracer', platforms: :ruby
 
 group :development do

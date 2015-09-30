@@ -1,0 +1,8 @@
+<dl class="sub-nav">
+  <% @document_types.each do |type| %>
+    <dd class="<%= 'active' if type.id == params[:document_type_id].to_i %>">
+      <%= link_to type.prefix, office_document_type_orders_path(type.id),
+                  title: type.name %>
+    </dd>
+  <% end %>
+</dl>

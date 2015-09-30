@@ -1,14 +1,74 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>K2</title>
+
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'vendor/modernizr', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
+<div class="off-canvas-wrap" data-offcanvas>
+  <div class="inner-wrap">
+    <nav class="tab-bar">
+      <% if signed_in? %>
+        <section class="left-small">
+          <a class="left-off-canvas-toggle menu-icon" href="#"><span></span></a>
+        </section>
+      <% end %>
 
-<%= yield %>
+      <section class="middle tab-bar-section">
+        <h1 class="title"><%= yield :title %></h1>
+      </section>
 
+      <% if signed_in? %>
+        <section class="right-small">
+          <a class="right-off-canvas-toggle menu-icon" href="#"><span></span></a>
+        </section>
+      <% end %>
+    </nav>
+
+    <% if signed_in? %>
+      <aside class="left-off-canvas-menu">
+        <ul class="off-canvas-list">
+          <li><label>Общий отдел</label></li>
+          <li>
+            <%= link_to 'Приказы и распоряжения',
+                        office_document_type_orders_path(Office::DocumentType.first) %>
+            <a href="#">The Psychohistorians</a>
+          </li>
+          <li><a href="#">...</a></li>
+        </ul>
+      </aside>
+
+      <aside class="right-off-canvas-menu">
+        <ul class="off-canvas-list">
+          <li><label>Пользователь</label></li>
+          <li><%= link_to current_user, current_user %></li>
+          <li><%= link_to 'Выйти', destroy_user_session_path, method: :delete %></li>
+        </ul>
+      </aside>
+    <% end %>
+
+    <section class="main-section">
+      <div class="full-height">
+        <div class="row">
+          <div class="small-12 columns">
+            <%= yield %>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <a class="exit-off-canvas"></a>
+
+  </div>
+</div>
+
+
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 </body>
 </html>

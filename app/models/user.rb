@@ -7,4 +7,8 @@ class User < ActiveRecord::Base
 
   acts_as_authorization_subject
   acts_as_paranoid
+
+  def to_s
+    email
+  end
 end

@@ -1,8 +1,7 @@
 # Стартовый контроллер приложения.
 class WelcomeController < ApplicationController
   access_control do
-    # allow all
-    allow :developers
+    allow all
   end
 
   def index
