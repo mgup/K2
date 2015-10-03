@@ -11,10 +11,26 @@ class Office::Order < ActiveRecord::Base
   validates_attachment_content_type :document, content_type: 'application/pdf'
 
   default_scope do
-    order(number: :desc).order(suffix: :desc)
+    order('extract(year from date) DESC')
+      .order(number: :desc)
+      .order(suffix: :desc)
   end
 
   scope :with_document_type, -> (id) { where(document_type_id: id) }
+
+  searchable do
+    time :date
+    text :number do
+      full_number
+    end
+    text :title
+
+    integer :year do
+      date.year
+    end
+    string :number
+    string :suffix
+  end
 
   def date
     super || Date.today

@@ -4,6 +4,7 @@ gem 'acl9'
 gem 'devise'
 gem 'font-awesome-sass'
 gem 'foundation-rails'
+gem 'kaminari'
 gem 'mysql2', '~> 0.3.13'
 gem 'paperclip'
 gem 'paranoia'
@@ -11,6 +12,8 @@ gem 'rails', '4.2.4'
 gem 'rails-i18n'
 gem 'responders'
 gem 'russian'
+gem 'sunspot_rails'
+gem 'sunspot_solr'
 gem 'therubyracer', platforms: :ruby
 
 # source 'https://rails-assets.org' do
@@ -20,6 +23,7 @@ gem 'therubyracer', platforms: :ruby
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'progress_bar'
   gem 'quiet_assets'
   gem 'rails_best_practices', require: false
   gem 'rails-erd', require: false

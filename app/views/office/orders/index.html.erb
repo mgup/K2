@@ -2,17 +2,43 @@
 
 <%= render 'filter' %>
 
-<ul class="button-group even-3">
-  <li>
+<div class="row">
+  <div class="medium-4 columns">
     <%= link_to new_office_document_type_order_path, class: 'button secondary' do %>
       <i class="fa fa-plus"></i> Добавить документ
     <% end %>
-  </li>
-</ul>
+  </div>
+  <div class="medium-8 columns">
+    <form method="get">
+      <input type="hidden" name="page" value="1">
+      <div class="row collapse">
+        <div class="small-10 columns">
+          <input type="text" name="q" value="<%= params[:q] %>" placeholder="найти...">
+        </div>
+        <div class="small-2 columns">
+          <button type="submit" class="button postfix">
+            <i class="fa fa-search"></i>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<% if params[:q] %>
+  <%= link_to 'вернуться ко всем приказам', url_for(params.except(:q)), class: 'right' %>
+
+  <p>
+    Результаты поиска по запросу
+    &laquo;<strong><%= params[:q] %></strong>&raquo;:
+  </p>
+<% end %>
 
 <% if @orders.empty? %>
   <p>Нет зарегистрированных документов.</p>
 <% else %>
+  <%= paginate @orders %>
+
   <table class="full-width">
     <thead>
     <tr>
@@ -59,4 +85,6 @@
     <% end %>
     </tbody>
   </table>
+
+  <%= paginate @orders %>
 <% end %>

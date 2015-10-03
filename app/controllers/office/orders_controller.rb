@@ -15,7 +15,12 @@ class Office::OrdersController < ApplicationController
   def index
     @document_types = Office::DocumentType.for_orders
 
-    @orders = Office::Order.with_document_type(params[:document_type_id])
+    if params[:q]
+      @orders = find_orders_by_query
+    else
+      @orders = Office::Order.with_document_type(params[:document_type_id])
+                .page(params[:page])
+    end
   end
 
   # GET /office/orders/new
@@ -96,5 +101,17 @@ class Office::OrdersController < ApplicationController
   def order_params
     params.require(:office_order).permit(:document_type_id, :number, :suffix,
                                          :date, :title, :document)
+  end
+
+  def find_orders_by_query
+    search = Office::Order.search do
+      fulltext params[:q]
+      paginate page: params[:page]
+
+      order_by(:number, :desc)
+      order_by(:suffix, :desc)
+    end
+
+    search.results
   end
 end
