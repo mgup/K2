@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 20150929142715) do
   create_table "office_orders", force: :cascade do |t|
     t.integer  "document_type_id",      limit: 4
     t.integer  "number",                limit: 4
-    t.string   "postfix",               limit: 255
+    t.string   "suffix",                limit: 255
     t.date     "date"
     t.string   "title",                 limit: 255
     t.datetime "deleted_at"

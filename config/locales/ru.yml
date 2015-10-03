@@ -1,0 +1,8 @@
+ru:
+  activerecord:
+    models:
+      office/order: документ
+    attributes:
+      office/order:
+        number: регистрационный номер
+        suffix: суффикс

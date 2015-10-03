@@ -1,5 +1,12 @@
-<h1>New Office Order</h1>
+<% content_for :title, 'Регистрация документа' %>
 
 <%= render 'form' %>
 
-<%= link_to 'Back', office_orders_path %>
+<ul class="button-group even-2">
+  <li>
+    <%= link_to office_document_type_orders_path(@document_type),
+                class: 'button secondary' do %>
+      <i class="fa fa-arrow-left"></i> Вернуться к зарегистрированным документам
+    <% end %>
+  </li>
+</ul>

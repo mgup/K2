@@ -3,7 +3,7 @@ class CreateOfficeOrders < ActiveRecord::Migration
     create_table :office_orders do |t|
       t.references :document_type, index: true
       t.integer :number
-      t.string :postfix, null: true
+      t.string :suffix, null: true, default: nil
       t.date :date
       t.string :title
 

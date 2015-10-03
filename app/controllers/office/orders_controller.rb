@@ -1,10 +1,14 @@
+# Контроллер для работы с приказами, которые регистрирует Общий отдел.
 class Office::OrdersController < ApplicationController
   access_control do
     # allow all
     allow :developers
   end
 
-  before_action :set_office_order, only: [:show, :edit, :update, :destroy]
+  respond_to :html
+
+  before_action :set_order, only: [:edit, :update, :destroy]
+  before_action :set_document_type, only: [:new, :create]
 
   # GET /office/orders
   # GET /office/orders.json
@@ -14,68 +18,83 @@ class Office::OrdersController < ApplicationController
     @orders = Office::Order.with_document_type(params[:document_type_id])
   end
 
-  # GET /office/orders/1
-  # GET /office/orders/1.json
-  def show
-  end
-
   # GET /office/orders/new
   def new
-    @office_order = Office::Order.new
+    @order = @document_type.orders.build
   end
 
   # GET /office/orders/1/edit
   def edit
+    @document_type = @order.document_type
   end
 
   # POST /office/orders
   # POST /office/orders.json
   def create
-    @office_order = Office::Order.new(office_order_params)
+    @order = Office::Order.new(order_params)
 
-    respond_to do |format|
-      if @office_order.save
-        format.html { redirect_to @office_order, notice: 'Order was successfully created.' }
-        format.json { render :show, status: :created, location: @office_order }
-      else
-        format.html { render :new }
-        format.json { render json: @office_order.errors, status: :unprocessable_entity }
-      end
+    if @order.save
+      respond_options = {
+        location: -> { office_document_type_orders_path(@order.document_type) }
+      }
+      respond_with @order, respond_options
+    else
+      render :new
     end
   end
 
   # PATCH/PUT /office/orders/1
   # PATCH/PUT /office/orders/1.json
   def update
-    respond_to do |format|
-      if @office_order.update(office_order_params)
-        format.html { redirect_to @office_order, notice: 'Order was successfully updated.' }
-        format.json { render :show, status: :ok, location: @office_order }
-      else
-        format.html { render :edit }
-        format.json { render json: @office_order.errors, status: :unprocessable_entity }
-      end
+    if @order.update(order_params)
+      respond_options = {
+        location: -> { office_document_type_orders_path(@order.document_type) }
+      }
+      respond_with @order, respond_options
+    else
+      @document_type = @order.document_type
+
+      render :edit
     end
   end
 
   # DELETE /office/orders/1
   # DELETE /office/orders/1.json
   def destroy
-    @office_order.destroy
+    @order.destroy
     respond_to do |format|
-      format.html { redirect_to office_orders_url, notice: 'Order was successfully destroyed.' }
-      format.json { head :no_content }
+      format.html do
+        redirect_to office_document_type_orders_path(@order.document_type),
+                    notice: 'Документ успешно удалён.'
+      end
+    end
+  end
+
+  def position
+    @number = params[:number].to_i
+    @orders = Office::Order
+              .where('number >= ?', @number - 1)
+              .where('number <= ?', @number + 1)
+
+    respond_to do |format|
+      format.html do
+        render layout: false
+      end
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_office_order
-      @office_order = Office::Order.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def office_order_params
-      params[:office_order]
-    end
+  def set_order
+    @order = Office::Order.find(params[:id])
+  end
+
+  def set_document_type
+    @document_type = Office::DocumentType.find(params[:document_type_id])
+  end
+
+  def order_params
+    params.require(:office_order).permit(:document_type_id, :number, :suffix,
+                                         :date, :title, :document)
+  end
 end

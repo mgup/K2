@@ -1,0 +1,15 @@
+<% if @orders.any? %>
+  <table>
+    <caption>Уже зарегистрированные документы (&#177; 1)</caption>
+    <tbody>
+    <% @orders.each do |order| %>
+      <tr>
+        <th><%= order.number %></th>
+        <td><%= order.full_number %></td>
+        <td><%= l(order.date) %></td>
+        <td><%= order.title %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+<% end %>

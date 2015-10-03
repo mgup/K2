@@ -3,8 +3,12 @@ Rails.application.routes.draw do
   resources :users, only: [:show]
 
   namespace :office do
-    resources :document_types, shallow: true do
-      resources :orders
+    resources :document_types, shallow: true, only: [] do
+      resources :orders, except: [:show] do
+        collection do
+          get :position
+        end
+      end
     end
   end
 

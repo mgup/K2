@@ -6,8 +6,8 @@
 
   <title>K2</title>
 
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'vendor/modernizr', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= javascript_include_tag 'vendor/modernizr' %>
   <%= csrf_meta_tags %>
 </head>
 <body>
@@ -38,9 +38,7 @@
           <li>
             <%= link_to 'Приказы и распоряжения',
                         office_document_type_orders_path(Office::DocumentType.first) %>
-            <a href="#">The Psychohistorians</a>
           </li>
-          <li><a href="#">...</a></li>
         </ul>
       </aside>
 
@@ -57,6 +55,13 @@
       <div class="full-height">
         <div class="row">
           <div class="small-12 columns">
+            <% if flash[:notice].present? %>
+              <div data-alert class="alert-box info radius">
+                <%= flash[:notice] %>
+                <a href="#" class="close">&times;</a>
+              </div>
+            <% end %>
+
             <%= yield %>
           </div>
         </div>
@@ -69,6 +74,6 @@
 </div>
 
 
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application' %>
 </body>
 </html>

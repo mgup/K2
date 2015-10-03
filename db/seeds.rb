@@ -34,6 +34,13 @@ Office::DocumentType.delete_all
     date: Date.new(2015, 9, 17),
     title: 'О возложении обязанностей',
     document: File.new(Rails.root.join('db', 'seeds', '01-03p_80_17.09.15.pdf'))
+  },
+  {
+    document_type_fdiskid: Office::DocumentType.find_by_prefix('01-03р').id,
+    number: 81,
+    date: Date.new(2015, 9, 30),
+    title: 'Об учете бланков строгой отчетности',
+    document: File.new(Rails.root.join('db', 'seeds', '01-03p_81_30.09.15.pdf'))
   }
 ].each do |order_data|
   Office::Order.create(order_data)
