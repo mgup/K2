@@ -18,6 +18,8 @@ gem 'therubyracer', platforms: :ruby
 # end
 
 group :development do
+  gem 'better_errors'
+  gem 'binding_of_caller'
   gem 'quiet_assets'
   gem 'rails_best_practices', require: false
   gem 'rails-erd', require: false
@@ -48,16 +50,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get
-  # a debugger console
-  gem 'byebug'
-end
-
 group :development do
-  # Access an IRB console on exception pages or by using <%= console %> in views
-  gem 'web-console', '~> 2.0'
-
   # Spring speeds up development by keeping your application running in the
   # background. Read more: https://github.com/rails/spring
   gem 'spring'
