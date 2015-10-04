@@ -8,7 +8,18 @@ class User < ActiveRecord::Base
   acts_as_authorization_subject
   acts_as_paranoid
 
+  belongs_to :citizenship
+  has_many :foreign_languages, class_name: 'Hr::ForeignLanguage'
+  has_many :languages, through: :foreign_languages
+
+  belongs_to :academic_degree
+  belongs_to :academic_title
+
   def to_s
-    email
+    full_name
+  end
+
+  def full_name
+    "#{last_name} #{first_name} #{patronymic}"
   end
 end

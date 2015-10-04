@@ -5,7 +5,11 @@ User.delete_all
 vshlyaga = User.create(
   email: 'vshlyaga@acm.org',
   password: '12345678',
-  password_confirmation: '12345678'
+  password_confirmation: '12345678',
+
+  last_name: 'Шляга',
+  first_name: 'Виталий',
+  patronymic: 'Сергеевич'
 )
 vshlyaga.has_role!(:developer)
 
@@ -44,7 +48,7 @@ Office::DocumentType.delete_all
   Office::Order.create(order_data)
 end
 
-Hr::EmployeeCategory.delete_all
+EmployeeCategory.delete_all
 [
   { name: 'Руководящий персонал' },
   { name: 'Профессорско-преподавательский состав' },
@@ -54,11 +58,11 @@ Hr::EmployeeCategory.delete_all
   { name: 'Производственный персонал' },
   { name: 'Учебно-вспомогательный персонал' },
   { name: 'Обслуживающий персонал' }
-].each { |employee_category| Hr::EmployeeCategory.create(employee_category) }
+].each { |employee_category| EmployeeCategory.create(employee_category) }
 
-head_personnel = Hr::EmployeeCategory.find_by_name('Руководящий персонал')
+head_personnel = EmployeeCategory.find_by_name('Руководящий персонал')
 pps_personnel =
-  Hr::EmployeeCategory.find_by_name('Профессорско-преподавательский состав')
+  EmployeeCategory.find_by_name('Профессорско-преподавательский состав')
 Hr::Position.delete_all
 [
   { name: 'Ректор', employee_category_id: head_personnel.id },
@@ -71,10 +75,27 @@ Hr::Position.delete_all
   { name: 'Ассистент', employee_category_id: pps_personnel.id }
 ].each { |position| Hr::Position.create(position) }
 
-Hr::AcademicDegree.delete_all
-Hr::AcademicDegree.create(name: 'Доктор наук')
-Hr::AcademicDegree.create(name: 'Кандидат наук')
+AcademicDegree.delete_all
+AcademicDegree.create(name: 'Доктор наук')
+AcademicDegree.create(name: 'Кандидат наук')
 
-Hr::AcademicTitle.delete_all
-Hr::AcademicTitle.create(name: 'Профессор')
-Hr::AcademicTitle.create(name: 'Доцент')
+AcademicTitle.delete_all
+AcademicTitle.create(name: 'Профессор')
+AcademicTitle.create(name: 'Доцент')
+
+Citizenship.delete_all
+Citizenship.create(id: 1, name: 'Гражданин Российской Федерации')
+Citizenship.create(id: 2, name: 'Гражданин Российской Федерации и иностранного государства (двойное гражданство)')
+Citizenship.create(id: 3, name: 'Иностранный гражданин')
+Citizenship.create(id: 4, name: 'Лицо без гражданства')
+
+Language.delete_all
+Language.create(id: 14, name: 'Английский')
+Language.create(id: 69, name: 'Испанский')
+Language.create(id: 135, name: 'Немецкий')
+Language.create(id: 213, name: 'Французский')
+
+LanguageProficiency.delete_all
+LanguageProficiency.create(id: 1, name: 'Читает и переводит со словарём')
+LanguageProficiency.create(id: 2, name: 'Читает и может объясняться')
+LanguageProficiency.create(id: 3, name: 'Владеет свободно')

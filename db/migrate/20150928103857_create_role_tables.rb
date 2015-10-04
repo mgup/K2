@@ -12,11 +12,8 @@ class CreateRoleTables < ActiveRecord::Migration
     add_index :roles, [:authorizable_type, :authorizable_id]
 
     create_table :roles_users, id: false do |t|
-      t.references  :user, null: false
-      t.references  :role, null: false
+      t.references :user, index: true, foreign_key: true, null: false
+      t.references :role, index: true, foreign_key: true, null: false
     end
-
-    add_index :roles_users, :user_id
-    add_index :roles_users, :role_id
   end
 end

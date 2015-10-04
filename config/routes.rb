@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users
-  resources :users, only: [:show]
+  resources :users, only: [:index, :show]
 
   namespace :office do
     resources :document_types, shallow: true, only: [] do

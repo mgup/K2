@@ -41,48 +41,48 @@
 
   <table class="full-width">
     <thead>
-    <tr>
-      <th></th>
-      <th>Номер</th>
-      <th>Дата</th>
-      <th>Название</th>
-      <th colspan="3"></th>
-    </tr>
+      <tr>
+        <th></th>
+        <th>Номер</th>
+        <th>Дата</th>
+        <th>Название</th>
+        <th colspan="3"></th>
+      </tr>
     </thead>
 
     <tbody>
-    <% @orders.each do |order| %>
-      <tr>
-        <th scope="row"><%= order.number %><%= order.suffix %></th>
-        <td><%= order.full_number %></td>
-        <td><%= l(order.date) %></td>
-        <td><%= order.title %></td>
+      <% @orders.each do |order| %>
+        <tr>
+          <th scope="row"><%= order.number %><%= order.suffix %></th>
+          <td><%= order.full_number %></td>
+          <td><%= l(order.date) %></td>
+          <td><%= order.title %></td>
 
-        <td>
-          <% if order.document.exists? %>
-            <%= link_to order.document.url, target: :blank,
-                        title: 'Открыть документ' do %>
-              <i class="fa fa-file-pdf-o"></i>
+          <td>
+            <% if order.document.exists? %>
+              <%= link_to order.document.url, target: :blank,
+                          title: 'Открыть документ' do %>
+                <i class="fa fa-file-pdf-o"></i>
+              <% end %>
             <% end %>
-          <% end %>
-        </td>
+          </td>
 
-        <td>
-          <%= link_to edit_office_order_path(order),
-                      title: 'Редактировать регистрационную запись' do %>
-            <i class="fa fa-pencil"></i>
-          <% end %>
-        </td>
+          <td>
+            <%= link_to edit_office_order_path(order),
+                        title: 'Редактировать регистрационную запись' do %>
+              <i class="fa fa-pencil"></i>
+            <% end %>
+          </td>
 
-        <td>
-          <%= link_to order, method: :delete, class: 'alert',
-                      title: 'Удалить регистрационную запись',
-                      data: { confirm: 'Вы уверены?' } do %>
-            <i class="fa fa-trash-o"></i>
-          <% end %>
-        </td>
-      </tr>
-    <% end %>
+          <td>
+            <%= link_to order, method: :delete, class: 'alert',
+                        title: 'Удалить регистрационную запись',
+                        data: { confirm: 'Вы уверены?' } do %>
+              <i class="fa fa-trash-o"></i>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
     </tbody>
   </table>
 

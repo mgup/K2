@@ -10,8 +10,6 @@ class Office::OrdersController < ApplicationController
   before_action :set_order, only: [:edit, :update, :destroy]
   before_action :set_document_type, only: [:new, :create]
 
-  # GET /office/orders
-  # GET /office/orders.json
   def index
     @document_types = Office::DocumentType.for_orders
 

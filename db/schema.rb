@@ -11,32 +11,52 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151004074407) do
+ActiveRecord::Schema.define(version: 20151004211848) do
 
-  create_table "hr_academic_degrees", force: :cascade do |t|
-    t.string   "name",       limit: 255
+  create_table "academic_degrees", force: :cascade do |t|
+    t.string   "name",       limit: 255, null: false
     t.datetime "deleted_at"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
 
-  create_table "hr_academic_titles", force: :cascade do |t|
-    t.string   "name",       limit: 255
+  create_table "academic_titles", force: :cascade do |t|
+    t.string   "name",       limit: 255, null: false
     t.date     "deleted_at"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
 
-  create_table "hr_employee_categories", force: :cascade do |t|
-    t.string   "name",       limit: 255
+  create_table "citizenships", force: :cascade do |t|
+    t.string   "name",       limit: 255, null: false
     t.datetime "deleted_at"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
 
+  create_table "employee_categories", force: :cascade do |t|
+    t.string   "name",       limit: 255, null: false
+    t.datetime "deleted_at"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "hr_foreign_languages", force: :cascade do |t|
+    t.integer  "user_id",                 limit: 4
+    t.integer  "language_id",             limit: 4
+    t.integer  "language_proficiency_id", limit: 4
+    t.datetime "deleted_at"
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+  end
+
+  add_index "hr_foreign_languages", ["language_id"], name: "index_hr_foreign_languages_on_language_id", using: :btree
+  add_index "hr_foreign_languages", ["language_proficiency_id"], name: "index_hr_foreign_languages_on_language_proficiency_id", using: :btree
+  add_index "hr_foreign_languages", ["user_id"], name: "index_hr_foreign_languages_on_user_id", using: :btree
+
   create_table "hr_positions", force: :cascade do |t|
-    t.integer  "employee_category_id", limit: 4
-    t.string   "name",                 limit: 255
+    t.integer  "employee_category_id", limit: 4,   null: false
+    t.string   "name",                 limit: 255, null: false
     t.datetime "deleted_at"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
@@ -44,9 +64,23 @@ ActiveRecord::Schema.define(version: 20151004074407) do
 
   add_index "hr_positions", ["employee_category_id"], name: "index_hr_positions_on_employee_category_id", using: :btree
 
+  create_table "language_proficiencies", force: :cascade do |t|
+    t.string   "name",       limit: 255, null: false
+    t.datetime "deleted_at"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "languages", force: :cascade do |t|
+    t.string   "name",       limit: 255, null: false
+    t.datetime "deleted_at"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
   create_table "office_document_types", force: :cascade do |t|
-    t.string   "prefix",     limit: 255
-    t.string   "name",       limit: 255
+    t.string   "prefix",     limit: 255, null: false
+    t.string   "name",       limit: 255, null: false
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
     t.datetime "deleted_at"
@@ -55,11 +89,11 @@ ActiveRecord::Schema.define(version: 20151004074407) do
   add_index "office_document_types", ["deleted_at"], name: "index_office_document_types_on_deleted_at", using: :btree
 
   create_table "office_orders", force: :cascade do |t|
-    t.integer  "document_type_id",      limit: 4
-    t.integer  "number",                limit: 4
+    t.integer  "document_type_id",      limit: 4,   null: false
+    t.integer  "number",                limit: 4,   null: false
     t.string   "suffix",                limit: 255
-    t.date     "date"
-    t.string   "title",                 limit: 255
+    t.date     "date",                              null: false
+    t.string   "title",                 limit: 255, null: false
     t.datetime "deleted_at"
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
@@ -107,10 +141,31 @@ ActiveRecord::Schema.define(version: 20151004074407) do
     t.datetime "created_at",                                      null: false
     t.datetime "updated_at",                                      null: false
     t.datetime "deleted_at"
+    t.string   "last_name",              limit: 255,              null: false
+    t.string   "first_name",             limit: 255,              null: false
+    t.string   "patronymic",             limit: 255
+    t.date     "birthdate"
+    t.string   "birthplace",             limit: 255
+    t.integer  "citizenship_id",         limit: 4
+    t.integer  "academic_degree_id",     limit: 4
+    t.integer  "academic_title_id",      limit: 4
   end
 
+  add_index "users", ["academic_degree_id"], name: "index_users_on_academic_degree_id", using: :btree
+  add_index "users", ["academic_title_id"], name: "index_users_on_academic_title_id", using: :btree
+  add_index "users", ["citizenship_id"], name: "index_users_on_citizenship_id", using: :btree
   add_index "users", ["deleted_at"], name: "index_users_on_deleted_at", using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "hr_foreign_languages", "language_proficiencies"
+  add_foreign_key "hr_foreign_languages", "languages"
+  add_foreign_key "hr_foreign_languages", "users"
+  add_foreign_key "hr_positions", "employee_categories"
+  add_foreign_key "office_orders", "office_document_types", column: "document_type_id"
+  add_foreign_key "roles_users", "roles"
+  add_foreign_key "roles_users", "users"
+  add_foreign_key "users", "academic_degrees"
+  add_foreign_key "users", "academic_titles"
+  add_foreign_key "users", "citizenships"
 end
