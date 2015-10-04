@@ -11,7 +11,38 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150929142715) do
+ActiveRecord::Schema.define(version: 20151004074407) do
+
+  create_table "hr_academic_degrees", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.datetime "deleted_at"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "hr_academic_titles", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.date     "deleted_at"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "hr_employee_categories", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.datetime "deleted_at"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "hr_positions", force: :cascade do |t|
+    t.integer  "employee_category_id", limit: 4
+    t.string   "name",                 limit: 255
+    t.datetime "deleted_at"
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+  end
+
+  add_index "hr_positions", ["employee_category_id"], name: "index_hr_positions_on_employee_category_id", using: :btree
 
   create_table "office_document_types", force: :cascade do |t|
     t.string   "prefix",     limit: 255
