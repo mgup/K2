@@ -25,6 +25,8 @@ class User < ActiveRecord::Base
                                 reject_if: language_reject_condition,
                                 allow_destroy: true
 
+  validates_presence_of :citizenship
+
   def to_s
     full_name
   end
