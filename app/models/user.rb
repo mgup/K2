@@ -12,16 +12,18 @@ class User < ActiveRecord::Base
 
   belongs_to :citizenship
   has_many :foreign_languages, class_name: 'Hr::ForeignLanguage',
-           dependent: :destroy
+                               dependent: :destroy
   has_many :languages, through: :foreign_languages
 
   belongs_to :academic_degree
   belongs_to :academic_title
 
+  language_reject_condition = lambda do |fl|
+    fl[:language_id].blank? || fl[:language_proficiency_id].blank?
+  end
   accepts_nested_attributes_for :foreign_languages,
-    reject_if: lambda { |fl|
-      fl[:language_id].blank? || fl[:language_proficiency_id].blank?
-    }, allow_destroy: true
+                                reject_if: language_reject_condition,
+                                allow_destroy: true
 
   def to_s
     full_name

@@ -1,3 +1,4 @@
+# Контроллер для работы с сотрудниками.
 class UsersController < ApplicationController
   access_control do
     # allow all
@@ -22,7 +23,7 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      respond_with @user, { location: -> { users_path } }
+      respond_with @user, location: -> { users_path }
     else
       render :edit
     end
