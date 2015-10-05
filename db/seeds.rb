@@ -1,18 +1,6 @@
 Role.delete_all
 Role.create(name: 'developer')
 
-User.delete_all
-vshlyaga = User.create(
-  email: 'vshlyaga@acm.org',
-  password: '12345678',
-  password_confirmation: '12345678',
-
-  last_name: 'Шляга',
-  first_name: 'Виталий',
-  patronymic: 'Сергеевич'
-)
-vshlyaga.has_role!(:developer)
-
 Office::DocumentType.delete_all
 [
   { prefix: '01-03',  name: 'Приказы проректоров по общим вопросам' },
@@ -99,3 +87,31 @@ LanguageProficiency.delete_all
 LanguageProficiency.create(id: 1, name: 'Читает и переводит со словарём')
 LanguageProficiency.create(id: 2, name: 'Читает и может объясняться')
 LanguageProficiency.create(id: 3, name: 'Владеет свободно')
+
+User.delete_all
+vshlyaga = User.create(
+  email: 'vshlyaga@acm.org',
+  password: '12345678',
+  password_confirmation: '12345678',
+
+  last_name: 'Шляга',
+  first_name: 'Виталий',
+  patronymic: 'Сергеевич',
+
+  birthdate: Date.new(1986, 10, 27),
+  birthplace: 'гор. Челябинск',
+  sex: 1,
+  citizenship_id: 1,
+
+  foreign_languages_attributes: [
+    {
+      language_id: 14,
+      language_proficiency_id: 3
+    },
+    {
+      language_id: 135,
+      language_proficiency_id: 1
+    }
+  ]
+)
+vshlyaga.has_role!(:developer)

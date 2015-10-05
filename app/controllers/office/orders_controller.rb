@@ -46,8 +46,6 @@ class Office::OrdersController < ApplicationController
     end
   end
 
-  # PATCH/PUT /office/orders/1
-  # PATCH/PUT /office/orders/1.json
   def update
     if @order.update(order_params)
       respond_options = {

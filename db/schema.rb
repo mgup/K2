@@ -146,6 +146,7 @@ ActiveRecord::Schema.define(version: 20151004211848) do
     t.string   "patronymic",             limit: 255
     t.date     "birthdate"
     t.string   "birthplace",             limit: 255
+    t.integer  "sex",                    limit: 4,   default: 1,  null: false
     t.integer  "citizenship_id",         limit: 4
     t.integer  "academic_degree_id",     limit: 4
     t.integer  "academic_title_id",      limit: 4

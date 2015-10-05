@@ -9,12 +9,19 @@
     <thead>
       <th></th>
       <th>Имя</th>
+      <th></th>
     </thead>
     <tbody>
       <% @users.each do |user| %>
         <tr>
           <td><%= user.id %></td>
           <td><%= user.full_name %></td>
+          <td>
+            <%= link_to edit_user_path(user),
+                        title: 'Редактировать данные сотрудника' do %>
+              <i class="fa fa-pencil"></i>
+            <% end %>
+          </td>
         </tr>
       <% end %>
     </tbody>

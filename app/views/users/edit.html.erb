@@ -1,0 +1,11 @@
+<% content_for :title, "Редактирование данных сотрудника"  %>
+
+<%= render 'form' %>
+
+<ul class="button-group even-2">
+  <li>
+    <%= link_to users_path, class: 'button secondary' do %>
+      <i class="fa fa-arrow-left"></i> Вернуться ко всем сотрудникам
+    <% end %>
+  </li>
+</ul>

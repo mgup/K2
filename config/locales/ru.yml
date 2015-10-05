@@ -1,6 +1,7 @@
 ru:
   activerecord:
     models:
+      user: сотрудник
       office/order: документ
     attributes:
       office/order:

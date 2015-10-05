@@ -1,0 +1,95 @@
+<%= form_for @user, data: { abide: true } do |f| %>
+  <%= f.hidden_field :id %>
+
+  <% if @user.errors.any? %>
+    <div class="alert-box alert radius">
+      <p>
+        <%= @user.errors.count %>
+        <%= Russian::pluralize(@order.errors.count,
+                               'ошибка', 'ошибки', 'ошибок') %>
+        не позволяют сохранить данные:
+      </p>
+
+      <ul>
+        <% @user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <div class="medium-4 columns">
+      <label>
+        Фамилия
+        <%= f.text_field :last_name, required: true %>
+      </label>
+    </div>
+    <div class="medium-4 columns">
+      <label>
+        Имя
+        <%= f.text_field :first_name, required: true %>
+      </label>
+    </div>
+    <div class="medium-4 columns">
+      <label>
+        Отчество
+        <%= f.text_field :patronymic %>
+      </label>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="medium-4 columns">
+      <label>
+        Дата рождения
+        <div class="date_select">
+          <%= f.date_select :birthdate %>
+        </div>
+      </label>
+    </div>
+    <div class="medium-4 columns">
+      <label>
+        Место рождения
+        <%= f.text_field :birthplace %>
+      </label>
+    </div>
+    <div class="medium-4 columns">
+      <label>
+        Пол
+        <%= f.select :sex, [['Мужской', :male], ['Женский', :female]], {},
+                     required: true %>
+      </label>
+      <span class="error">Необходимо указать пол.</span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="medium-4 columns">
+      <label>
+        Гражданство
+        <%= f.select :citizenship_id,
+                     Citizenship.all.map { |c| [c.name, c.id] }, {},
+                     required: true %>
+      </label>
+      <span class="error">Необходимо указать гражданство.</span>
+    </div>
+    <div class="medium-8 columns">
+      <label>
+        Знание иностранного языка
+      </label>
+      <%= f.fields_for :foreign_languages do |builder| %>
+        <%= render 'foreign_language_fields', f: builder %>
+      <% end %>
+
+      <%= link_to_add_fields 'Добавить иностранный язык', f,
+                             :foreign_languages %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="large-12 columns">
+      <%= f.submit 'Сохранить сотрудника', class: 'button' %>
+    </div>
+  </div>
+<% end %>

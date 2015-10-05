@@ -1,0 +1,14 @@
+<div class="row fields">
+  <div class="medium-5 columns">
+    <%= f.select :language_id, Language.all.map { |c| [c.name, c.id] },
+                 { include_blank: true } %>
+  </div>
+  <div class="medium-6 columns">
+    <%= f.select :language_proficiency_id,
+                 LanguageProficiency.all.map { |c| [c.name, c.id] },
+                 { include_blank: true } %>
+  </div>
+  <div class="medium-1 columns">
+    <%= link_to_remove_fields '&times;'.html_safe, f %>
+  </div>
+</div>

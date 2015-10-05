@@ -7,6 +7,7 @@ class AddFieldsToUser < ActiveRecord::Migration
 
       t.date :birthdate
       t.string :birthplace
+      t.integer :sex, default: 1, null: false
 
       t.references :citizenship, index: true, foreign_key: true
 

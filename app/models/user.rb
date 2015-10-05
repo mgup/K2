@@ -8,12 +8,20 @@ class User < ActiveRecord::Base
   acts_as_authorization_subject
   acts_as_paranoid
 
+  enum sex: { male: 1, female: 2 }
+
   belongs_to :citizenship
-  has_many :foreign_languages, class_name: 'Hr::ForeignLanguage'
+  has_many :foreign_languages, class_name: 'Hr::ForeignLanguage',
+           dependent: :destroy
   has_many :languages, through: :foreign_languages
 
   belongs_to :academic_degree
   belongs_to :academic_title
+
+  accepts_nested_attributes_for :foreign_languages,
+    reject_if: lambda { |fl|
+      fl[:language_id].blank? || fl[:language_proficiency_id].blank?
+    }, allow_destroy: true
 
   def to_s
     full_name
