@@ -15,8 +15,7 @@ class UsersController < ApplicationController
   end
 
   def new
-    @user.foreign_languages.build
-    @user.foreign_languages.build
+    2.times { @user.foreign_languages.build }
   end
 
   def show
@@ -24,6 +23,9 @@ class UsersController < ApplicationController
   end
 
   def edit
+    (2 - @user.foreign_languages.count).times do
+      @user.foreign_languages.build
+    end
   end
 
   def update

@@ -7,3 +7,6 @@ ru:
       office/order:
         number: регистрационный номер
         suffix: суффикс
+  date:
+    formats:
+      long: "%d %B %Y г."

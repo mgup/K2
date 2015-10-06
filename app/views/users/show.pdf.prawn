@@ -3,13 +3,10 @@ prawn_document do |pdf|
   pdf.font_families.update(
     'PT Sans' => {
       normal: { file: "#{fonts_path}/PTSans/PTS55F.ttf", font: 'PT Sans' },
-      # italic: { file: "#{fonts_path}/PTSans/PTS56F.ttf", font: 'PT Sans Italic' },
       bold: { file: "#{fonts_path}/PTSans/PTS75F.ttf", font: 'PT Sans Bold' }
-      # bold_italic: { file: "#{fonts_path}/PTSans/PTS76F.ttf", font: 'PT Sans Bold Italic' }
     },
     'PT Mono' => {
       normal: { file: "#{fonts_path}/PTMono/PTM55F.ttf", font: 'PT Mono' }
-      # bold: { file: "#{fonts_path}/PTMono/PTM75F.ttf", font: 'PT Mono Bold' }
     }
   )
   pdf.font('PT Sans')
@@ -115,6 +112,84 @@ prawn_document do |pdf|
       pdf.text_box @user.patronymic, size: 10, font: 'PT Mono', align: :center,
                    overflow: :shrink_to_fit,
                    at: [378, 475], width: 138, height: 10
+    end
+
+    pdf.move_down 16
+
+    pdf.text '2. Дата рождения _________________________________________________________________________________________________________________'
+
+    pdf.move_down 10
+
+    pdf.text '3. Место рождения ________________________________________________________________________________________________________________'
+
+    pdf.move_down 10
+
+    pdf.text '4. Гражданство ____________________________________________________________________________________________________________________'
+
+    pdf.move_down 10
+
+    pdf.text '5. Знание иностранного языка'
+
+    pdf.move_down 30
+
+    pdf.text '6. Образование __________________________'
+
+    pdf.bounding_box([0, 461],
+                     width: pdf.bounds.width, height: 530) do
+      data = [
+        ['', 'код'],
+        ['', l(@user.birthdate)],
+        ['по ОКАТО', ''],
+        ['по ОКИН', "02#{@user.citizenship.id}"],
+        ['по ОКИН', ''],
+        ['по ОКИН', '']
+      ]
+      @user.foreign_languages.each_with_index do |fl, i|
+        data[4 + i][1] = "04 #{fl.language.id.to_s.rjust(3, '0')}; 05#{fl.language_proficiency.id}"
+      end
+
+      pdf.table(data, position: :right, column_widths: [38, 50]) do
+        cells.padding = [2, 0, 1, 0]
+        cells.border_width = 0.5
+
+        style(row(0), height: 12)
+        style(row(2..5), height: 20, valign: :center)
+
+        style(column(0), borders: [:right])
+        style(column(1), font: 'PT Mono', size: 7, align: :center)
+      end
+    end
+
+    pdf.bounding_box([109, 398],
+                     width: 324, height: 530) do
+      data = @user.foreign_languages.map do |fl|
+        [fl.language.name, '', fl.language_proficiency.name]
+      end
+      (2 - data.size).times { data << ['', '', ''] }
+
+      pdf.table(data, column_widths: [110, 14, 200]) do
+        cells.padding = [0, 0, 2, 0]
+        cells.border_width = 0.5
+
+        style(row(0..1), height: 20, valign: :bottom, align: :center,
+              font: 'PT Mono', size: 10, borders: [:bottom])
+        style(column(1), borders: [])
+      end
+    end
+
+    pdf.font('PT Mono') do
+      pdf.text_box l(@user.birthdate, format: :long), size: 10,
+                   font: 'PT Mono', align: :center,
+                   overflow: :shrink_to_fit,
+                   at: [64, 448], width: 375
+
+      pdf.text_box @user.birthplace, size: 10, font: 'PT Mono',
+                   align: :center, overflow: :shrink_to_fit,
+                   at: [69, 428], width: 370
+
+      pdf.text_box @user.citizenship.name, size: 10, font: 'PT Mono',
+                   align: :center, overflow: :shrink_to_fit,
+                   at: [55, 407], width: 378
     end
   end
 end

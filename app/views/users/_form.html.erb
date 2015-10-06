@@ -81,9 +81,6 @@
       <%= f.fields_for :foreign_languages do |builder| %>
         <%= render 'foreign_language_fields', f: builder %>
       <% end %>
-
-      <%= link_to_add_fields 'Добавить иностранный язык', f,
-                             :foreign_languages %>
     </div>
   </div>
 
