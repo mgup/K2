@@ -32,6 +32,10 @@ class Office::Order < ActiveRecord::Base
     string :suffix
   end
 
+  def to_param
+    "#{id} #{full_number}".parameterize
+  end
+
   def date
     super || Date.today
   end

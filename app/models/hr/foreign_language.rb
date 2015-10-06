@@ -5,6 +5,6 @@ class Hr::ForeignLanguage < ActiveRecord::Base
   belongs_to :user
   belongs_to :language
 
-  validates_presence_of :user
-  validates_presence_of :language
+  validates :user, presence: true
+  validates :language, presence: true
 end

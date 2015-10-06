@@ -25,7 +25,11 @@ class User < ActiveRecord::Base
                                 reject_if: language_reject_condition,
                                 allow_destroy: true
 
-  validates_presence_of :citizenship
+  validates :citizenship, presence: true
+
+  def to_param
+    "#{id} #{short_name}".parameterize
+  end
 
   def to_s
     full_name
@@ -33,5 +37,9 @@ class User < ActiveRecord::Base
 
   def full_name
     "#{last_name} #{first_name} #{patronymic}"
+  end
+
+  def short_name
+    "#{last_name} #{first_name.first}. #{patronymic.first}."
   end
 end

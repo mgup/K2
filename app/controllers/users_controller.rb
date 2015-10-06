@@ -6,8 +6,9 @@ class UsersController < ApplicationController
   end
 
   respond_to :html
+  respond_to :pdf, only: [:show]
 
-  before_action :set_user, only: [:edit, :update]
+  before_action :set_user, only: [:show, :edit, :update]
 
   def index
     @users = User.page(params[:page])
@@ -16,6 +17,10 @@ class UsersController < ApplicationController
   def new
     @user.foreign_languages.build
     @user.foreign_languages.build
+  end
+
+  def show
+    @filename = "Личная карточка сотрудника #{@user.short_name}.pdf"
   end
 
   def edit

@@ -4,5 +4,5 @@ class Hr::Position < ActiveRecord::Base
 
   belongs_to :employee_category, class_name: 'EmployeeCategory'
 
-  validates_presence_of :employee_category
+  validates :employee_category, presence: true
 end

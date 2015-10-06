@@ -9,7 +9,7 @@
     <thead>
       <th></th>
       <th>Имя</th>
-      <th></th>
+      <th colspan="2"></th>
     </thead>
     <tbody>
       <% @users.each do |user| %>
@@ -20,6 +20,12 @@
             <%= link_to edit_user_path(user),
                         title: 'Редактировать данные сотрудника' do %>
               <i class="fa fa-pencil"></i>
+            <% end %>
+          </td>
+          <td>
+            <%= link_to user_path(user, format: :pdf), target: :blank,
+                        title: 'Личная карточка сотрудника' do %>
+              <i class="fa fa-file-pdf-o"></i>
             <% end %>
           </td>
         </tr>
