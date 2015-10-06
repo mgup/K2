@@ -11,12 +11,13 @@ class User < ActiveRecord::Base
   enum sex: { male: 1, female: 2 }
 
   belongs_to :citizenship
-  has_many :foreign_languages, class_name: 'Hr::ForeignLanguage',
-                               dependent: :destroy
-  has_many :languages, through: :foreign_languages
-
+  belongs_to :education_level
   belongs_to :academic_degree
   belongs_to :academic_title
+
+  has_many :foreign_languages, class_name: 'Hr::ForeignLanguage',
+           dependent: :destroy
+  has_many :languages, through: :foreign_languages
 
   language_reject_condition = lambda do |fl|
     fl[:language_id].blank? || fl[:language_proficiency_id].blank?
@@ -25,7 +26,8 @@ class User < ActiveRecord::Base
                                 reject_if: language_reject_condition,
                                 allow_destroy: true
 
-  validates :citizenship, presence: true
+  # validates :citizenship, presence: true
+  # validates :education_level, presence: true
 
   def to_param
     "#{id} #{short_name}".parameterize

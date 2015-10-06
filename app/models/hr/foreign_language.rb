@@ -6,7 +6,6 @@ class Hr::ForeignLanguage < ActiveRecord::Base
   belongs_to :language
   belongs_to :language_proficiency
 
-  validates :user, presence: true
   validates :language, presence: true
   validates :language_proficiency, presence: true
 end

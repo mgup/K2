@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151004211848) do
+ActiveRecord::Schema.define(version: 20151006211848) do
 
   create_table "academic_degrees", force: :cascade do |t|
     t.string   "name",       limit: 255, null: false
@@ -34,6 +34,13 @@ ActiveRecord::Schema.define(version: 20151004211848) do
     t.datetime "updated_at",             null: false
   end
 
+  create_table "education_levels", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.datetime "deleted_at"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
   create_table "employee_categories", force: :cascade do |t|
     t.string   "name",       limit: 255, null: false
     t.datetime "deleted_at"
@@ -42,9 +49,9 @@ ActiveRecord::Schema.define(version: 20151004211848) do
   end
 
   create_table "hr_foreign_languages", force: :cascade do |t|
-    t.integer  "user_id",                 limit: 4
-    t.integer  "language_id",             limit: 4
-    t.integer  "language_proficiency_id", limit: 4
+    t.integer  "user_id",                 limit: 4, null: false
+    t.integer  "language_id",             limit: 4, null: false
+    t.integer  "language_proficiency_id", limit: 4, null: false
     t.datetime "deleted_at"
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
@@ -148,6 +155,7 @@ ActiveRecord::Schema.define(version: 20151004211848) do
     t.string   "birthplace",             limit: 255
     t.integer  "sex",                    limit: 4,   default: 1,  null: false
     t.integer  "citizenship_id",         limit: 4
+    t.integer  "education_level_id",     limit: 4
     t.integer  "academic_degree_id",     limit: 4
     t.integer  "academic_title_id",      limit: 4
   end
@@ -156,6 +164,7 @@ ActiveRecord::Schema.define(version: 20151004211848) do
   add_index "users", ["academic_title_id"], name: "index_users_on_academic_title_id", using: :btree
   add_index "users", ["citizenship_id"], name: "index_users_on_citizenship_id", using: :btree
   add_index "users", ["deleted_at"], name: "index_users_on_deleted_at", using: :btree
+  add_index "users", ["education_level_id"], name: "index_users_on_education_level_id", using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
@@ -169,4 +178,5 @@ ActiveRecord::Schema.define(version: 20151004211848) do
   add_foreign_key "users", "academic_degrees"
   add_foreign_key "users", "academic_titles"
   add_foreign_key "users", "citizenships"
+  add_foreign_key "users", "education_levels"
 end

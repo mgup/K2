@@ -45,6 +45,7 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:last_name, :first_name, :patronymic,
                                  :birthdate, :birthplace, :sex, :citizenship_id,
+                                 :education_level_id,
                                  foreign_languages_attributes: [
                                    :id, :language_id, :language_proficiency_id,
                                    :_destroy

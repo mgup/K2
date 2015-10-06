@@ -132,7 +132,7 @@ prawn_document do |pdf|
 
     pdf.move_down 30
 
-    pdf.text '6. Образование __________________________'
+    pdf.text '6. Образование ___________________________________________________________________________________________________________________'
 
     pdf.bounding_box([0, 461],
                      width: pdf.bounds.width, height: 530) do
@@ -142,7 +142,8 @@ prawn_document do |pdf|
         ['по ОКАТО', ''],
         ['по ОКИН', "02#{@user.citizenship.id}"],
         ['по ОКИН', ''],
-        ['по ОКИН', '']
+        ['по ОКИН', ''],
+        ['по ОКИН', "30 #{@user.education_level.id}"]
       ]
       @user.foreign_languages.each_with_index do |fl, i|
         data[4 + i][1] = "04 #{fl.language.id.to_s.rjust(3, '0')}; 05#{fl.language_proficiency.id}"
@@ -153,7 +154,7 @@ prawn_document do |pdf|
         cells.border_width = 0.5
 
         style(row(0), height: 12)
-        style(row(2..5), height: 20, valign: :center)
+        style(row(2..6), height: 20, valign: :center)
 
         style(column(0), borders: [:right])
         style(column(1), font: 'PT Mono', size: 7, align: :center)
@@ -190,6 +191,10 @@ prawn_document do |pdf|
       pdf.text_box @user.citizenship.name, size: 10, font: 'PT Mono',
                    align: :center, overflow: :shrink_to_fit,
                    at: [55, 407], width: 378
+
+      pdf.text_box @user.education_level.name, size: 10, font: 'PT Mono',
+                   align: :center, overflow: :shrink_to_fit,
+                   at: [57, 347], width: 374
     end
   end
 end

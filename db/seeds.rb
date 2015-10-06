@@ -88,8 +88,20 @@ LanguageProficiency.create(id: 1, name: 'Читает и переводит со
 LanguageProficiency.create(id: 2, name: 'Читает и может объясняться')
 LanguageProficiency.create(id: 3, name: 'Владеет свободно')
 
+EducationLevel.delete_all
+EducationLevel.create(id: 1, name: 'Дошкольное образование')
+EducationLevel.create(id: 2, name: 'Начальное образование')
+EducationLevel.create(id: 3, name: 'Основное общее образование')
+EducationLevel.create(id: 7, name: 'Среднее (полное) общее образование')
+EducationLevel.create(id: 10, name: 'Начальное профессиональное образование')
+EducationLevel.create(id: 11, name: 'Среднее профессиональное образование')
+EducationLevel.create(id: 15, name: 'Неполное высшее образование')
+EducationLevel.create(id: 18, name: 'Высшее образование')
+EducationLevel.create(id: 19, name: 'Послевузовское образование')
+
 User.delete_all
 vshlyaga = User.create(
+  id: 1,
   email: 'vshlyaga@acm.org',
   password: '12345678',
   password_confirmation: '12345678',
@@ -100,15 +112,18 @@ vshlyaga = User.create(
 
   birthdate: Date.new(1986, 10, 27),
   birthplace: 'гор. Челябинск',
-  sex: 1,
+  sex: :male,
   citizenship_id: 1,
+  education_level_id: 18,
 
   foreign_languages_attributes: [
     {
+      user_id: 1,
       language_id: 14,
       language_proficiency_id: 3
     },
     {
+      user_id: 1,
       language_id: 135,
       language_proficiency_id: 1
     }

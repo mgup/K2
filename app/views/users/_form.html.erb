@@ -85,6 +85,17 @@
   </div>
 
   <div class="row">
+    <div class="large-6 columns">
+      <label>
+        Образование
+        <%= f.select :education_level_id,
+                     EducationLevel.all.map { |el| [el.name, el.id] }, {},
+                     required: true %>
+      </label>
+    </div>
+  </div>
+
+  <div class="row">
     <div class="large-12 columns">
       <%= f.submit 'Сохранить сотрудника', class: 'button' %>
     </div>
