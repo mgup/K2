@@ -16,15 +16,22 @@ class UsersController < ApplicationController
 
   def new
     2.times { @user.foreign_languages.build }
+    @user.education_documents.build
   end
 
   def show
     @filename = "Личная карточка сотрудника #{@user.short_name}.pdf"
+    (2 - @user.education_documents.count).times do
+      @user.education_documents.build
+    end
   end
 
   def edit
     (2 - @user.foreign_languages.count).times do
       @user.foreign_languages.build
+    end
+    (1 - @user.education_documents.count).times do
+      @user.education_documents.build
     end
   end
 
@@ -49,6 +56,10 @@ class UsersController < ApplicationController
                                  foreign_languages_attributes: [
                                    :id, :language_id, :language_proficiency_id,
                                    :_destroy
+                                 ],
+                                 education_documents_attributes: [
+                                   :id, :institution, :name, :series, :number,
+                                   :year_of_ending, :qualification, :_destroy
                                  ])
   end
 end

@@ -196,5 +196,52 @@ prawn_document do |pdf|
                    align: :center, overflow: :shrink_to_fit,
                    at: [57, 347], width: 374
     end
+
+    pdf.bounding_box([0, 325], width: pdf.bounds.width) do
+      @user.education_documents.each do |document|
+        pdf.table([
+                    [
+                      { content: 'Наименование образовательного учреждения',
+                        rowspan: 2 },
+                      { content: 'Документ об образовании', colspan: 3 },
+                      { content: 'Год окончания', rowspan: 2 },
+                      ''
+                    ],
+                    [
+                      'наименование', 'серия', 'номер', ''
+                    ],
+                    [
+                      document.institution, document.name, document.series, document.number, document.year_of_ending, ''
+                    ],
+                    [
+                      'Квалификация по документу об образовании',
+                      { content: 'Направление или специальность по документу',
+                        colspan: 4 },
+                      ''
+                    ],
+                    [
+                      document.qualification,
+                      { content: '', colspan: 3 },
+                      'Код по ОКСО',
+                      ''
+                    ]
+                  ], column_widths: [212, 80, 44, 88, 49, 50]) do
+          cells.padding = [0, 2, 0, 2]
+          cells.border_width = 0.5
+
+          style(row(2), font: 'PT Mono', size: 10, height: 12, overflow: :shrink_to_fit)
+          style(row(4), height: 12)
+          style(row(4).columns(0..3), font: 'PT Mono', size: 10,
+                overflow: :shrink_to_fit)
+          style(row(4).columns(5), font: 'PT Mono', size: 7)
+
+          style(row(0..3).columns(5), borders: [:left])
+          # style(row(4).columns(2..4), borders: [:top, :bottom, :left])
+          # style(row(4).columns(4), borders: [:top, :right, :bottom])
+        end
+
+        pdf.move_down 10
+      end
+    end
   end
 end

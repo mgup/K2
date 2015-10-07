@@ -100,7 +100,7 @@ EducationLevel.create(id: 18, name: 'Высшее образование')
 EducationLevel.create(id: 19, name: 'Послевузовское образование')
 
 User.delete_all
-vshlyaga = User.create(
+vshlyaga = User.create!(
   id: 1,
   email: 'vshlyaga@acm.org',
   password: '12345678',
@@ -126,6 +126,19 @@ vshlyaga = User.create(
       user_id: 1,
       language_id: 135,
       language_proficiency_id: 1
+    }
+  ],
+
+  education_documents_attributes: [
+    {
+      has_education_document_id: 1,
+      has_education_document_type: 'User',
+      institution: 'Московский государственный университет печати',
+      name: 'диплом с отличием',
+      series: 'АБ',
+      number: '107705 0406573',
+      year_of_ending: 2011,
+      qualification: 'Инженер'
     }
   ]
 )

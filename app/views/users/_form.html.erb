@@ -5,7 +5,7 @@
     <div class="alert-box alert radius">
       <p>
         <%= @user.errors.count %>
-        <%= Russian::pluralize(@order.errors.count,
+        <%= Russian::pluralize(@user.errors.count,
                                'ошибка', 'ошибки', 'ошибок') %>
         не позволяют сохранить данные:
       </p>
@@ -92,6 +92,14 @@
                      EducationLevel.all.map { |el| [el.name, el.id] }, {},
                      required: true %>
       </label>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="large12 columns">
+      <%= f.fields_for :education_documents do |builder| %>
+        <%= render 'education_document_fields', f: builder %>
+      <% end %>
     </div>
   </div>
 
