@@ -1,7 +1,7 @@
 class CreateOfficeOrders < ActiveRecord::Migration
   def change
     create_table :office_orders do |t|
-      t.references :document_type, foreign: true, index: true, null: false
+      t.references :document_type, index: true, null: false
       t.integer :number, null: false
       t.string :suffix, null: true
       t.date :date, null: false
@@ -11,5 +11,8 @@ class CreateOfficeOrders < ActiveRecord::Migration
 
       t.timestamps null: false
     end
+
+    add_foreign_key :office_orders, :office_document_types,
+                    column: :document_type_id
   end
 end

@@ -1,3 +1,4 @@
+# Уровень образования.
 class EducationLevel < ActiveRecord::Base
   acts_as_paranoid
 

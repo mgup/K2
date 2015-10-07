@@ -16,9 +16,9 @@ class User < ActiveRecord::Base
   belongs_to :academic_title
 
   has_many :foreign_languages, class_name: 'Hr::ForeignLanguage',
-           dependent: :destroy
+                               dependent: :destroy
   has_many :languages, through: :foreign_languages
-  has_many :education_documents, as: :has_education_document
+  has_many :education_documents, as: :person
 
   language_reject_condition = lambda do |fl|
     fl[:language_id].blank? || fl[:language_proficiency_id].blank?
@@ -28,8 +28,8 @@ class User < ActiveRecord::Base
                                 allow_destroy: true
 
   education_document_reject_condition = lambda do |fl|
-    fl[:institution].blank? || fl[:name].blank? || fl[:number].blank? ||
-      fl[:year_of_ending].blank?
+    fl[:institution].blank? || fl[:name].blank? ||
+    fl[:number].blank? || fl[:year_of_ending].blank?
   end
   accepts_nested_attributes_for :education_documents,
                                 reject_if: education_document_reject_condition,

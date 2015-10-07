@@ -34,6 +34,30 @@
       <primary-key name="PRIMARY" columns="id"/>
       <exported-key name="fk_rails_ee61b57a5a" table="users" schema="" catalog="K2_development" columns="citizenship_id"/>
     </table>
+    <table name="education_documents" schema="" catalog="K2_development" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="person_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="person_type" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="institution" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="series" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="number" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="year_of_ending" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="qualification" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="deleted_at" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="created_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="updated_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="education_levels" schema="" catalog="K2_development" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="deleted_at" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="created_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="updated_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="fk_rails_d66b1df6ad" table="users" schema="" catalog="K2_development" columns="education_level_id"/>
+    </table>
     <table name="employee_categories" schema="" catalog="K2_development" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
@@ -45,9 +69,9 @@
     </table>
     <table name="hr_foreign_languages" schema="" catalog="K2_development" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
-      <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <column name="language_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <column name="language_proficiency_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="language_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="language_proficiency_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="deleted_at" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
       <column name="created_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
       <column name="updated_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
@@ -96,7 +120,6 @@
       <column name="updated_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
       <column name="deleted_at" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
       <primary-key name="PRIMARY" columns="id"/>
-      <exported-key name="fk_rails_316fbc2aff" table="office_orders" schema="" catalog="K2_development" columns="document_type_id"/>
       <index name="index_office_document_types_on_deleted_at" unique="false" columns="deleted_at"/>
     </table>
     <table name="office_orders" schema="" catalog="K2_development" type="TABLE">
@@ -114,7 +137,6 @@
       <column name="document_file_size" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <column name="document_updated_at" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
       <primary-key name="PRIMARY" columns="id"/>
-      <foreign-key name="fk_rails_316fbc2aff" columns="document_type_id" ref-table="office_document_types" ref-schema="" ref-catalog="K2_development" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <index name="index_office_orders_on_document_type_id" unique="false" columns="document_type_id"/>
     </table>
     <table name="roles" schema="" catalog="K2_development" type="TABLE">
@@ -164,10 +186,13 @@
       <column name="patronymic" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
       <column name="birthdate" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
       <column name="birthplace" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="sex" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MQ=="/>
       <column name="citizenship_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="education_level_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <column name="academic_degree_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <column name="academic_title_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="fk_rails_d66b1df6ad" columns="education_level_id" ref-table="education_levels" ref-schema="" ref-catalog="K2_development" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="fk_rails_ee61b57a5a" columns="citizenship_id" ref-table="citizenships" ref-schema="" ref-catalog="K2_development" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="fk_rails_f3e69abb82" columns="academic_title_id" ref-table="academic_titles" ref-schema="" ref-catalog="K2_development" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="fk_rails_fa0bc9c42a" columns="academic_degree_id" ref-table="academic_degrees" ref-schema="" ref-catalog="K2_development" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
@@ -179,6 +204,7 @@
       <index name="index_users_on_academic_title_id" unique="false" columns="academic_title_id"/>
       <index name="index_users_on_citizenship_id" unique="false" columns="citizenship_id"/>
       <index name="index_users_on_deleted_at" unique="false" columns="deleted_at"/>
+      <index name="index_users_on_education_level_id" unique="false" columns="education_level_id"/>
     </table>
   </data-source>
 </component>

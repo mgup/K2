@@ -35,20 +35,18 @@ ActiveRecord::Schema.define(version: 20151007211848) do
   end
 
   create_table "education_documents", force: :cascade do |t|
-    t.integer  "has_education_document_id",   limit: 4
-    t.string   "has_education_document_type", limit: 255
-    t.string   "institution",                 limit: 255, null: false
-    t.string   "name",                        limit: 255, null: false
-    t.string   "series",                      limit: 255
-    t.string   "number",                      limit: 255, null: false
-    t.integer  "year_of_ending",              limit: 4,   null: false
-    t.string   "qualification",               limit: 255
+    t.integer  "person_id",      limit: 4
+    t.string   "person_type",    limit: 255
+    t.string   "institution",    limit: 255, null: false
+    t.string   "name",           limit: 255, null: false
+    t.string   "series",         limit: 255
+    t.string   "number",         limit: 255, null: false
+    t.integer  "year_of_ending", limit: 4,   null: false
+    t.string   "qualification",  limit: 255
     t.datetime "deleted_at"
-    t.datetime "created_at",                              null: false
-    t.datetime "updated_at",                              null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
-
-  add_index "education_documents", ["has_education_document_type", "has_education_document_id"], name: "index_on_has_education_document", using: :btree
 
   create_table "education_levels", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -112,8 +110,7 @@ ActiveRecord::Schema.define(version: 20151007211848) do
   add_index "office_document_types", ["deleted_at"], name: "index_office_document_types_on_deleted_at", using: :btree
 
   create_table "office_orders", force: :cascade do |t|
-    t.integer  "has_order_id",          limit: 4
-    t.string   "has_order_type",        limit: 255
+    t.integer  "document_type_id",      limit: 4,   null: false
     t.integer  "number",                limit: 4,   null: false
     t.string   "suffix",                limit: 255
     t.date     "date",                              null: false
@@ -127,7 +124,7 @@ ActiveRecord::Schema.define(version: 20151007211848) do
     t.datetime "document_updated_at"
   end
 
-  add_index "office_orders", ["has_order_type", "has_order_id"], name: "index_on_has_order", using: :btree
+  add_index "office_orders", ["document_type_id"], name: "index_office_orders_on_document_type_id", using: :btree
 
   create_table "roles", force: :cascade do |t|
     t.string   "name",              limit: 255,                 null: false
@@ -189,6 +186,7 @@ ActiveRecord::Schema.define(version: 20151007211848) do
   add_foreign_key "hr_foreign_languages", "languages"
   add_foreign_key "hr_foreign_languages", "users"
   add_foreign_key "hr_positions", "employee_categories"
+  add_foreign_key "office_orders", "office_document_types", column: "document_type_id"
   add_foreign_key "roles_users", "roles"
   add_foreign_key "roles_users", "users"
   add_foreign_key "users", "academic_degrees"

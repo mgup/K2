@@ -127,19 +127,18 @@ vshlyaga = User.create!(
       language_id: 135,
       language_proficiency_id: 1
     }
-  ],
-
-  education_documents_attributes: [
-    {
-      has_education_document_id: 1,
-      has_education_document_type: 'User',
-      institution: 'Московский государственный университет печати',
-      name: 'диплом с отличием',
-      series: 'АБ',
-      number: '107705 0406573',
-      year_of_ending: 2011,
-      qualification: 'Инженер'
-    }
   ]
 )
+
+vshlyaga.education_documents.create!(
+  {
+    institution: 'Московский государственный университет печати',
+    name: 'диплом с отличием',
+    series: 'АБ',
+    number: '107705 0406573',
+    year_of_ending: 2011,
+    qualification: 'Инженер'
+  }
+)
+
 vshlyaga.has_role!(:developer)

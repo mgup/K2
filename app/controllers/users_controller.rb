@@ -50,16 +50,26 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:last_name, :first_name, :patronymic,
-                                 :birthdate, :birthplace, :sex, :citizenship_id,
-                                 :education_level_id,
-                                 foreign_languages_attributes: [
-                                   :id, :language_id, :language_proficiency_id,
-                                   :_destroy
-                                 ],
-                                 education_documents_attributes: [
-                                   :id, :institution, :name, :series, :number,
-                                   :year_of_ending, :qualification, :_destroy
-                                 ])
+    params
+      .require(:user)
+      .permit(:last_name, :first_name, :patronymic,
+              :birthdate, :birthplace, :sex, :citizenship_id,
+              :education_level_id,
+              foreign_languages_attributes: foreign_languages_attributes,
+              education_documents_attributes: education_documents_attributes)
+  end
+
+  def foreign_languages_attributes
+    [
+      :id, :language_id, :language_proficiency_id,
+      :_destroy
+    ]
+  end
+
+  def education_documents_attributes
+    [
+      :id, :institution, :name, :series, :number,
+      :year_of_ending, :qualification, :_destroy
+    ]
   end
 end

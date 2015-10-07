@@ -1,8 +1,7 @@
 class CreateEducationDocuments < ActiveRecord::Migration
   def change
     create_table :education_documents do |t|
-      t.references :has_education_document, polymorphic: true,
-                   index: { name: 'index_on_has_education_document' }
+      t.references :person, polymorphic: true
 
       t.string :institution, null: false
       t.string :name, null: false
