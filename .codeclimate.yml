@@ -3,15 +3,11 @@ engines:
     enabled: true
   coffeelint:
     enabled: true
-  csslint:
-    enabled: true
   eslint:
     enabled: true
   fixme:
     enabled: true
   rubocop:
-    enabled: true
-  scss-lint:
     enabled: true
 languages:
   JavaScript: true
