@@ -1,6 +1,9 @@
 require_relative 'seeds/direction_categories'
 require_relative 'seeds/directions'
 
+require_relative 'seeds/marital_statuses'
+require_relative 'seeds/relationships'
+
 Role.delete_all
 Role.create(name: 'developer')
 
@@ -118,6 +121,7 @@ vshlyaga = User.create!(
   sex: :male,
   citizenship_id: 1,
   education_level_id: 18,
+  marital_status_id: 2,
 
   foreign_languages_attributes: [
     {
@@ -141,7 +145,22 @@ vshlyaga.education_documents.create!(
     number: '107705 0406573',
     year_of_ending: 2011,
     qualification: 'Инженер',
-    direction_id: Direction.find_by_old_code('230204').id
+    direction_id: Direction.unscoped.find_by_old_code('230204').id
+  }
+)
+
+vshlyaga.relatives.create!(
+  {
+   name: 'Шляга Вероника Владиславовна',
+   year_of_birth: 1966,
+   relationship_id: 4
+  }
+)
+vshlyaga.relatives.create!(
+  {
+   name: 'Шляга Дарья Сергеевна',
+   year_of_birth: 1989,
+   relationship_id: 21
   }
 )
 

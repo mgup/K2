@@ -1,0 +1,13 @@
+Relationship.delete_all
+Relationship.create!(id: 1, name: 'Муж')
+Relationship.create!(id: 2, name: 'Жена')
+Relationship.create!(id: 3, name: 'Отец')
+Relationship.create!(id: 4, name: 'Мать')
+Relationship.create!(id: 5, name: 'Сын')
+Relationship.create!(id: 6, name: 'Дочь')
+Relationship.create!(id: 7, name: 'Дедушка')
+Relationship.create!(id: 8, name: 'Бабушка')
+Relationship.create!(id: 9, name: 'Внук')
+Relationship.create!(id: 10, name: 'Внучка')
+Relationship.create!(id: 20, name: 'Брат')
+Relationship.create!(id: 21, name: 'Сестра')

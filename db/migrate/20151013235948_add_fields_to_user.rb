@@ -13,6 +13,7 @@ class AddFieldsToUser < ActiveRecord::Migration
       t.references :education_level, index: true, foreign_key: true
       t.references :academic_degree, index: true, foreign_key: true
       t.references :academic_title, index: true, foreign_key: true
+      t.references :marital_status, index: true, foreign_key: true
     end
   end
 end

@@ -56,7 +56,8 @@ class UsersController < ApplicationController
               :birthdate, :birthplace, :sex, :citizenship_id,
               :education_level_id,
               foreign_languages_attributes: foreign_languages_attributes,
-              education_documents_attributes: education_documents_attributes)
+              education_documents_attributes: education_documents_attributes,
+              relatives_attributes: relatives_attributes)
   end
 
   def foreign_languages_attributes
@@ -70,6 +71,12 @@ class UsersController < ApplicationController
     [
       :id, :institution, :name, :series, :number, :year_of_ending,
       :qualification, :direction_id, :_destroy
+    ]
+  end
+
+  def relatives_attributes
+    [
+      :id, :name, :relationship_id, :year_of_birth, :_destroy
     ]
   end
 end

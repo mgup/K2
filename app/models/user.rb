@@ -14,11 +14,13 @@ class User < ActiveRecord::Base
   belongs_to :education_level
   belongs_to :academic_degree
   belongs_to :academic_title
+  belongs_to :marital_status
 
   has_many :foreign_languages, class_name: 'Hr::ForeignLanguage',
                                dependent: :destroy
   has_many :languages, through: :foreign_languages
   has_many :education_documents, as: :person
+  has_many :relatives, as: :person
 
   language_reject_condition = lambda do |fl|
     fl[:language_id].blank? || fl[:language_proficiency_id].blank?
@@ -29,10 +31,18 @@ class User < ActiveRecord::Base
 
   education_document_reject_condition = lambda do |fl|
     fl[:institution].blank? || fl[:name].blank? ||
-    fl[:number].blank? || fl[:year_of_ending].blank?
+    fl[:number].blank? || fl[:year_of_ending].blank? ||
+    fl[:direction_id].blank?
   end
   accepts_nested_attributes_for :education_documents,
                                 reject_if: education_document_reject_condition,
+                                allow_destroy: true
+
+  relative_reject_condition = lambda do |fl|
+    fl[:name].blank? || fl[:relationship_id].blank?
+  end
+  accepts_nested_attributes_for :relatives,
+                                reject_if: relative_reject_condition,
                                 allow_destroy: true
 
   # validates :citizenship, presence: true

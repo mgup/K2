@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151007211848) do
+ActiveRecord::Schema.define(version: 20151013235948) do
 
   create_table "academic_degrees", force: :cascade do |t|
     t.string   "name",       limit: 255, null: false
@@ -123,6 +123,13 @@ ActiveRecord::Schema.define(version: 20151007211848) do
     t.datetime "updated_at",             null: false
   end
 
+  create_table "marital_statuses", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.datetime "deleted_at"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
   create_table "office_document_types", force: :cascade do |t|
     t.string   "prefix",     limit: 255, null: false
     t.string   "name",       limit: 255, null: false
@@ -149,6 +156,26 @@ ActiveRecord::Schema.define(version: 20151007211848) do
   end
 
   add_index "office_orders", ["document_type_id"], name: "index_office_orders_on_document_type_id", using: :btree
+
+  create_table "relationships", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.datetime "deleted_at"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "relatives", force: :cascade do |t|
+    t.integer  "person_id",       limit: 4
+    t.string   "person_type",     limit: 255
+    t.integer  "relationship_id", limit: 4,   null: false
+    t.string   "name",            limit: 255
+    t.integer  "year_of_birth",   limit: 4
+    t.datetime "deleted_at"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
+
+  add_index "relatives", ["relationship_id"], name: "index_relatives_on_relationship_id", using: :btree
 
   create_table "roles", force: :cascade do |t|
     t.string   "name",              limit: 255,                 null: false
@@ -196,6 +223,7 @@ ActiveRecord::Schema.define(version: 20151007211848) do
     t.integer  "education_level_id",     limit: 4
     t.integer  "academic_degree_id",     limit: 4
     t.integer  "academic_title_id",      limit: 4
+    t.integer  "marital_status_id",      limit: 4
   end
 
   add_index "users", ["academic_degree_id"], name: "index_users_on_academic_degree_id", using: :btree
@@ -204,6 +232,7 @@ ActiveRecord::Schema.define(version: 20151007211848) do
   add_index "users", ["deleted_at"], name: "index_users_on_deleted_at", using: :btree
   add_index "users", ["education_level_id"], name: "index_users_on_education_level_id", using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["marital_status_id"], name: "index_users_on_marital_status_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   add_foreign_key "directions", "direction_categories"
@@ -213,10 +242,12 @@ ActiveRecord::Schema.define(version: 20151007211848) do
   add_foreign_key "hr_foreign_languages", "users"
   add_foreign_key "hr_positions", "employee_categories"
   add_foreign_key "office_orders", "office_document_types", column: "document_type_id"
+  add_foreign_key "relatives", "relationships"
   add_foreign_key "roles_users", "roles"
   add_foreign_key "roles_users", "users"
   add_foreign_key "users", "academic_degrees"
   add_foreign_key "users", "academic_titles"
   add_foreign_key "users", "citizenships"
   add_foreign_key "users", "education_levels"
+  add_foreign_key "users", "marital_statuses"
 end
