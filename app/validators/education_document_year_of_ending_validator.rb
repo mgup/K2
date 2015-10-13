@@ -1,8 +1,8 @@
-# Валидато, проверяющий, что введён осмысленный год окончания образовательного
+# Валидатор, проверяющий, что введён осмысленный год окончания образовательного
 # учреждения.
 class EducationDocumentYearOfEndingValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, _)
-    return if (1900..Date.today.year).include?(record.year_of_ending)
+    return if (1900..Time.zone.today.year).include?(record.year_of_ending)
 
     record.errors[attribute] << error_message
   end

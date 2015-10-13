@@ -37,7 +37,7 @@ class Office::Order < ActiveRecord::Base
   end
 
   def date
-    super || Date.today
+    super || Time.zone.today
   end
 
   def number
