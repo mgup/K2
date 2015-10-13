@@ -19,4 +19,5 @@ languages:
 ratings:
   paths:
   - app/**
-
+exclude_paths:
+- app/assets/stylesheets/application.css.scss
