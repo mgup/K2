@@ -68,8 +68,8 @@ class UsersController < ApplicationController
 
   def education_documents_attributes
     [
-      :id, :institution, :name, :series, :number,
-      :year_of_ending, :qualification, :_destroy
+      :id, :institution, :name, :series, :number, :year_of_ending,
+      :qualification, :direction_id, :_destroy
     ]
   end
 end

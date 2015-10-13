@@ -140,7 +140,8 @@ vshlyaga.education_documents.create!(
     series: 'АБ',
     number: '107705 0406573',
     year_of_ending: 2011,
-    qualification: 'Инженер'
+    qualification: 'Инженер',
+    direction_id: Direction.find_by_old_code('230204').id
   }
 )
 

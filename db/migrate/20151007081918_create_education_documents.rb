@@ -2,6 +2,7 @@ class CreateEducationDocuments < ActiveRecord::Migration
   def change
     create_table :education_documents do |t|
       t.references :person, polymorphic: true
+      t.references :direction, index: true, foreign_key: true, null: false
 
       t.string :institution, null: false
       t.string :name, null: false

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151013144345) do
+ActiveRecord::Schema.define(version: 20151007211848) do
 
   create_table "academic_degrees", force: :cascade do |t|
     t.string   "name",       limit: 255, null: false
@@ -58,6 +58,7 @@ ActiveRecord::Schema.define(version: 20151013144345) do
   create_table "education_documents", force: :cascade do |t|
     t.integer  "person_id",      limit: 4
     t.string   "person_type",    limit: 255
+    t.integer  "direction_id",   limit: 4,   null: false
     t.string   "institution",    limit: 255, null: false
     t.string   "name",           limit: 255, null: false
     t.string   "series",         limit: 255
@@ -68,6 +69,8 @@ ActiveRecord::Schema.define(version: 20151013144345) do
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
   end
+
+  add_index "education_documents", ["direction_id"], name: "index_education_documents_on_direction_id", using: :btree
 
   create_table "education_levels", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -204,6 +207,7 @@ ActiveRecord::Schema.define(version: 20151013144345) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   add_foreign_key "directions", "direction_categories"
+  add_foreign_key "education_documents", "directions"
   add_foreign_key "hr_foreign_languages", "language_proficiencies"
   add_foreign_key "hr_foreign_languages", "languages"
   add_foreign_key "hr_foreign_languages", "users"

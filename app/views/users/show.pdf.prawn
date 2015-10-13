@@ -221,9 +221,14 @@ prawn_document do |pdf|
                     ],
                     [
                       document.qualification,
-                      { content: '', colspan: 3 },
+                      {
+                        content: document.direction.present? ?
+                          document.direction.name : '',
+                        colspan: 3
+                      },
                       'Код по ОКСО',
-                      ''
+                      document.direction.present? ?
+                        document.direction.full_code : ''
                     ]
                   ], column_widths: [212, 80, 44, 88, 49, 50]) do
           cells.padding = [0, 2, 0, 2]
@@ -233,7 +238,7 @@ prawn_document do |pdf|
           style(row(4), height: 12)
           style(row(4).columns(0..3), font: 'PT Mono', size: 10,
                 overflow: :shrink_to_fit)
-          style(row(4).columns(5), font: 'PT Mono', size: 7)
+          style(row(4).columns(5), font: 'PT Mono', size: 7, align: :center)
 
           style(row(0..3).columns(5), borders: [:left])
           # style(row(4).columns(2..4), borders: [:top, :bottom, :left])

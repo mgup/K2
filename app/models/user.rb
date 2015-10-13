@@ -55,4 +55,10 @@ class User < ActiveRecord::Base
   def short_name
     "#{last_name} #{first_name.first}. #{patronymic.first}."
   end
+
+  # Необходимо, чтобы сессия пользователя по-умолчанию запоминалась
+  # для текущего компьютера.
+  def remember_me
+    true
+  end
 end
