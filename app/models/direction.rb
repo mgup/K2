@@ -1,3 +1,4 @@
+# Направление (специальность).
 class Direction < ActiveRecord::Base
   acts_as_paranoid
 
