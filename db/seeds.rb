@@ -1,3 +1,6 @@
+require_relative 'seeds/direction_categories'
+require_relative 'seeds/directions'
+
 Role.delete_all
 Role.create(name: 'developer')
 

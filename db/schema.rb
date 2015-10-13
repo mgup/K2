@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151007211848) do
+ActiveRecord::Schema.define(version: 20151013144345) do
 
   create_table "academic_degrees", force: :cascade do |t|
     t.string   "name",       limit: 255, null: false
@@ -33,6 +33,27 @@ ActiveRecord::Schema.define(version: 20151007211848) do
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
+
+  create_table "direction_categories", force: :cascade do |t|
+    t.string   "code",       limit: 255
+    t.string   "name",       limit: 255
+    t.datetime "deleted_at"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "directions", force: :cascade do |t|
+    t.integer  "direction_category_id", limit: 4,   null: false
+    t.string   "code",                  limit: 255
+    t.string   "name",                  limit: 255
+    t.string   "old_code",              limit: 255
+    t.string   "old_qualification",     limit: 255
+    t.datetime "deleted_at"
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+  end
+
+  add_index "directions", ["direction_category_id"], name: "fk_rails_8f62885d91", using: :btree
 
   create_table "education_documents", force: :cascade do |t|
     t.integer  "person_id",      limit: 4
@@ -182,6 +203,7 @@ ActiveRecord::Schema.define(version: 20151007211848) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "directions", "direction_categories"
   add_foreign_key "hr_foreign_languages", "language_proficiencies"
   add_foreign_key "hr_foreign_languages", "languages"
   add_foreign_key "hr_foreign_languages", "users"
