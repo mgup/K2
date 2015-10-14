@@ -1,3 +1,4 @@
+# Тип семейного положения.
 class MaritalStatus < ActiveRecord::Base
   acts_as_paranoid
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151013235948) do
+ActiveRecord::Schema.define(version: 20151014071455) do
 
   create_table "academic_degrees", force: :cascade do |t|
     t.string   "name",       limit: 255, null: false
@@ -33,6 +33,17 @@ ActiveRecord::Schema.define(version: 20151013235948) do
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
+
+  create_table "departments", force: :cascade do |t|
+    t.integer  "main_department_id", limit: 4
+    t.string   "name",               limit: 255
+    t.string   "abbreviation",       limit: 255
+    t.datetime "deleted_at"
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+  end
+
+  add_index "departments", ["main_department_id"], name: "index_departments_on_main_department_id", using: :btree
 
   create_table "direction_categories", force: :cascade do |t|
     t.string   "code",       limit: 255

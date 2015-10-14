@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users
 
+  resources :departments, only: [:index]
+
   resources :users
 
   namespace :office do

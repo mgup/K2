@@ -4,6 +4,8 @@ require_relative 'seeds/directions'
 require_relative 'seeds/marital_statuses'
 require_relative 'seeds/relationships'
 
+require_relative 'seeds/departments'
+
 Role.delete_all
 Role.create(name: 'developer')
 

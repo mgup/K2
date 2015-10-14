@@ -1296,6 +1296,7 @@ $include-html-global-classes: $include-html-classes;
 // - - - - - - - - - - - - - - - - - - - - - - - - -
 
 // $include-html-table-classes: $include-html-classes;
+$include-html-table-classes: false;
 
 // These control the background color for the table and even rows
 // $table-bg: $white;
@@ -1336,7 +1337,6 @@ $include-html-global-classes: $include-html-classes;
 // $table-layout: auto;
 // $table-display: table-cell;
 // $table-margin-bottom: rem-calc(20);
-
 
 // 31. Tabs
 // - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -1492,3 +1492,7 @@ $include-html-global-classes: $include-html-classes;
 // $include-legacy-visibility-classes: true;
 
 @import 'foundation';
+
+table.table {
+  @include table;
+}
