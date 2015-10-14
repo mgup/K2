@@ -1,6 +1,6 @@
 # Регистрируемый документ (приказ).
 class Office::Order < ActiveRecord::Base
-  acts_as_paranoid
+  has_paper_trail
 
   belongs_to :document_type, class_name: 'Office::DocumentType'
 

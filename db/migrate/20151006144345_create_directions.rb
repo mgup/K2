@@ -9,8 +9,6 @@ class CreateDirections < ActiveRecord::Migration
       t.string :old_code
       t.string :old_qualification
 
-      t.datetime :deleted_at
-
       t.timestamps null: false
     end
   end

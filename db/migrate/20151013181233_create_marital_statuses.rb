@@ -3,8 +3,6 @@ class CreateMaritalStatuses < ActiveRecord::Migration
     create_table :marital_statuses do |t|
       t.string :name
 
-      t.datetime :deleted_at
-
       t.timestamps null: false
     end
   end

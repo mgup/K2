@@ -3,8 +3,6 @@ class CreateEducationLevels < ActiveRecord::Migration
     create_table :education_levels do |t|
       t.string :name
 
-      t.datetime :deleted_at
-
       t.timestamps null: false
     end
   end

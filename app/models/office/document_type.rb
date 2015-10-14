@@ -1,6 +1,6 @@
 # Номенклатура дел Общего отдела (типы обрабатываемых документов).
 class Office::DocumentType < ActiveRecord::Base
-  acts_as_paranoid
+  has_paper_trail
 
   has_many :orders, class_name: 'Office::Order'
 

@@ -4,6 +4,8 @@ require_relative 'seeds/directions'
 require_relative 'seeds/marital_statuses'
 require_relative 'seeds/relationships'
 
+require_relative 'seeds/employee_categories'
+require_relative 'seeds/hr_qualifications'
 require_relative 'seeds/departments'
 
 Role.delete_all
@@ -43,33 +45,6 @@ Office::DocumentType.delete_all
 ].each do |order_data|
   Office::Order.create(order_data)
 end
-
-EmployeeCategory.delete_all
-[
-  { name: 'Руководящий персонал' },
-  { name: 'Профессорско-преподавательский состав' },
-  { name: 'Научные работники' },
-  { name: 'Инженерно-технический персонал' },
-  { name: 'Административно-хозяйственный персонал' },
-  { name: 'Производственный персонал' },
-  { name: 'Учебно-вспомогательный персонал' },
-  { name: 'Обслуживающий персонал' }
-].each { |employee_category| EmployeeCategory.create(employee_category) }
-
-head_personnel = EmployeeCategory.find_by_name('Руководящий персонал')
-pps_personnel =
-  EmployeeCategory.find_by_name('Профессорско-преподавательский состав')
-Hr::Position.delete_all
-[
-  { name: 'Ректор', employee_category_id: head_personnel.id },
-  { name: 'Проректор', employee_category_id: head_personnel.id },
-  { name: 'Директор института', employee_category_id: pps_personnel.id },
-  { name: 'Заведующий кафедрой', employee_category_id: pps_personnel.id },
-  { name: 'Профессор', employee_category_id: pps_personnel.id },
-  { name: 'Доцент', employee_category_id: pps_personnel.id },
-  { name: 'Старший преподаватель', employee_category_id: pps_personnel.id },
-  { name: 'Ассистент', employee_category_id: pps_personnel.id }
-].each { |position| Hr::Position.create(position) }
 
 AcademicDegree.delete_all
 AcademicDegree.create(name: 'Доктор наук')
@@ -167,3 +142,6 @@ vshlyaga.relatives.create!(
 )
 
 vshlyaga.has_role!(:developer)
+
+
+require_relative 'seeds/hr_positions'

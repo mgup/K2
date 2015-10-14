@@ -7,8 +7,6 @@ class CreateRelatives < ActiveRecord::Migration
       t.string :name
       t.integer :year_of_birth
 
-      t.datetime :deleted_at
-
       t.timestamps null: false
     end
   end

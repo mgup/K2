@@ -1,6 +1,6 @@
 # Документ об образовании.
 class EducationDocument < ActiveRecord::Base
-  acts_as_paranoid
+  has_paper_trail
 
   belongs_to :person, polymorphic: true
   belongs_to :direction

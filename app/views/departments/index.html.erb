@@ -10,14 +10,13 @@
     data.addColumn('string', 'Главное подразделение');
 
     data.addRows([
-      <% @departments.each do |department| %>
+      <% @departments.each do |d| %>
         [
           {
-            v: '<%= department.id %>',
-            f: '<%= department.name %> (<%= department.abbreviation %>)'
+            v: '<%= d.id %>',
+            f: '<%=j render partial: 'chart_node', locals: { department: d } %>'
           },
-          '<%= department.main_department.present? ?
-            department.main_department.id : '' %>'
+          '<%= d.main_department.present? ? d.main_department.id : '' %>'
         ],
       <% end %>
     ]);
@@ -25,8 +24,14 @@
     var chart = new google.visualization.OrgChart(
       document.getElementById('departments_chart')
     );
-    chart.draw(data, { allowHtml: true });
+    chart.draw(data, {
+      nodeClass: 'org-chart-node',
+      selectedNodeClass: 'org-chart-selected-node',
+      allowHtml: true
+    });
   }
 </script>
 
-<div id="departments_chart"></div>
+<div id="departments_chart">
+  Загрузка списка подразделений...
+</div>

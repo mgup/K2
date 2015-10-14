@@ -6,8 +6,6 @@ class CreateHrForeignLanguages < ActiveRecord::Migration
       t.references :language_proficiency, index: true, foreign_key: true,
                    null: false
 
-      t.datetime :deleted_at
-
       t.timestamps null: false
     end
   end

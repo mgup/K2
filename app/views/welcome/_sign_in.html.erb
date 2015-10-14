@@ -1,5 +1,7 @@
 <div class="sign-in">
   <%= form_for User.new, url: session_path(:user), data: { abide: true } do |f| %>
+    <%= f.hidden_field :remember_me, value: true %>
+
     <div class="row collapse">
       <div class="small-5 columns">
         <%= f.email_field :email, autofocus: true, required: true,

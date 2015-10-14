@@ -4,8 +4,6 @@ class CreateDirectionCategories < ActiveRecord::Migration
       t.string :code
       t.string :name
 
-      t.datetime :deleted_at
-
       t.timestamps null: false
     end
   end

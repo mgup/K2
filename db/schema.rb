@@ -11,25 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151014071455) do
+ActiveRecord::Schema.define(version: 20151014113015) do
 
   create_table "academic_degrees", force: :cascade do |t|
     t.string   "name",       limit: 255, null: false
-    t.datetime "deleted_at"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
 
   create_table "academic_titles", force: :cascade do |t|
     t.string   "name",       limit: 255, null: false
-    t.date     "deleted_at"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
 
   create_table "citizenships", force: :cascade do |t|
     t.string   "name",       limit: 255, null: false
-    t.datetime "deleted_at"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
@@ -38,7 +35,6 @@ ActiveRecord::Schema.define(version: 20151014071455) do
     t.integer  "main_department_id", limit: 4
     t.string   "name",               limit: 255
     t.string   "abbreviation",       limit: 255
-    t.datetime "deleted_at"
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
   end
@@ -48,7 +44,6 @@ ActiveRecord::Schema.define(version: 20151014071455) do
   create_table "direction_categories", force: :cascade do |t|
     t.string   "code",       limit: 255
     t.string   "name",       limit: 255
-    t.datetime "deleted_at"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
@@ -59,7 +54,6 @@ ActiveRecord::Schema.define(version: 20151014071455) do
     t.string   "name",                  limit: 255
     t.string   "old_code",              limit: 255
     t.string   "old_qualification",     limit: 255
-    t.datetime "deleted_at"
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
   end
@@ -76,7 +70,6 @@ ActiveRecord::Schema.define(version: 20151014071455) do
     t.string   "number",         limit: 255, null: false
     t.integer  "year_of_ending", limit: 4,   null: false
     t.string   "qualification",  limit: 255
-    t.datetime "deleted_at"
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
   end
@@ -85,14 +78,12 @@ ActiveRecord::Schema.define(version: 20151014071455) do
 
   create_table "education_levels", force: :cascade do |t|
     t.string   "name",       limit: 255
-    t.datetime "deleted_at"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
 
   create_table "employee_categories", force: :cascade do |t|
     t.string   "name",       limit: 255, null: false
-    t.datetime "deleted_at"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
@@ -101,7 +92,6 @@ ActiveRecord::Schema.define(version: 20151014071455) do
     t.integer  "user_id",                 limit: 4, null: false
     t.integer  "language_id",             limit: 4, null: false
     t.integer  "language_proficiency_id", limit: 4, null: false
-    t.datetime "deleted_at"
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
   end
@@ -111,32 +101,40 @@ ActiveRecord::Schema.define(version: 20151014071455) do
   add_index "hr_foreign_languages", ["user_id"], name: "index_hr_foreign_languages_on_user_id", using: :btree
 
   create_table "hr_positions", force: :cascade do |t|
+    t.integer  "department_id",    limit: 4, null: false
+    t.integer  "qualification_id", limit: 4, null: false
+    t.integer  "user_id",          limit: 4
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  add_index "hr_positions", ["department_id"], name: "index_hr_positions_on_department_id", using: :btree
+  add_index "hr_positions", ["qualification_id"], name: "index_hr_positions_on_qualification_id", using: :btree
+  add_index "hr_positions", ["user_id"], name: "index_hr_positions_on_user_id", using: :btree
+
+  create_table "hr_qualifications", force: :cascade do |t|
     t.integer  "employee_category_id", limit: 4,   null: false
     t.string   "name",                 limit: 255, null: false
-    t.datetime "deleted_at"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
   end
 
-  add_index "hr_positions", ["employee_category_id"], name: "index_hr_positions_on_employee_category_id", using: :btree
+  add_index "hr_qualifications", ["employee_category_id"], name: "index_hr_qualifications_on_employee_category_id", using: :btree
 
   create_table "language_proficiencies", force: :cascade do |t|
     t.string   "name",       limit: 255, null: false
-    t.datetime "deleted_at"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
 
   create_table "languages", force: :cascade do |t|
     t.string   "name",       limit: 255, null: false
-    t.datetime "deleted_at"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
 
   create_table "marital_statuses", force: :cascade do |t|
     t.string   "name",       limit: 255
-    t.datetime "deleted_at"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
@@ -146,10 +144,7 @@ ActiveRecord::Schema.define(version: 20151014071455) do
     t.string   "name",       limit: 255, null: false
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
-    t.datetime "deleted_at"
   end
-
-  add_index "office_document_types", ["deleted_at"], name: "index_office_document_types_on_deleted_at", using: :btree
 
   create_table "office_orders", force: :cascade do |t|
     t.integer  "document_type_id",      limit: 4,   null: false
@@ -157,7 +152,6 @@ ActiveRecord::Schema.define(version: 20151014071455) do
     t.string   "suffix",                limit: 255
     t.date     "date",                              null: false
     t.string   "title",                 limit: 255, null: false
-    t.datetime "deleted_at"
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
     t.string   "document_file_name",    limit: 255
@@ -170,7 +164,6 @@ ActiveRecord::Schema.define(version: 20151014071455) do
 
   create_table "relationships", force: :cascade do |t|
     t.string   "name",       limit: 255
-    t.datetime "deleted_at"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
@@ -181,7 +174,6 @@ ActiveRecord::Schema.define(version: 20151014071455) do
     t.integer  "relationship_id", limit: 4,   null: false
     t.string   "name",            limit: 255
     t.integer  "year_of_birth",   limit: 4
-    t.datetime "deleted_at"
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
   end
@@ -195,11 +187,9 @@ ActiveRecord::Schema.define(version: 20151014071455) do
     t.boolean  "system",                        default: false, null: false
     t.datetime "created_at",                                    null: false
     t.datetime "updated_at",                                    null: false
-    t.datetime "deleted_at"
   end
 
   add_index "roles", ["authorizable_type", "authorizable_id"], name: "index_roles_on_authorizable_type_and_authorizable_id", using: :btree
-  add_index "roles", ["deleted_at"], name: "index_roles_on_deleted_at", using: :btree
   add_index "roles", ["name"], name: "index_roles_on_name", using: :btree
 
   create_table "roles_users", id: false, force: :cascade do |t|
@@ -223,7 +213,6 @@ ActiveRecord::Schema.define(version: 20151014071455) do
     t.string   "last_sign_in_ip",        limit: 255
     t.datetime "created_at",                                      null: false
     t.datetime "updated_at",                                      null: false
-    t.datetime "deleted_at"
     t.string   "last_name",              limit: 255,              null: false
     t.string   "first_name",             limit: 255,              null: false
     t.string   "patronymic",             limit: 255
@@ -240,18 +229,42 @@ ActiveRecord::Schema.define(version: 20151014071455) do
   add_index "users", ["academic_degree_id"], name: "index_users_on_academic_degree_id", using: :btree
   add_index "users", ["academic_title_id"], name: "index_users_on_academic_title_id", using: :btree
   add_index "users", ["citizenship_id"], name: "index_users_on_citizenship_id", using: :btree
-  add_index "users", ["deleted_at"], name: "index_users_on_deleted_at", using: :btree
   add_index "users", ["education_level_id"], name: "index_users_on_education_level_id", using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["marital_status_id"], name: "index_users_on_marital_status_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+
+  create_table "version_associations", force: :cascade do |t|
+    t.integer "version_id",       limit: 4
+    t.string  "foreign_key_name", limit: 255, null: false
+    t.integer "foreign_key_id",   limit: 4
+  end
+
+  add_index "version_associations", ["foreign_key_name", "foreign_key_id"], name: "index_version_associations_on_foreign_key", using: :btree
+  add_index "version_associations", ["version_id"], name: "index_version_associations_on_version_id", using: :btree
+
+  create_table "versions", force: :cascade do |t|
+    t.string   "item_type",      limit: 255,        null: false
+    t.integer  "item_id",        limit: 4,          null: false
+    t.string   "event",          limit: 255,        null: false
+    t.string   "whodunnit",      limit: 255
+    t.text     "object",         limit: 4294967295
+    t.datetime "created_at"
+    t.integer  "transaction_id", limit: 4
+  end
+
+  add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
+  add_index "versions", ["transaction_id"], name: "index_versions_on_transaction_id", using: :btree
 
   add_foreign_key "directions", "direction_categories"
   add_foreign_key "education_documents", "directions"
   add_foreign_key "hr_foreign_languages", "language_proficiencies"
   add_foreign_key "hr_foreign_languages", "languages"
   add_foreign_key "hr_foreign_languages", "users"
-  add_foreign_key "hr_positions", "employee_categories"
+  add_foreign_key "hr_positions", "departments"
+  add_foreign_key "hr_positions", "hr_qualifications", column: "qualification_id"
+  add_foreign_key "hr_positions", "users"
+  add_foreign_key "hr_qualifications", "employee_categories"
   add_foreign_key "office_orders", "office_document_types", column: "document_type_id"
   add_foreign_key "relatives", "relationships"
   add_foreign_key "roles_users", "roles"

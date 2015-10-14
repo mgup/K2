@@ -7,8 +7,6 @@ class CreateOfficeOrders < ActiveRecord::Migration
       t.date :date, null: false
       t.string :title, null: false
 
-      t.datetime :deleted_at
-
       t.timestamps null: false
     end
 

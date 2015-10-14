@@ -11,8 +11,6 @@ class CreateEducationDocuments < ActiveRecord::Migration
       t.integer :year_of_ending, null: false
       t.string :qualification
 
-      t.datetime :deleted_at
-
       t.timestamps null: false
     end
   end

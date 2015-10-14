@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   acts_as_authorization_subject
-  acts_as_paranoid
+  has_paper_trail
 
   enum sex: { male: 1, female: 2 }
 
@@ -21,6 +21,7 @@ class User < ActiveRecord::Base
   has_many :languages, through: :foreign_languages
   has_many :education_documents, as: :person
   has_many :relatives, as: :person
+  has_many :positions, class_name: 'Hr::Position'
 
   language_reject_condition = lambda do |fl|
     fl[:language_id].blank? || fl[:language_proficiency_id].blank?
@@ -64,11 +65,5 @@ class User < ActiveRecord::Base
 
   def short_name
     "#{last_name} #{first_name.first}. #{patronymic.first}."
-  end
-
-  # Необходимо, чтобы сессия пользователя по-умолчанию запоминалась
-  # для текущего компьютера.
-  def remember_me
-    true
   end
 end
