@@ -6,7 +6,7 @@
   <% department.positions.each do |p| %>
     <li>
       <em><%= p.qualification.name %></em><br>
-      <%= p.user.full_name %>
+      <%= p.user.full_name if p.user.present? %>
     </li>
   <% end %>
 </ul>

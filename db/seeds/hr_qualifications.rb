@@ -8,7 +8,8 @@ Hr::Qualification.delete_all
   { id: 6, name: 'Профессор', employee_category_id: 2 },
   { id: 7, name: 'Доцент', employee_category_id: 2 },
   { id: 8, name: 'Старший преподаватель', employee_category_id: 2 },
-  { id: 9, name: 'Ассистент', employee_category_id: 2 }
+  { id: 9, name: 'Ассистент', employee_category_id: 2 },
+  { id: 10, name: 'Директор', employee_category_id: 1 }
 ].each do |qualification|
   Hr::Qualification.create(qualification)
 end
