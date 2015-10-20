@@ -7,6 +7,10 @@ class DepartmentsController < ApplicationController
   respond_to :html
 
   def index
-    @departments = Department.all
+    @departments = Department.hash_tree
+  end
+
+  def show
+    @department = Department.find(params[:id])
   end
 end

@@ -52,7 +52,7 @@ class User < ActiveRecord::Base
   validates_associated :education_documents
 
   def to_param
-    "#{id} #{short_name}".parameterize
+    "#{id} #{full_name}".parameterize
   end
 
   def to_s

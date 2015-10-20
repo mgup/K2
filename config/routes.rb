@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
 
-  resources :departments, only: [:index]
+  resources :departments, only: [:index, :show]
 
   resources :users
 

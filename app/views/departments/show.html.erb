@@ -1,0 +1,30 @@
+<% content_for :title, @department.name %>
+
+<h2>Сотрудники</h2>
+
+<% if @department.positions.hired.any? %>
+  <ul class="no-bullet">
+    <% @department.positions.hired.each do |position| %>
+      <li>
+        <em><%= position.qualification.name %></em>
+        <%= position.user.full_name %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>В подразделении нет ни одного сотрудника.</p>
+<% end %>
+
+<h2>Свободные ставки</h2>
+
+<% if @department.positions.vacant.any? %>
+  <ul class="no-bullet">
+    <% @department.positions.vacant.each do |position| %>
+      <li>
+        <em><%= position.qualification.name %></em>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>В подразделении нет ни одной свободной ставки.</p>
+<% end %>

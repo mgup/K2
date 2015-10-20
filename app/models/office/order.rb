@@ -4,6 +4,8 @@ class Office::Order < ActiveRecord::Base
 
   belongs_to :document_type, class_name: 'Office::DocumentType'
 
+  has_and_belongs_to_many :mailing_list, class_name: 'Department'
+
   validates :number, :suffix, office_order_number: true
   validates :suffix, inclusion: { in: [nil, ''] + ('а'..'я').to_a }
 

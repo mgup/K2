@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'acl9'
+gem 'closure_tree'
 gem 'devise'
 gem 'font-awesome-sass'
 gem 'foundation-rails'

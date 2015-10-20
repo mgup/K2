@@ -61,6 +61,9 @@ GEM
     choice (0.2.0)
     climate_control (0.0.3)
       activesupport (>= 3.0)
+    closure_tree (5.2.0)
+      activerecord (>= 3.2.0)
+      with_advisory_lock (>= 3.0.0)
     cocaine (0.5.7)
       climate_control (>= 0.0.3, < 1.0)
     code_analyzer (0.4.5)
@@ -304,6 +307,9 @@ GEM
       equalizer (~> 0.0, >= 0.0.9)
     warden (1.2.3)
       rack (>= 1.0)
+    with_advisory_lock (3.0.0)
+      activerecord (>= 3.2)
+      thread_safe
 
 PLATFORMS
   ruby
@@ -312,6 +318,7 @@ DEPENDENCIES
   acl9
   better_errors
   binding_of_caller
+  closure_tree
   codeclimate-test-reporter
   coffee-rails (~> 4.1.0)
   devise

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151014113015) do
+ActiveRecord::Schema.define(version: 20151020085821) do
 
   create_table "academic_degrees", force: :cascade do |t|
     t.string   "name",       limit: 255, null: false
@@ -31,15 +31,32 @@ ActiveRecord::Schema.define(version: 20151014113015) do
     t.datetime "updated_at",             null: false
   end
 
-  create_table "departments", force: :cascade do |t|
-    t.integer  "main_department_id", limit: 4
-    t.string   "name",               limit: 255
-    t.string   "abbreviation",       limit: 255
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+  create_table "department_hierarchies", id: false, force: :cascade do |t|
+    t.integer "ancestor_id",   limit: 4, null: false
+    t.integer "descendant_id", limit: 4, null: false
+    t.integer "generations",   limit: 4, null: false
   end
 
-  add_index "departments", ["main_department_id"], name: "index_departments_on_main_department_id", using: :btree
+  add_index "department_hierarchies", ["ancestor_id", "descendant_id", "generations"], name: "department_anc_desc_idx", unique: true, using: :btree
+  add_index "department_hierarchies", ["descendant_id"], name: "department_desc_idx", using: :btree
+
+  create_table "departments", force: :cascade do |t|
+    t.integer  "parent_id",    limit: 4
+    t.string   "name",         limit: 255
+    t.string   "abbreviation", limit: 255
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  add_index "departments", ["parent_id"], name: "index_departments_on_parent_id", using: :btree
+
+  create_table "departments_office_orders", force: :cascade do |t|
+    t.integer "department_id", limit: 4
+    t.integer "order_id",      limit: 4
+  end
+
+  add_index "departments_office_orders", ["department_id"], name: "index_departments_office_orders_on_department_id", using: :btree
+  add_index "departments_office_orders", ["order_id"], name: "index_departments_office_orders_on_order_id", using: :btree
 
   create_table "direction_categories", force: :cascade do |t|
     t.string   "code",       limit: 255

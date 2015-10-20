@@ -1,7 +1,7 @@
 class CreateDepartments < ActiveRecord::Migration
   def change
     create_table :departments do |t|
-      t.references :main_department, index: true
+      t.integer :parent_id, index: true
 
       t.string :name
       t.string :abbreviation
