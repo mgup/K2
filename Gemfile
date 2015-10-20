@@ -35,6 +35,11 @@ end
 
 group :test do
   gem 'codeclimate-test-reporter', require: false
+  gem 'simplecov', require: false
+end
+
+group :development, :test do
+  gem 'rspec-rails'
 end
 
 # Use SCSS for stylesheets
