@@ -1,6 +1,12 @@
 language: ruby
 rvm:
-- "2.2.1"
+  - "2.2.1"
 before_script:
-- "mysql -e 'create database K2_test;'"
-- "cp ./.travis.database.yml ./config/database.yml"
+  - "mysql -e 'create database K2_test;'"
+  - "cp ./.travis.database.yml ./config/database.yml"
+notifications:
+  email:
+    recipients:
+      - vshlyaga@acm.org
+    on_success: change
+    on_failure: always
