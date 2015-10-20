@@ -143,5 +143,4 @@ vshlyaga.relatives.create!(
 
 vshlyaga.has_role!(:developer)
 
-
 require_relative 'seeds/hr_positions'
