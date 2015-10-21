@@ -8,7 +8,6 @@ if Rails.env.production?
 end
 
 require 'simplecov'
-SimpleCov.start
 
 require 'spec_helper'
 require 'rspec/rails'
