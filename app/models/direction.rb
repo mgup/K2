@@ -6,6 +6,8 @@ class Direction < ActiveRecord::Base
 
   has_many :education_documents
 
+  validates :direction_category_id, presence: true
+
   default_scope do
     where('code IS NOT NULL AND code != ?', '').order(:name)
   end
@@ -14,19 +16,15 @@ class Direction < ActiveRecord::Base
     unscoped.order(:name, :code, :old_code)
   }
 
-  def full_name
-    if code.present?
-      "#{code} #{name}"
-    else
-      "#{old_code}.#{old_qualification} #{name}"
-    end
-  end
-
   def full_code
     if code.present?
       code
     else
       "#{old_code}.#{old_qualification}"
     end
+  end
+
+  def full_name
+    "#{full_code} #{name}"
   end
 end
