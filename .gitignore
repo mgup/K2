@@ -12,5 +12,7 @@
 !/log/.keep
 /tmp
 
+doc/api
+doc/app
 solr
 coverage

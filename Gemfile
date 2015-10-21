@@ -30,7 +30,6 @@ group :development do
   gem 'rails_best_practices', require: false
   gem 'rails-erd', require: false
   gem 'rubocop', require: false
-  gem 'rubycritic', require: false
 end
 
 group :test do
