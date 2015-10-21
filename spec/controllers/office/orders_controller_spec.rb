@@ -10,12 +10,12 @@ RSpec.describe Office::OrdersController, type: :controller do
 
     describe 'GET-запрос index' do
       it 'не должен быть успешным' do
-        get :index, { document_type_id: document_type.id }
+        get :index, document_type_id: document_type.id
         expect(response).not_to have_http_status(:success)
       end
 
       it 'должен вызывать переход на главную страницу' do
-        get :index, { document_type_id: document_type.id }
+        get :index, document_type_id: document_type.id
         expect(response).to redirect_to(root_path)
       end
     end
@@ -31,12 +31,12 @@ RSpec.describe Office::OrdersController, type: :controller do
 
       describe 'GET-запрос index' do
         it 'не должен быть успешным' do
-          get :index, { document_type_id: document_type.id }
+          get :index, document_type_id: document_type.id
           expect(response).not_to have_http_status(:success)
         end
 
         it 'должен вызывать переход на главную страницу' do
-          get :index, { document_type_id: document_type.id }
+          get :index, document_type_id: document_type.id
           expect(response).to redirect_to(root_path)
         end
       end
@@ -50,12 +50,12 @@ RSpec.describe Office::OrdersController, type: :controller do
 
       describe 'GET-запрос index' do
         it 'должен быть успешным' do
-          get :index, { document_type_id: document_type.id }
+          get :index, document_type_id: document_type.id
           expect(response).to have_http_status(:success)
         end
 
         it 'отображает верное представление' do
-          get :index, { document_type_id: document_type.id }
+          get :index, document_type_id: document_type.id
           expect(response).to render_template(:index)
         end
 
