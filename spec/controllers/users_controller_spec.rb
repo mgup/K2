@@ -20,13 +20,11 @@ RSpec.describe UsersController, type: :controller do
   end
 
   context 'для авторизованного пользователя' do
-    before(:each) do
-      @user = create(:user)
-    end
+    let(:user) { FactoryGirl.create(:user) }
 
     context 'не имеющего права доступа к Сотрудникам' do
       before(:each) do
-        sign_in(@user)
+        sign_in(user)
       end
 
       describe 'GET-запрос index' do
@@ -44,8 +42,8 @@ RSpec.describe UsersController, type: :controller do
 
     context 'имеющего права доступа к Сотрудникам' do
       before(:each) do
-        @user.has_role!(:developer)
-        sign_in(@user)
+        user.has_role!(:developer)
+        sign_in(user)
       end
 
       describe 'GET-запрос index' do
@@ -61,7 +59,7 @@ RSpec.describe UsersController, type: :controller do
 
         it 'инициализирует список сотрудников' do
           get :index
-          expect(assigns(:users)).to eq([@user])
+          expect(assigns(:users)).to eq([user])
         end
       end
     end

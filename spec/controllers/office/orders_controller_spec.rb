@@ -1,9 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Office::OrdersController, type: :controller do
-  before(:each) do
-    @document_type = create(:office_document_type)
-  end
+  let(:document_type) { FactoryGirl.create(:office_document_type) }
 
   context 'для неавторизованного пользователя' do
     before(:each) do
@@ -12,55 +10,69 @@ RSpec.describe Office::OrdersController, type: :controller do
 
     describe 'GET-запрос index' do
       it 'не должен быть успешным' do
-        get :index, { document_type_id: @document_type.id }
+        get :index, { document_type_id: document_type.id }
         expect(response).not_to have_http_status(:success)
       end
 
       it 'должен вызывать переход на главную страницу' do
-        get :index, { document_type_id: @document_type.id }
+        get :index, { document_type_id: document_type.id }
         expect(response).to redirect_to(root_path)
       end
     end
   end
 
   context 'для авторизованного пользователя' do
-    before(:each) do
-      @user = create(:user)
-    end
+    let(:user) { FactoryGirl.create(:user) }
 
-    context 'не имеющего права доступа к Сотрудникам' do
+    context 'не имеющего права доступа к Приказам' do
       before(:each) do
-        sign_in(@user)
+        sign_in(user)
       end
 
       describe 'GET-запрос index' do
         it 'не должен быть успешным' do
-          get :index, { document_type_id: @document_type.id }
+          get :index, { document_type_id: document_type.id }
           expect(response).not_to have_http_status(:success)
         end
 
         it 'должен вызывать переход на главную страницу' do
-          get :index, { document_type_id: @document_type.id }
+          get :index, { document_type_id: document_type.id }
           expect(response).to redirect_to(root_path)
         end
       end
     end
 
-    context 'имеющего права доступа к Сотрудникам' do
+    context 'имеющего права доступа к Приказам' do
       before(:each) do
-        @user.has_role!(:developer)
-        sign_in(@user)
+        user.has_role!(:developer)
+        sign_in(user)
       end
 
       describe 'GET-запрос index' do
         it 'должен быть успешным' do
-          get :index, { document_type_id: @document_type.id }
+          get :index, { document_type_id: document_type.id }
           expect(response).to have_http_status(:success)
         end
 
         it 'отображает верное представление' do
-          get :index, { document_type_id: @document_type.id }
+          get :index, { document_type_id: document_type.id }
           expect(response).to render_template(:index)
+        end
+
+        context 'при запросе списка приказов' do
+          it 'инициализирует список приказов' do
+            skip
+          end
+
+          it 'выводит приказы постранично' do
+            skip
+          end
+        end
+
+        context 'при поиске по ключевым словам' do
+          it 'инициализирует список найденными приказами' do
+            skip
+          end
         end
       end
     end
