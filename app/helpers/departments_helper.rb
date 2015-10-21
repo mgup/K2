@@ -11,10 +11,10 @@ module DepartmentsHelper
   private
 
   def nested_part(departments)
-    if departments.size > 0
-      content_tag(:div, class: 'nested') do
-        departments_tree_for(departments)
-      end
+    return if departments.size.zero?
+
+    content_tag(:div, class: 'nested') do
+      departments_tree_for(departments)
     end
   end
 end
