@@ -1,6 +1,8 @@
-class AddFieldsToUser < ActiveRecord::Migration
+class CreatePeople < ActiveRecord::Migration
   def change
-    change_table :users do |t|
+    create_table :people do |t|
+      t.references :personable, polymorphic: true
+
       t.string :last_name, null: false
       t.string :first_name, null: false
       t.string :patronymic
@@ -14,6 +16,8 @@ class AddFieldsToUser < ActiveRecord::Migration
       t.references :academic_degree, index: true, foreign_key: true
       t.references :academic_title, index: true, foreign_key: true
       t.references :marital_status, index: true, foreign_key: true
+
+      t.timestamps null: false
     end
   end
 end

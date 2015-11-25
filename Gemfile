@@ -1,11 +1,12 @@
 source 'https://rubygems.org'
 
-gem 'acl9'
+gem 'cancancan'
 gem 'closure_tree'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'devise'
 gem 'font-awesome-sass'
 gem 'foundation-rails'
+gem 'groupify'
 gem 'jbuilder', '~> 2.0'
 gem 'jquery-rails'
 gem 'kaminari'
@@ -16,6 +17,7 @@ gem 'prawn-rails'
 gem 'rails', '4.2.4'
 gem 'rails-i18n'
 gem 'responders'
+gem 'rolify'
 gem 'russian'
 gem 'sass-rails', '~> 5.0'
 gem 'sunspot_rails'
@@ -44,6 +46,7 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'rspec-rails'
+  gem 'sunspot_test'
 end
 
 group :doc do

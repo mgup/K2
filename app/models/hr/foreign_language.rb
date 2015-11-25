@@ -1,8 +1,8 @@
-# Знание сотрудником иностранных языков.
+# Знание человеком иностранных языков.
 class Hr::ForeignLanguage < ActiveRecord::Base
   has_paper_trail
 
-  belongs_to :user
+  belongs_to :person
   belongs_to :language
   belongs_to :language_proficiency
 

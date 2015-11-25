@@ -171,3 +171,92 @@ Department.create!(
   name: 'Студенческий спортивный клуб',
   abbreviation: 'ССК'
 )
+Department.create!(
+  id: 31,
+  name: 'Проректор по административно-правовым вопросам',
+  abbreviation: 'Проректор по АПВ'
+)
+Department.create!(
+  id: 32,
+  parent_id: 31,
+  name: 'Секретариат',
+  abbreviation: 'Секретариат'
+)
+Department.create!(
+  id: 33,
+  parent_id: 31,
+  name: 'Управление по безопасности и мобподготовке',
+  abbreviation: 'УБМ'
+)
+Department.create!(
+  id: 34,
+  parent_id: 33,
+  name: 'Специальный отдел',
+  abbreviation: 'Специальный отдел'
+)
+Department.create!(
+  id: 35,
+  parent_id: 33,
+  name: 'Моботдел',
+  abbreviation: 'Моботдел'
+)
+Department.create!(
+  id: 36,
+  parent_id: 33,
+  name: 'Штаб по делам гражданской обороны и чрезвычайным ситуациям',
+  abbreviation: 'Штаб по делам ГОиЧС'
+)
+Department.create!(
+  id: 37,
+  parent_id: 31,
+  name: 'Управление делами',
+  abbreviation: 'Управление делами'
+)
+Department.create!(
+  id: 38,
+  parent_id: 37,
+  name: 'Отдел кадров',
+  abbreviation: 'Отдел кадров'
+)
+Department.create!(
+  id: 39,
+  parent_id: 37,
+  name: 'Студенческий отдел кадров',
+  abbreviation: 'Студенческий отдел кадров'
+)
+Department.create!(
+  id: 40,
+  parent_id: 37,
+  name: 'Общий отдел',
+  abbreviation: 'Общий отдел'
+)
+Department.create!(
+  id: 41,
+  parent_id: 31,
+  name: 'Правовой отдел',
+  abbreviation: 'Правовой отдел'
+)
+Department.create!(
+  id: 42,
+  parent_id: 41,
+  name: 'Отдел по управлению имущественным комплексом',
+  abbreviation: 'ОУИК'
+)
+Department.create!(
+  id: 43,
+  parent_id: 41,
+  name: 'Отдел юридического обеспечения и государственных закупок',
+  abbreviation: 'ОЮОиГЗ'
+)
+Department.create!(
+  id: 44,
+  parent_id: 31,
+  name: 'Центр полиграфического искусства «Печатный двор Ивана Федорова»',
+  abbreviation: 'ЦПИ «Печатный двор Ивана Федорова»'
+)
+Department.create!(
+  id: 45,
+  parent_id: 31,
+  name: 'Редакция журнала «Высшее образование в России»',
+  abbreviation: 'Редакция журнала «Высшее образование в России»'
+)

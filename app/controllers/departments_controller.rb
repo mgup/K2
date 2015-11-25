@@ -1,10 +1,8 @@
 # Работа с подразделениями.
 class DepartmentsController < ApplicationController
-  access_control do
-    allow :developers
-  end
-
   respond_to :html
+
+  load_and_authorize_resource
 
   def index
     @departments = Department.hash_tree

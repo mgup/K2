@@ -8,9 +8,6 @@ require_relative 'seeds/employee_categories'
 require_relative 'seeds/hr_qualifications'
 require_relative 'seeds/departments'
 
-Role.delete_all
-Role.create(name: 'developer')
-
 Office::DocumentType.delete_all
 [
   { prefix: '01-03',  name: 'Приказы проректоров по общим вопросам' },
@@ -83,64 +80,64 @@ EducationLevel.create(id: 18, name: 'Высшее образование')
 EducationLevel.create(id: 19, name: 'Послевузовское образование')
 
 User.delete_all
-vshlyaga = User.create!(
+User.create!(
   id: 1,
   email: 'vshlyaga@acm.org',
   password: '12345678',
   password_confirmation: '12345678',
 
-  last_name: 'Шляга',
-  first_name: 'Виталий',
-  patronymic: 'Сергеевич',
+  person_attributes: {
+    last_name: 'Шляга',
+    first_name: 'Виталий',
+    patronymic: 'Сергеевич',
 
-  birthdate: Date.new(1986, 10, 27),
-  birthplace: 'гор. Челябинск',
-  sex: :male,
-  citizenship_id: 1,
-  education_level_id: 18,
-  marital_status_id: 2,
+    birthdate: Date.new(1986, 10, 27),
+    birthplace: 'гор. Челябинск',
+    sex: :male,
+    citizenship_id: 1,
+    education_level_id: 18,
+    marital_status_id: 2,
 
-  foreign_languages_attributes: [
-    {
-      user_id: 1,
-      language_id: 14,
-      language_proficiency_id: 3
-    },
-    {
-      user_id: 1,
-      language_id: 135,
-      language_proficiency_id: 1
-    }
-  ]
-)
-
-vshlyaga.education_documents.create!(
-  {
-    institution: 'Московский государственный университет печати',
-    name: 'диплом с отличием',
-    series: 'АБ',
-    number: '107705 0406573',
-    year_of_ending: 2011,
-    qualification: 'Инженер',
-    direction_id: Direction.unscoped.find_by_old_code('230204').id
+    foreign_languages_attributes: [
+      {
+        person_id: 1,
+        language_id: 14,
+        language_proficiency_id: 3
+      },
+      {
+        person_id: 1,
+        language_id: 135,
+        language_proficiency_id: 1
+      }
+    ]
   }
 )
 
-vshlyaga.relatives.create!(
-  {
-   name: 'Шляга Вероника Владиславовна',
-   year_of_birth: 1966,
-   relationship_id: 4
-  }
-)
-vshlyaga.relatives.create!(
-  {
-   name: 'Шляга Дарья Сергеевна',
-   year_of_birth: 1989,
-   relationship_id: 21
-  }
-)
-
-vshlyaga.has_role!(:developer)
+# vshlyaga.education_documents.create!(
+#   {
+#     institution: 'Московский государственный университет печати',
+#     name: 'диплом с отличием',
+#     series: 'АБ',
+#     number: '107705 0406573',
+#     year_of_ending: 2011,
+#     qualification: 'Инженер',
+#     direction_id: Direction.unscoped.find_by_old_code('230204').id
+#   }
+# )
+#
+# vshlyaga.relatives.create!(
+#   {
+#    name: 'Шляга Вероника Владиславовна',
+#    year_of_birth: 1966,
+#    relationship_id: 4
+#   }
+# )
+# vshlyaga.relatives.create!(
+#   {
+#    name: 'Шляга Дарья Сергеевна',
+#    year_of_birth: 1989,
+#    relationship_id: 21
+#   }
+# )
 
 require_relative 'seeds/hr_positions'

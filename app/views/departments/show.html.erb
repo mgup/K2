@@ -1,30 +1,24 @@
 <% content_for :title, @department.name %>
 
-<h2>Сотрудники</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Должность</th>
+      <th>Сотрудник</th>
+    </tr>
+  </thead>
+  <% @department.positions.each do |position| %>
+    <tr>
+      <td><%= position.name %></td>
+      <td><%= position.employee.full_name if position.closed? %></td>
+    </tr>
+  <% end %>
+</table>
 
-<% if @department.positions.hired.any? %>
-  <ul class="no-bullet">
-    <% @department.positions.hired.each do |position| %>
-      <li>
-        <em><%= position.qualification.name %></em>
-        <%= position.user.full_name %>
-      </li>
+<ul class="button-group even-2">
+  <li>
+    <%= link_to departments_path, class: 'button secondary' do %>
+      <i class="fa fa-arrow-left"></i> Вернуться ко всем подразделениям
     <% end %>
-  </ul>
-<% else %>
-  <p>В подразделении нет ни одного сотрудника.</p>
-<% end %>
-
-<h2>Свободные ставки</h2>
-
-<% if @department.positions.vacant.any? %>
-  <ul class="no-bullet">
-    <% @department.positions.vacant.each do |position| %>
-      <li>
-        <em><%= position.qualification.name %></em>
-      </li>
-    <% end %>
-  </ul>
-<% else %>
-  <p>В подразделении нет ни одной свободной ставки.</p>
-<% end %>
+  </li>
+</ul>

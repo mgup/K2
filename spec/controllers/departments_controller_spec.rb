@@ -17,6 +17,20 @@ RSpec.describe DepartmentsController, type: :controller do
         expect(response).to redirect_to(root_path)
       end
     end
+
+    describe 'GET-запрос show' do
+      let(:department) { FactoryGirl.create(:department) }
+
+      it 'не должен быть успешным' do
+        get :show, id: department.id
+        expect(response).not_to have_http_status(:success)
+      end
+
+      it 'должен вызывать переход на главную страницу' do
+        get :show, id: department.id
+        expect(response).to redirect_to(root_path)
+      end
+    end
   end
 
   context 'для авторизованного пользователя' do
@@ -35,6 +49,20 @@ RSpec.describe DepartmentsController, type: :controller do
 
         it 'должен вызывать переход на главную страницу' do
           get :index
+          expect(response).to redirect_to(root_path)
+        end
+      end
+
+      describe 'GET-запрос show' do
+        let(:department) { FactoryGirl.create(:department) }
+
+        it 'не должен быть успешным' do
+          get :show, id: department.id
+          expect(response).not_to have_http_status(:success)
+        end
+
+        it 'должен вызывать переход на главную страницу' do
+          get :show, id: department.id
           expect(response).to redirect_to(root_path)
         end
       end
@@ -59,6 +87,25 @@ RSpec.describe DepartmentsController, type: :controller do
 
         it 'инициализирует список подразделений' do
           skip
+        end
+      end
+
+      describe 'GET-запрос show' do
+        let(:department) { FactoryGirl.create(:department) }
+
+        it 'должен быть успешным' do
+          get :show, id: department.id
+          expect(response).to have_http_status(:success)
+        end
+
+        it 'отображает верное представление' do
+          get :show, id: department.id
+          expect(response).to render_template(:show)
+        end
+
+        it 'инициализирует нужное подразделение' do
+          get :show, id: department.id
+          expect(assigns(:department)).to eq(department)
         end
       end
     end

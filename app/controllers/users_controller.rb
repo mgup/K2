@@ -1,12 +1,9 @@
 # Контроллер для работы с сотрудниками.
 class UsersController < ApplicationController
-  access_control do
-    # allow all
-    allow :developers
-  end
-
   respond_to :html
   respond_to :pdf, only: [:show]
+
+  load_and_authorize_resource
 
   before_action :set_user, only: [:show, :edit, :update]
 
@@ -27,11 +24,11 @@ class UsersController < ApplicationController
   end
 
   def edit
-    (2 - @user.foreign_languages.count).times do
-      @user.foreign_languages.build
+    (2 - @user.person.foreign_languages.count).times do
+      @user.person.foreign_languages.build
     end
-    (1 - @user.education_documents.count).times do
-      @user.education_documents.build
+    (1 - @user.person.education_documents.count).times do
+      @user.person.education_documents.build
     end
   end
 
@@ -52,12 +49,15 @@ class UsersController < ApplicationController
   def user_params
     params
       .require(:user)
-      .permit(:last_name, :first_name, :patronymic,
-              :birthdate, :birthplace, :sex, :citizenship_id,
-              :education_level_id,
-              foreign_languages_attributes: foreign_languages_attributes,
-              education_documents_attributes: education_documents_attributes,
-              relatives_attributes: relatives_attributes)
+      .permit(person_attributes: [
+        :id, :last_name, :first_name, :patronymic, :birthdate, :birthplace, :sex,
+        :citizenship_id, :education_level_id,
+        {
+          foreign_languages_attributes: foreign_languages_attributes,
+          education_documents_attributes: education_documents_attributes,
+          relatives_attributes: relatives_attributes
+        }
+      ])
   end
 
   def foreign_languages_attributes

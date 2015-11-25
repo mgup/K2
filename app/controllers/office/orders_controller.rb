@@ -1,11 +1,8 @@
 # Контроллер для работы с приказами, которые регистрирует Общий отдел.
 class Office::OrdersController < ApplicationController
-  access_control do
-    # allow all
-    allow :developers
-  end
-
   respond_to :html
+
+  load_and_authorize_resource
 
   before_action :set_order, only: [:edit, :update, :destroy]
   before_action :set_document_type, only: [:new, :create]

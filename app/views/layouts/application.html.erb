@@ -34,14 +34,19 @@
     <% if signed_in? %>
       <aside class="left-off-canvas-menu">
         <ul class="off-canvas-list">
-          <li><label>Общий отдел</label></li>
-          <li>
-            <%= link_to 'Приказы и распоряжения',
-                        office_document_type_orders_path(Office::DocumentType.first) %>
-          </li>
-          <li><label>Отдел кадров</label></li>
-          <li><%= link_to 'Подразделения', departments_path %></li>
-          <li><%= link_to 'Сотрудники', users_path %></li>
+          <% if can?(:manage, :all) %>
+            <li><label>Общий отдел</label></li>
+            <li>
+              <%= link_to 'Приказы и распоряжения',
+                          office_document_type_orders_path(Office::DocumentType.first) %>
+            </li>
+          <% end %>
+
+          <% if can?(:manage, :all) %>
+            <li><label>Отдел кадров</label></li>
+            <li><%= link_to 'Подразделения', departments_path %></li>
+            <li><%= link_to 'Сотрудники', users_path %></li>
+          <% end %>
         </ul>
       </aside>
 

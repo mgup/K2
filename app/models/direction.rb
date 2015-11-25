@@ -3,6 +3,7 @@ class Direction < ActiveRecord::Base
   has_paper_trail
 
   belongs_to :direction_category
+  belongs_to :department
 
   has_many :education_documents
 

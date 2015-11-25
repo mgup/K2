@@ -9,11 +9,11 @@ class ApplicationController < ActionController::Base
   self.responder = ApplicationResponder
   respond_to :html
 
-  rescue_from 'Acl9::AccessDenied', with: :access_denied
+  rescue_from CanCan::AccessDenied, with: :access_denied
 
   private
 
   def access_denied
-    redirect_to root_path, alert: 'Доступ запрещён.'
+    redirect_to root_path, alert: 'Доступ запрещён.' and return
   end
 end

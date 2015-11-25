@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151020085821) do
+ActiveRecord::Schema.define(version: 20151105133947) do
 
   create_table "academic_degrees", force: :cascade do |t|
     t.string   "name",       limit: 255, null: false
@@ -71,11 +71,13 @@ ActiveRecord::Schema.define(version: 20151020085821) do
     t.string   "name",                  limit: 255
     t.string   "old_code",              limit: 255
     t.string   "old_qualification",     limit: 255
+    t.integer  "department_id",         limit: 4
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
   end
 
-  add_index "directions", ["direction_category_id"], name: "fk_rails_8f62885d91", using: :btree
+  add_index "directions", ["department_id"], name: "index_directions_on_department_id", using: :btree
+  add_index "directions", ["direction_category_id"], name: "index_directions_on_direction_category_id", using: :btree
 
   create_table "education_documents", force: :cascade do |t|
     t.integer  "person_id",      limit: 4
@@ -105,8 +107,27 @@ ActiveRecord::Schema.define(version: 20151020085821) do
     t.datetime "updated_at",             null: false
   end
 
+  create_table "group_memberships", force: :cascade do |t|
+    t.integer  "member_id",       limit: 4
+    t.string   "member_type",     limit: 255
+    t.integer  "group_id",        limit: 4
+    t.string   "group_type",      limit: 255
+    t.string   "group_name",      limit: 255
+    t.string   "membership_type", limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "group_memberships", ["group_name"], name: "index_group_memberships_on_group_name", using: :btree
+  add_index "group_memberships", ["group_type", "group_id"], name: "index_group_memberships_on_group_type_and_group_id", using: :btree
+  add_index "group_memberships", ["member_type", "member_id"], name: "index_group_memberships_on_member_type_and_member_id", using: :btree
+
+  create_table "groups", force: :cascade do |t|
+    t.string "type", limit: 255
+  end
+
   create_table "hr_foreign_languages", force: :cascade do |t|
-    t.integer  "user_id",                 limit: 4, null: false
+    t.integer  "person_id",               limit: 4, null: false
     t.integer  "language_id",             limit: 4, null: false
     t.integer  "language_proficiency_id", limit: 4, null: false
     t.datetime "created_at",                        null: false
@@ -115,7 +136,7 @@ ActiveRecord::Schema.define(version: 20151020085821) do
 
   add_index "hr_foreign_languages", ["language_id"], name: "index_hr_foreign_languages_on_language_id", using: :btree
   add_index "hr_foreign_languages", ["language_proficiency_id"], name: "index_hr_foreign_languages_on_language_proficiency_id", using: :btree
-  add_index "hr_foreign_languages", ["user_id"], name: "index_hr_foreign_languages_on_user_id", using: :btree
+  add_index "hr_foreign_languages", ["person_id"], name: "index_hr_foreign_languages_on_person_id", using: :btree
 
   create_table "hr_positions", force: :cascade do |t|
     t.integer  "department_id",    limit: 4, null: false
@@ -179,6 +200,37 @@ ActiveRecord::Schema.define(version: 20151020085821) do
 
   add_index "office_orders", ["document_type_id"], name: "index_office_orders_on_document_type_id", using: :btree
 
+  create_table "people", force: :cascade do |t|
+    t.integer  "personable_id",      limit: 4
+    t.string   "personable_type",    limit: 255
+    t.string   "last_name",          limit: 255,             null: false
+    t.string   "first_name",         limit: 255,             null: false
+    t.string   "patronymic",         limit: 255
+    t.date     "birthdate"
+    t.string   "birthplace",         limit: 255
+    t.integer  "sex",                limit: 4,   default: 1, null: false
+    t.integer  "citizenship_id",     limit: 4
+    t.integer  "education_level_id", limit: 4
+    t.integer  "academic_degree_id", limit: 4
+    t.integer  "academic_title_id",  limit: 4
+    t.integer  "marital_status_id",  limit: 4
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
+  end
+
+  add_index "people", ["academic_degree_id"], name: "index_people_on_academic_degree_id", using: :btree
+  add_index "people", ["academic_title_id"], name: "index_people_on_academic_title_id", using: :btree
+  add_index "people", ["citizenship_id"], name: "index_people_on_citizenship_id", using: :btree
+  add_index "people", ["education_level_id"], name: "index_people_on_education_level_id", using: :btree
+  add_index "people", ["marital_status_id"], name: "index_people_on_marital_status_id", using: :btree
+
+  create_table "positions_roles", id: false, force: :cascade do |t|
+    t.integer "position_id", limit: 4
+    t.integer "role_id",     limit: 4
+  end
+
+  add_index "positions_roles", ["position_id", "role_id"], name: "index_positions_roles_on_position_id_and_role_id", using: :btree
+
   create_table "relationships", force: :cascade do |t|
     t.string   "name",       limit: 255
     t.datetime "created_at",             null: false
@@ -198,24 +250,15 @@ ActiveRecord::Schema.define(version: 20151020085821) do
   add_index "relatives", ["relationship_id"], name: "index_relatives_on_relationship_id", using: :btree
 
   create_table "roles", force: :cascade do |t|
-    t.string   "name",              limit: 255,                 null: false
-    t.string   "authorizable_type", limit: 255
-    t.integer  "authorizable_id",   limit: 4
-    t.boolean  "system",                        default: false, null: false
-    t.datetime "created_at",                                    null: false
-    t.datetime "updated_at",                                    null: false
+    t.string   "name",          limit: 255
+    t.integer  "resource_id",   limit: 4
+    t.string   "resource_type", limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  add_index "roles", ["authorizable_type", "authorizable_id"], name: "index_roles_on_authorizable_type_and_authorizable_id", using: :btree
+  add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id", using: :btree
   add_index "roles", ["name"], name: "index_roles_on_name", using: :btree
-
-  create_table "roles_users", id: false, force: :cascade do |t|
-    t.integer "user_id", limit: 4, null: false
-    t.integer "role_id", limit: 4, null: false
-  end
-
-  add_index "roles_users", ["role_id"], name: "index_roles_users_on_role_id", using: :btree
-  add_index "roles_users", ["user_id"], name: "index_roles_users_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "", null: false
@@ -230,25 +273,9 @@ ActiveRecord::Schema.define(version: 20151020085821) do
     t.string   "last_sign_in_ip",        limit: 255
     t.datetime "created_at",                                      null: false
     t.datetime "updated_at",                                      null: false
-    t.string   "last_name",              limit: 255,              null: false
-    t.string   "first_name",             limit: 255,              null: false
-    t.string   "patronymic",             limit: 255
-    t.date     "birthdate"
-    t.string   "birthplace",             limit: 255
-    t.integer  "sex",                    limit: 4,   default: 1,  null: false
-    t.integer  "citizenship_id",         limit: 4
-    t.integer  "education_level_id",     limit: 4
-    t.integer  "academic_degree_id",     limit: 4
-    t.integer  "academic_title_id",      limit: 4
-    t.integer  "marital_status_id",      limit: 4
   end
 
-  add_index "users", ["academic_degree_id"], name: "index_users_on_academic_degree_id", using: :btree
-  add_index "users", ["academic_title_id"], name: "index_users_on_academic_title_id", using: :btree
-  add_index "users", ["citizenship_id"], name: "index_users_on_citizenship_id", using: :btree
-  add_index "users", ["education_level_id"], name: "index_users_on_education_level_id", using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["marital_status_id"], name: "index_users_on_marital_status_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "version_associations", force: :cascade do |t|
@@ -273,22 +300,21 @@ ActiveRecord::Schema.define(version: 20151020085821) do
   add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
   add_index "versions", ["transaction_id"], name: "index_versions_on_transaction_id", using: :btree
 
+  add_foreign_key "directions", "departments"
   add_foreign_key "directions", "direction_categories"
   add_foreign_key "education_documents", "directions"
   add_foreign_key "hr_foreign_languages", "language_proficiencies"
   add_foreign_key "hr_foreign_languages", "languages"
-  add_foreign_key "hr_foreign_languages", "users"
+  add_foreign_key "hr_foreign_languages", "people"
   add_foreign_key "hr_positions", "departments"
   add_foreign_key "hr_positions", "hr_qualifications", column: "qualification_id"
   add_foreign_key "hr_positions", "users"
   add_foreign_key "hr_qualifications", "employee_categories"
   add_foreign_key "office_orders", "office_document_types", column: "document_type_id"
+  add_foreign_key "people", "academic_degrees"
+  add_foreign_key "people", "academic_titles"
+  add_foreign_key "people", "citizenships"
+  add_foreign_key "people", "education_levels"
+  add_foreign_key "people", "marital_statuses"
   add_foreign_key "relatives", "relationships"
-  add_foreign_key "roles_users", "roles"
-  add_foreign_key "roles_users", "users"
-  add_foreign_key "users", "academic_degrees"
-  add_foreign_key "users", "academic_titles"
-  add_foreign_key "users", "citizenships"
-  add_foreign_key "users", "education_levels"
-  add_foreign_key "users", "marital_statuses"
 end

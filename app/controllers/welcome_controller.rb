@@ -1,8 +1,6 @@
 # Стартовый контроллер приложения.
 class WelcomeController < ApplicationController
-  access_control do
-    allow all
-  end
+  skip_authorization_check
 
   def index
   end
