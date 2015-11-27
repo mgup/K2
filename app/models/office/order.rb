@@ -22,19 +22,19 @@ class Office::Order < ActiveRecord::Base
 
   scope :with_document_type, -> (id) { where(document_type_id: id) }
 
-  searchable do
-    time :date
-    text :number do
-      full_number
-    end
-    text :title
-
-    integer :year do
-      date.year
-    end
-    string :number
-    string :suffix
-  end
+  # searchable do
+  #   time :date
+  #   text :number do
+  #     full_number
+  #   end
+  #   text :title
+  #
+  #   integer :year do
+  #     date.year
+  #   end
+  #   string :number
+  #   string :suffix
+  # end
 
   def to_param
     "#{id} #{full_number}".parameterize

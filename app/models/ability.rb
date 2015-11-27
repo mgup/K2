@@ -4,8 +4,10 @@ class Ability
   def initialize(user)
     user ||= User.new
 
-    if user.has_role?(:developer)
-      can :manage, :all
+    user.positions.each do |position|
+      if position.has_role?(:developer)
+        can :manage, :all
+      end
     end
 
     obschiy_otdel if user.works_in?(Department.find(40))

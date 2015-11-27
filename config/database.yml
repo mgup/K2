@@ -51,6 +51,6 @@ test:
 #
 production:
   <<: *default
-  database: K2_production
-  username: K2
-  password: <%= ENV['K2_DATABASE_PASSWORD'] %>
+  database: <%= Rails.application.secrets.k2_db_database %>
+  username: <%= Rails.application.secrets.k2_db_username %>
+  password: <%= Rails.application.secrets.k2_db_password %>

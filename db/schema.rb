@@ -150,6 +150,13 @@ ActiveRecord::Schema.define(version: 20151105133947) do
   add_index "hr_positions", ["qualification_id"], name: "index_hr_positions_on_qualification_id", using: :btree
   add_index "hr_positions", ["user_id"], name: "index_hr_positions_on_user_id", using: :btree
 
+  create_table "hr_positions_roles", id: false, force: :cascade do |t|
+    t.integer "position_id", limit: 4
+    t.integer "role_id",     limit: 4
+  end
+
+  add_index "hr_positions_roles", ["position_id", "role_id"], name: "index_hr_positions_roles_on_position_id_and_role_id", using: :btree
+
   create_table "hr_qualifications", force: :cascade do |t|
     t.integer  "employee_category_id", limit: 4,   null: false
     t.string   "name",                 limit: 255, null: false
@@ -223,13 +230,6 @@ ActiveRecord::Schema.define(version: 20151105133947) do
   add_index "people", ["citizenship_id"], name: "index_people_on_citizenship_id", using: :btree
   add_index "people", ["education_level_id"], name: "index_people_on_education_level_id", using: :btree
   add_index "people", ["marital_status_id"], name: "index_people_on_marital_status_id", using: :btree
-
-  create_table "positions_roles", id: false, force: :cascade do |t|
-    t.integer "position_id", limit: 4
-    t.integer "role_id",     limit: 4
-  end
-
-  add_index "positions_roles", ["position_id", "role_id"], name: "index_positions_roles_on_position_id_and_role_id", using: :btree
 
   create_table "relationships", force: :cascade do |t|
     t.string   "name",       limit: 255

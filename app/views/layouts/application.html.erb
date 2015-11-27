@@ -34,7 +34,7 @@
     <% if signed_in? %>
       <aside class="left-off-canvas-menu">
         <ul class="off-canvas-list">
-          <% if can?(:manage, :all) %>
+          <% if can?(:read, Office::Order) %>
             <li><label>Общий отдел</label></li>
             <li>
               <%= link_to 'Приказы и распоряжения',
