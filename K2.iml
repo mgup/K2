@@ -33,6 +33,7 @@
     <orderEntry type="library" scope="PROVIDED" name="arel (v6.0.3, RVM: ruby-2.2.3) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="ast (v2.1.0, RVM: ruby-2.2.3) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="astrolabe (v1.3.1, RVM: ruby-2.2.3) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="awesome_print (v1.6.1, RVM: ruby-2.2.3) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="bcrypt (v3.1.10, RVM: ruby-2.2.3) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="better_errors (v2.1.1, RVM: ruby-2.2.3) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="binding_of_caller (v0.7.2, RVM: ruby-2.2.3) [gem]" level="application" />
@@ -111,6 +112,8 @@
     <orderEntry type="library" scope="PROVIDED" name="rails-i18n (v4.0.7, RVM: ruby-2.2.3) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="railties (v4.2.4, RVM: ruby-2.2.3) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rainbow (v2.0.0, RVM: ruby-2.2.3) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="rake (v10.4.2, RVM: ruby-2.2.3) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="rdoc (v4.2.0, RVM: ruby-2.2.3) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="ref (v2.0.0, RVM: ruby-2.2.3) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="request_store (v1.2.1, RVM: ruby-2.2.3) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="responders (v2.1.0, RVM: ruby-2.2.3) [gem]" level="application" />

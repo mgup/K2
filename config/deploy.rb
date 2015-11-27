@@ -35,6 +35,8 @@ set :linked_files, fetch(:linked_files, []).push('config/secrets.yml')
 # Default value for keep_releases is 5
 # set :keep_releases, 5
 
+set :passenger_restart_with_touch, true
+
 namespace :deploy do
 
   after :restart, :clear_cache do
