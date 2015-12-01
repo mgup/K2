@@ -24,8 +24,10 @@ class User < ActiveRecord::Base
 
   def works_in?(department)
     unless department.instance_of?(Department)
-      department = Department.find(department)
+      department = Department.find_by(id: department)
     end
+
+    return false unless department.present?
 
     positions.find_all { |p| department == p.department }.any?
   end

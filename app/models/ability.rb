@@ -10,7 +10,7 @@ class Ability
       end
     end
 
-    obschiy_otdel if user.works_in?(Department.find(40))
+    obschiy_otdel if user.works_in?(Department.find_by(id: 40))
 
     # Define abilities for the passed in user here. For example:
     #
