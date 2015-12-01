@@ -21,7 +21,7 @@ gem 'responders'
 gem 'rolify'
 gem 'russian'
 gem 'sass-rails', '~> 5.0'
-# gem 'sunspot_rails'
+gem 'sunspot_rails'
 gem 'therubyracer', platforms: :ruby
 gem 'uglifier', '>= 1.3.0'
 
@@ -39,7 +39,7 @@ group :development do
   gem 'quiet_assets'
   gem 'rails-erd', require: false
   gem 'rubocop', require: false
-  # gem 'sunspot_solr'
+  gem 'sunspot_solr'
 end
 
 group :test do
@@ -52,7 +52,7 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'rspec-rails'
-  # gem 'sunspot_test'
+  gem 'sunspot_test'
 end
 
 group :doc do
