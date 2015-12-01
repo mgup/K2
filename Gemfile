@@ -26,6 +26,7 @@ gem 'therubyracer', platforms: :ruby
 gem 'uglifier', '>= 1.3.0'
 
 group :development do
+  gem 'airbrussh', require: false
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'capistrano'
