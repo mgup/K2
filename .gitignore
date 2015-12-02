@@ -12,6 +12,8 @@
 !/log/.keep
 /tmp
 
+config/database.yml
+
 doc/api
 doc/app
 solr
