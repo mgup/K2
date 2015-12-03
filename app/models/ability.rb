@@ -1,3 +1,4 @@
+# Модель, упралвяющая правами доступа назначений (Hr::Position).
 class Ability
   include CanCan::Ability
 
@@ -5,9 +6,7 @@ class Ability
     user ||= User.new
 
     user.positions.each do |position|
-      if position.has_role?(:developer)
-        can :manage, :all
-      end
+      can :manage, :all if position.has_role?(:developer)
     end
 
     obschiy_otdel if user.works_in?(Department.find_by(id: 40))

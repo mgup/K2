@@ -50,8 +50,8 @@ class UsersController < ApplicationController
     params
       .require(:user)
       .permit(person_attributes: [
-        :id, :last_name, :first_name, :patronymic, :birthdate, :birthplace, :sex,
-        :citizenship_id, :education_level_id,
+        :id, :last_name, :first_name, :patronymic, :birthdate, :birthplace,
+        :sex, :citizenship_id, :education_level_id,
         {
           foreign_languages_attributes: foreign_languages_attributes,
           education_documents_attributes: education_documents_attributes,

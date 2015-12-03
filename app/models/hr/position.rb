@@ -11,7 +11,7 @@ class Hr::Position < ActiveRecord::Base
   scope :hired, -> { where('user_id IS NOT NULL') }
   scope :vacant, -> { where('user_id IS NULL') }
 
-  alias :employee :user
+  alias_method :employee, :user
 
   delegate :name, to: :qualification
 

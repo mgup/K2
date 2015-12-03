@@ -1,3 +1,4 @@
+# Роль назначения.
 class Role < ActiveRecord::Base
   has_and_belongs_to_many :positions,
                           class_name: 'Hr::Position',
