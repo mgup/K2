@@ -62,5 +62,5 @@ group :doc do
 end
 
 # source 'https://rails-assets.org' do
-#   gem 'rails-assets-foundation-datepicker'
+#   gem 'rails-assets-air-datepicker'
 # end
