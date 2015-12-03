@@ -27,9 +27,9 @@ class UsersController < ApplicationController
     (2 - @user.person.foreign_languages.count).times do
       @user.person.foreign_languages.build
     end
-    (1 - @user.person.education_documents.count).times do
-      @user.person.education_documents.build
-    end
+
+    education_documents = @user.person.education_documents
+    education_documents.build if education_documents.empty?
   end
 
   def update
@@ -51,13 +51,16 @@ class UsersController < ApplicationController
       .require(:user)
       .permit(person_attributes: [
         :id, :last_name, :first_name, :patronymic, :birthdate, :birthplace,
-        :sex, :citizenship_id, :education_level_id,
-        {
-          foreign_languages_attributes: foreign_languages_attributes,
-          education_documents_attributes: education_documents_attributes,
-          relatives_attributes: relatives_attributes
-        }
+        :sex, :citizenship_id, :education_level_id, nested_models_attributes
       ])
+  end
+
+  def nested_models_attributes
+    {
+      foreign_languages_attributes: foreign_languages_attributes,
+      education_documents_attributes: education_documents_attributes,
+      relatives_attributes: relatives_attributes
+    }
   end
 
   def foreign_languages_attributes
