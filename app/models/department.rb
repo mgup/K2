@@ -1,6 +1,5 @@
 # Подразделение.
 class Department < ActiveRecord::Base
-  has_closure_tree order: :name
   has_paper_trail
   resourcify
 

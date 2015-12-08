@@ -2,7 +2,6 @@ source 'https://rubygems.org'
 
 gem 'awesome_print', require: 'ap'
 gem 'cancancan'
-gem 'closure_tree'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'devise'
 gem 'font-awesome-sass'

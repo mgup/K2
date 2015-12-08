@@ -5,15 +5,15 @@ class Ability
   def initialize(user)
     user ||= User.new
 
-    if user.employee.present?
-      employee = user.employee
+    return unless user.employee.present?
 
-      employee.positions.each do |position|
-        can :manage, :all if position.has_role?(:developer)
-      end
+    employee = user.employee
 
-      obschiy_otdel if employee.works_in?(Department.find_by(id: 40))
+    employee.positions.each do |position|
+      can :manage, :all if position.has_role?(:developer)
     end
+
+    obschiy_otdel if employee.works_in?(Department.find_by(id: 40))
 
     # Define abilities for the passed in user here. For example:
     #

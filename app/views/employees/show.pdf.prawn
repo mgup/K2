@@ -190,7 +190,7 @@ prawn_document do |pdf|
 
       pdf.text_box @employee.citizenship.name, size: 10, font: 'PT Mono',
                    align: :center, overflow: :shrink_to_fit,
-                   at: [55, 407], width: 378
+                   at: [55, 408], width: 378
 
       pdf.text_box @employee.education_level.name, size: 10, font: 'PT Mono',
                    align: :center, overflow: :shrink_to_fit,

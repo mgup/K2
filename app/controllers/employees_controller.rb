@@ -13,8 +13,8 @@ class EmployeesController < ApplicationController
 
   def new
     @employee.build_person
-    2.times { @employee.person.foreign_languages.build }
-    @employee.person.education_documents.build
+    2.times { @employee.foreign_languages.build }
+    @employee.education_documents.build
   end
 
   def show
