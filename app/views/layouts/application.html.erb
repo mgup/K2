@@ -63,7 +63,7 @@
           <% if can?(:manage, :all) %>
             <li><label>Отдел кадров</label></li>
             <li><%= link_to 'Подразделения', departments_path %></li>
-            <li><%= link_to 'Сотрудники', users_path %></li>
+            <li><%= link_to 'Сотрудники', employees_path %></li>
           <% end %>
         </ul>
       </aside>
@@ -71,7 +71,7 @@
       <aside class="right-off-canvas-menu">
         <ul class="off-canvas-list">
           <li><label>Пользователь</label></li>
-          <li><%= link_to current_user, current_user %></li>
+          <li><%= link_to current_user, nil %></li>
           <li><%= link_to 'Выйти', destroy_user_session_path, method: :delete %></li>
         </ul>
       </aside>

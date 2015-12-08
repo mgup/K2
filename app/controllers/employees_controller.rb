@@ -1,40 +1,51 @@
 # Контроллер для работы с сотрудниками.
-class UsersController < ApplicationController
+class EmployeesController < ApplicationController
   respond_to :html
   respond_to :pdf, only: [:show]
 
   load_and_authorize_resource
 
-  before_action :set_user, only: [:show, :edit, :update]
+  before_action :set_employee, only: [:show, :edit, :update]
 
   def index
-    @users = User.page(params[:page])
+    @employees = Employee.page(params[:page])
   end
 
   def new
-    2.times { @user.foreign_languages.build }
-    @user.education_documents.build
+    @employee.build_person
+    2.times { @employee.person.foreign_languages.build }
+    @employee.person.education_documents.build
   end
 
   def show
-    @filename = "Личная карточка сотрудника #{@user.short_name}.pdf"
-    (2 - @user.education_documents.count).times do
-      @user.education_documents.build
+    @filename = "Личная карточка сотрудника #{@employee.short_name}.pdf"
+    (2 - @employee.education_documents.count).times do
+      @employee.education_documents.build
     end
   end
 
   def edit
-    (2 - @user.person.foreign_languages.count).times do
-      @user.person.foreign_languages.build
+    (2 - @employee.person.foreign_languages.count).times do
+      @employee.person.foreign_languages.build
     end
 
-    education_documents = @user.person.education_documents
+    education_documents = @employee.person.education_documents
     education_documents.build if education_documents.empty?
   end
 
+  def create
+    @employee = User.new(user_params)
+
+    if @employee.save
+      respond_with @employee, location: -> { employees_path }
+    else
+      render :new
+    end
+  end
+
   def update
-    if @user.update(user_params)
-      respond_with @user, location: -> { users_path }
+    if @employee.update(employee_params)
+      respond_with @employee, location: -> { employees_path }
     else
       render :edit
     end
@@ -42,13 +53,13 @@ class UsersController < ApplicationController
 
   private
 
-  def set_user
-    @user = User.find(params[:id])
+  def set_employee
+    @employee = Employee.find(params[:id])
   end
 
-  def user_params
+  def employee_params
     params
-      .require(:user)
+      .require(:employee)
       .permit(person_attributes: [
         :id, :last_name, :first_name, :patronymic, :birthdate, :birthplace,
         :sex, :citizenship_id, :education_level_id, nested_models_attributes

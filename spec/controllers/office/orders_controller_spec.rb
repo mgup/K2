@@ -22,7 +22,7 @@ RSpec.describe Office::OrdersController, type: :controller do
   end
 
   context 'для авторизованного пользователя' do
-    let(:user) { FactoryGirl.create(:user) }
+    let(:employee) { FactoryGirl.create(:employee) }
 
     context 'не имеющего права доступа к Приказам' do
       before(:each) do

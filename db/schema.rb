@@ -107,6 +107,14 @@ ActiveRecord::Schema.define(version: 20151105133947) do
     t.datetime "updated_at",             null: false
   end
 
+  create_table "employees", force: :cascade do |t|
+    t.integer  "user_id",    limit: 4
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "employees", ["user_id"], name: "index_employees_on_user_id", using: :btree
+
   create_table "group_memberships", force: :cascade do |t|
     t.integer  "member_id",       limit: 4
     t.string   "member_type",     limit: 255
@@ -141,14 +149,14 @@ ActiveRecord::Schema.define(version: 20151105133947) do
   create_table "hr_positions", force: :cascade do |t|
     t.integer  "department_id",    limit: 4, null: false
     t.integer  "qualification_id", limit: 4, null: false
-    t.integer  "user_id",          limit: 4
+    t.integer  "employee_id",      limit: 4
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
   end
 
   add_index "hr_positions", ["department_id"], name: "index_hr_positions_on_department_id", using: :btree
+  add_index "hr_positions", ["employee_id"], name: "index_hr_positions_on_employee_id", using: :btree
   add_index "hr_positions", ["qualification_id"], name: "index_hr_positions_on_qualification_id", using: :btree
-  add_index "hr_positions", ["user_id"], name: "index_hr_positions_on_user_id", using: :btree
 
   create_table "hr_positions_roles", id: false, force: :cascade do |t|
     t.integer "position_id", limit: 4
@@ -303,12 +311,13 @@ ActiveRecord::Schema.define(version: 20151105133947) do
   add_foreign_key "directions", "departments"
   add_foreign_key "directions", "direction_categories"
   add_foreign_key "education_documents", "directions"
+  add_foreign_key "employees", "users"
   add_foreign_key "hr_foreign_languages", "language_proficiencies"
   add_foreign_key "hr_foreign_languages", "languages"
   add_foreign_key "hr_foreign_languages", "people"
   add_foreign_key "hr_positions", "departments"
+  add_foreign_key "hr_positions", "employees"
   add_foreign_key "hr_positions", "hr_qualifications", column: "qualification_id"
-  add_foreign_key "hr_positions", "users"
   add_foreign_key "hr_qualifications", "employee_categories"
   add_foreign_key "office_orders", "office_document_types", column: "document_type_id"
   add_foreign_key "people", "academic_degrees"

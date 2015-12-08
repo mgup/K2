@@ -1,0 +1,66 @@
+<% content_for :title, 'Сотрудники' %>
+
+<div class="row">
+  <div class="medium-4 columns">
+    <%= link_to new_employee_path, class: 'button secondary' do %>
+      <i class="fa fa-plus"></i> Добавить сотрудника
+    <% end %>
+  </div>
+  <div class="medium-8 columns">
+    <form method="get">
+      <input type="hidden" name="page" value="1">
+      <div class="row collapse">
+        <div class="small-10 columns">
+          <input type="text" name="q" value="<%= params[:q] %>" placeholder="найти...">
+        </div>
+        <div class="small-2 columns">
+          <button type="submit" class="button postfix">
+            <i class="fa fa-search"></i>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<% if @employees.empty? %>
+  <p>Нет зарегистрированных пользователей.</p>
+<% else %>
+  <%= paginate @employees %>
+
+  <table class="table full-width">
+    <thead>
+      <th></th>
+      <th>Имя</th>
+      <th colspan="2"></th>
+      <th>Должности</th>
+    </thead>
+    <tbody>
+      <% @employees.each do |employee| %>
+        <tr>
+          <td><%= employee.id %></td>
+          <td><%= employee.full_name %></td>
+          <td>
+            <%= link_to edit_employee_path(employee),
+                        title: 'Редактировать данные сотрудника' do %>
+              <i class="fa fa-pencil"></i>
+            <% end %>
+          </td>
+          <td>
+            <%= link_to employee_path(employee, format: :pdf), target: :blank,
+                        title: 'Личная карточка сотрудника' do %>
+              <i class="fa fa-file-pdf-o"></i>
+            <% end %>
+          </td>
+          <td>
+            <% employee.positions.each do |position| %>
+              <%= position.name %>, <%= position.department.name %><br>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <%= paginate @employees %>
+<% end %>
