@@ -5,7 +5,7 @@ FactoryGirl.define do
     number { Faker::Number.number(8) }
     year_of_ending { Faker::Date.between(5.years.ago, 1.year.ago).year }
 
-    direction
-    association :person, factory: :employee
+    association :direction
+    person
   end
 end

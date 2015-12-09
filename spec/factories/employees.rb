@@ -1,14 +1,10 @@
 FactoryGirl.define do
   factory :employee do
-    email { Faker::Internet.free_email }
-    password { Faker::Internet.password }
+    user
 
-    last_name { Faker::Name.male_last_name }
-    first_name { Faker::Name.male_first_name }
-
-    factory :developer do
-      after(:create) do |user|
-        user.has_role!(:developer)
+    factory :employee_with_position_in_otdel_informacionnyh_sistem do
+      after(:create) do |employee|
+        create(:position_in_otdel_informacionnyh_sistem, employee: employee)
       end
     end
   end

@@ -14,6 +14,6 @@ class ApplicationController < ActionController::Base
   private
 
   def access_denied
-    redirect_to root_path, alert: 'Доступ запрещён.' && return
+    return if redirect_to root_path, alert: 'Доступ запрещён.'
   end
 end
