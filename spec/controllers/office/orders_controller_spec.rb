@@ -26,7 +26,7 @@ RSpec.describe Office::OrdersController, type: :controller do
 
     context 'не имеющего права доступа к Приказам' do
       before(:each) do
-        sign_in(user)
+        sign_in(employee.user)
       end
 
       describe 'GET-запрос index' do
@@ -44,8 +44,8 @@ RSpec.describe Office::OrdersController, type: :controller do
 
     context 'имеющего права доступа к Приказам' do
       before(:each) do
-        user.has_role!(:developer)
-        sign_in(user)
+        employee.positions << FactoryGirl.create(:position_in_otdel_informacionnyh_sistem)
+        sign_in(employee.user)
       end
 
       describe 'GET-запрос index' do

@@ -9,11 +9,12 @@ class Ability
 
     employee = user.employee
 
-    employee.positions.each do |position|
-      can :manage, :all if position.has_role?(:developer)
-    end
+    # employee.positions.each do |position|
+    #   can :manage, :all if position.has_role?(:developer)
+    # end
 
-    obschiy_otdel if employee.works_in?(Department.find_by(id: 40))
+    otdel_informacionnyh_sistem if employee.works_in?(1)
+    obschiy_otdel if employee.works_in?(40)
 
     # Define abilities for the passed in user here. For example:
     #
@@ -41,6 +42,10 @@ class Ability
     #
     # See the wiki for details:
     # https://github.com/CanCanCommunity/cancancan/wiki/Defining-Abilities
+  end
+
+  def otdel_informacionnyh_sistem
+    can :manage, :all
   end
 
   def obschiy_otdel
