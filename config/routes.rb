@@ -15,6 +15,10 @@ Rails.application.routes.draw do
     end
   end
 
+  scope ':year', defaults: { year: 2015 } do
+    get 'study_plans' => 'study/plans#study_plans'
+  end
+
   root 'welcome#index'
 
   # Example of regular route:
