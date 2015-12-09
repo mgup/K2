@@ -19,7 +19,11 @@ class Direction < ActiveRecord::Base
 
   def full_code
     if code.present?
-      code
+      if code.include?('.02.')
+        "#{code} (.#{old_qualification})"
+      else
+        code
+      end
     else
       "#{old_code}.#{old_qualification}"
     end

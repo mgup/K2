@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe UsersController, type: :controller do
+RSpec.describe EmployeesController, type: :controller do
   context 'для неавторизованного пользователя' do
     before(:each) do
       expect(subject.current_user).to be_nil
@@ -20,7 +20,7 @@ RSpec.describe UsersController, type: :controller do
   end
 
   context 'для авторизованного пользователя' do
-    let(:user) { FactoryGirl.create(:user) }
+    let(:employee) { FactoryGirl.create(:employee) }
 
     context 'не имеющего права доступа к Сотрудникам' do
       before(:each) do
@@ -59,7 +59,7 @@ RSpec.describe UsersController, type: :controller do
 
         it 'инициализирует список сотрудников' do
           get :index
-          expect(assigns(:users)).to eq([user])
+          expect(assigns(:employees)).to eq([user])
         end
       end
     end

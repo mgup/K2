@@ -4,7 +4,7 @@ vshlyaga_position = Hr::Position.create!(
   id: 1,
   department_id: 1,
   qualification_id: 3,
-  user_id: 1
+  employee_id: 1
 )
 vshlyaga_position.add_role :developer
 

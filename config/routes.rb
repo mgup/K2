@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   resources :departments, only: [:index, :show]
 
-  resources :users
+  resources :employees
 
   namespace :office do
     resources :document_types, shallow: true, only: [] do

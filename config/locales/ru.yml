@@ -1,15 +1,15 @@
 ru:
   activerecord:
     models:
-      user: сотрудник
+      employee: сотрудник
       education_document:
         one: документ об образовании
         other: документы об образовании
       office/order: документ
     attributes:
-      user:
+      employee:
         education_documents: документы об образовании
-      user/education_documents:
+      employee/education_documents:
         year_of_ending: год окончания в документе об образовании
       office/order:
         number: регистрационный номер

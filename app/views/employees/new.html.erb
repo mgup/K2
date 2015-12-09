@@ -1,0 +1,11 @@
+<% content_for :title, 'Добавление сотрудника'  %>
+
+<%= render 'form' %>
+
+<ul class="button-group even-2">
+  <li>
+    <%= link_to employees_path, class: 'button secondary' do %>
+      <i class="fa fa-arrow-left"></i> Вернуться ко всем сотрудникам
+    <% end %>
+  </li>
+</ul>

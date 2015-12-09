@@ -3,7 +3,7 @@ class CreateHrPositions < ActiveRecord::Migration
     create_table :hr_positions do |t|
       t.references :department, foreign_key: true, index: true, null: false
       t.references :qualification, index: true, null: false
-      t.references :user, foreign_key: true, index: true
+      t.references :employee, foreign_key: true, index: true
 
       t.timestamps null: false
     end

@@ -1,3 +1,5 @@
+# Модель для полиморфного хранения персональных данных человека
+# (сотрудника, студента и т.д.).
 class Person < ActiveRecord::Base
   has_paper_trail
 
@@ -11,7 +13,7 @@ class Person < ActiveRecord::Base
   belongs_to :personable, polymorphic: true
 
   has_many :foreign_languages, class_name: 'Hr::ForeignLanguage',
-           dependent: :destroy
+                               dependent: :destroy
   has_many :languages, through: :foreign_languages
   has_many :education_documents, as: :person
   has_many :relatives, as: :person
@@ -25,8 +27,8 @@ class Person < ActiveRecord::Base
 
   education_document_reject_condition = lambda do |fl|
     fl[:institution].blank? || fl[:name].blank? ||
-      fl[:number].blank? || fl[:year_of_ending].blank? ||
-      fl[:direction_id].blank?
+    fl[:number].blank? || fl[:year_of_ending].blank? ||
+    fl[:direction_id].blank?
   end
   accepts_nested_attributes_for :education_documents,
                                 reject_if: education_document_reject_condition,

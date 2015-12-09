@@ -1,0 +1,8 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Start development" type="CompoundRunConfigurationType" factoryName="Compound Run Configuration">
+    <toRun type="IrbRunConfigurationType" name="console" />
+    <toRun type="RailsRunConfigurationType" name="server" />
+    <toRun type="RakeRunConfigurationType" name="sunspot:solr:run" />
+    <method />
+  </configuration>
+</component>

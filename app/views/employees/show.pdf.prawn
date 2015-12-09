@@ -60,10 +60,10 @@ prawn_document do |pdf|
               ],
               [
                 '', '', '', '',
-                @user.last_name.first,
+                @employee.last_name.first,
                 '',
                 '',
-                @user.male? ? 'мужской' : 'женский'
+                @employee.male? ? 'мужской' : 'женский'
               ]
             ], column_widths: [52, 47, 103, 123, 25, 42],
                cell_style: { align: :center }) do
@@ -103,13 +103,13 @@ prawn_document do |pdf|
            'Отчество ___________________________________________'
 
     pdf.font('PT Mono') do
-      pdf.text_box @user.last_name, size: 10, font: 'PT Mono', align: :center,
+      pdf.text_box @employee.last_name, size: 10, font: 'PT Mono', align: :center,
                    overflow: :shrink_to_fit,
                    at: [43, 475], width: 138, height: 10
-      pdf.text_box @user.first_name, size: 10, font: 'PT Mono', align: :center,
+      pdf.text_box @employee.first_name, size: 10, font: 'PT Mono', align: :center,
                    overflow: :shrink_to_fit,
                    at: [202, 475], width: 138, height: 10
-      pdf.text_box @user.patronymic, size: 10, font: 'PT Mono', align: :center,
+      pdf.text_box @employee.patronymic, size: 10, font: 'PT Mono', align: :center,
                    overflow: :shrink_to_fit,
                    at: [378, 475], width: 138, height: 10
     end
@@ -138,14 +138,14 @@ prawn_document do |pdf|
                      width: pdf.bounds.width, height: 530) do
       data = [
         ['', 'код'],
-        ['', l(@user.birthdate)],
+        ['', l(@employee.birthdate)],
         ['по ОКАТО', ''],
-        ['по ОКИН', "02#{@user.citizenship.id}"],
+        ['по ОКИН', "02#{@employee.citizenship.id}"],
         ['по ОКИН', ''],
         ['по ОКИН', ''],
-        ['по ОКИН', "30 #{@user.education_level.id}"]
+        ['по ОКИН', "30 #{@employee.education_level.id}"]
       ]
-      @user.foreign_languages.each_with_index do |fl, i|
+      @employee.foreign_languages.each_with_index do |fl, i|
         data[4 + i][1] = "04 #{fl.language.id.to_s.rjust(3, '0')}; 05#{fl.language_proficiency.id}"
       end
 
@@ -163,7 +163,7 @@ prawn_document do |pdf|
 
     pdf.bounding_box([109, 398],
                      width: 324, height: 530) do
-      data = @user.foreign_languages.map do |fl|
+      data = @employee.foreign_languages.map do |fl|
         [fl.language.name, '', fl.language_proficiency.name]
       end
       (2 - data.size).times { data << ['', '', ''] }
@@ -179,26 +179,26 @@ prawn_document do |pdf|
     end
 
     pdf.font('PT Mono') do
-      pdf.text_box l(@user.birthdate, format: :long), size: 10,
+      pdf.text_box l(@employee.birthdate, format: :long), size: 10,
                    font: 'PT Mono', align: :center,
                    overflow: :shrink_to_fit,
                    at: [64, 448], width: 375
 
-      pdf.text_box @user.birthplace, size: 10, font: 'PT Mono',
+      pdf.text_box @employee.birthplace, size: 10, font: 'PT Mono',
                    align: :center, overflow: :shrink_to_fit,
                    at: [69, 428], width: 370
 
-      pdf.text_box @user.citizenship.name, size: 10, font: 'PT Mono',
+      pdf.text_box @employee.citizenship.name, size: 10, font: 'PT Mono',
                    align: :center, overflow: :shrink_to_fit,
-                   at: [55, 407], width: 378
+                   at: [55, 408], width: 378
 
-      pdf.text_box @user.education_level.name, size: 10, font: 'PT Mono',
+      pdf.text_box @employee.education_level.name, size: 10, font: 'PT Mono',
                    align: :center, overflow: :shrink_to_fit,
                    at: [57, 347], width: 374
     end
 
     pdf.bounding_box([0, 325], width: pdf.bounds.width) do
-      @user.education_documents.each do |document|
+      @employee.education_documents.each do |document|
         pdf.table([
                     [
                       { content: 'Наименование образовательного учреждения',

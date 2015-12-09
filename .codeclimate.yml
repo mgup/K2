@@ -20,4 +20,5 @@ ratings:
   paths:
   - app/**
 exclude_paths:
+- .codeclimate.yml
 - app/assets/stylesheets/application.css.scss

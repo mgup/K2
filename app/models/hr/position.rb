@@ -6,12 +6,10 @@ class Hr::Position < ActiveRecord::Base
 
   belongs_to :department
   belongs_to :qualification, class_name: 'Hr::Qualification'
-  belongs_to :user
+  belongs_to :employee
 
-  scope :hired, -> { where('user_id IS NOT NULL') }
-  scope :vacant, -> { where('user_id IS NULL') }
-
-  alias :employee :user
+  scope :hired, -> { where('employee_id IS NOT NULL') }
+  scope :vacant, -> { where('employee_id IS NULL') }
 
   delegate :name, to: :qualification
 

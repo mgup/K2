@@ -1,17 +1,17 @@
-<%= form_for @user, data: { abide: true } do |f| %>
+<%= form_for @employee, data: { abide: true } do |f| %>
   <%= f.hidden_field :id %>
 
-  <% if @user.errors.any? %>
+  <% if @employee.errors.any? %>
     <div class="alert-box alert radius">
       <p>
-        <%= @user.errors.count %>
-        <%= Russian::pluralize(@user.errors.count,
+        <%= @employee.errors.count %>
+        <%= Russian::pluralize(@employee.errors.count,
                                'ошибка', 'ошибки', 'ошибок') %>
         не позволяют сохранить данные:
       </p>
 
       <ul>
-        <% @user.errors.full_messages.each do |message| %>
+        <% @employee.errors.full_messages.each do |message| %>
           <li><%= message %></li>
         <% end %>
       </ul>
@@ -25,12 +25,14 @@
           Фамилия
           <%= person_form.text_field :last_name, required: true %>
         </label>
+        <span class="error">Необходимо указать фамилию.</span>
       </div>
       <div class="medium-4 columns">
         <label>
           Имя
           <%= person_form.text_field :first_name, required: true %>
         </label>
+        <span class="error">Необходимо указать имя.</span>
       </div>
       <div class="medium-4 columns">
         <label>
@@ -100,9 +102,14 @@
 
     <div class="row">
       <div class="large12 columns">
+        <a name="education_documents"></a>
         <%= person_form.fields_for :education_documents do |builder| %>
           <%= render 'education_document_fields', f: builder %>
         <% end %>
+
+        <%= link_to_add_fields '+ Добавить документ об образовании',
+                               person_form, :education_documents %>
+        <br><br>
       </div>
     </div>
   <% end %>

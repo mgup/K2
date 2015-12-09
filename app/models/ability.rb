@@ -1,16 +1,19 @@
+# Модель, упралвяющая правами доступа назначений (Hr::Position).
 class Ability
   include CanCan::Ability
 
   def initialize(user)
     user ||= User.new
 
-    user.positions.each do |position|
-      if position.has_role?(:developer)
-        can :manage, :all
-      end
+    return unless user.employee.present?
+
+    employee = user.employee
+
+    employee.positions.each do |position|
+      can :manage, :all if position.has_role?(:developer)
     end
 
-    obschiy_otdel if user.works_in?(Department.find_by(id: 40))
+    obschiy_otdel if employee.works_in?(Department.find_by(id: 40))
 
     # Define abilities for the passed in user here. For example:
     #
