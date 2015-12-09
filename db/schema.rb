@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151105133947) do
+ActiveRecord::Schema.define(version: 20151207112946) do
 
   create_table "academic_degrees", force: :cascade do |t|
     t.string   "name",       limit: 255, null: false
@@ -268,6 +268,62 @@ ActiveRecord::Schema.define(version: 20151105133947) do
   add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id", using: :btree
   add_index "roles", ["name"], name: "index_roles_on_name", using: :btree
 
+  create_table "study_classes", force: :cascade do |t|
+    t.integer  "plan_id",    limit: 4
+    t.integer  "semester",   limit: 4
+    t.integer  "type",       limit: 4
+    t.integer  "hours",      limit: 4
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "study_classes", ["plan_id"], name: "index_study_classes_on_plan_id", using: :btree
+
+  create_table "study_exams", force: :cascade do |t|
+    t.integer  "plan_id",    limit: 4
+    t.integer  "semester",   limit: 4
+    t.integer  "type",       limit: 4
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "study_exams", ["plan_id"], name: "index_study_exams_on_plan_id", using: :btree
+
+  create_table "study_plan_parts", force: :cascade do |t|
+    t.integer  "parent_id",  limit: 4
+    t.string   "name",       limit: 255
+    t.string   "ind",        limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "study_plan_parts", ["parent_id"], name: "index_study_plan_parts_on_parent_id", using: :btree
+
+  create_table "study_plans", force: :cascade do |t|
+    t.integer  "part_id",        limit: 4
+    t.integer  "direction_id",   limit: 4
+    t.integer  "department_id",  limit: 4
+    t.string   "name",           limit: 255
+    t.string   "ind",            limit: 255
+    t.integer  "admission_year", limit: 4
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  add_index "study_plans", ["department_id"], name: "index_study_plans_on_department_id", using: :btree
+  add_index "study_plans", ["direction_id"], name: "index_study_plans_on_direction_id", using: :btree
+  add_index "study_plans", ["part_id"], name: "index_study_plans_on_part_id", using: :btree
+
+  create_table "study_zets", force: :cascade do |t|
+    t.integer  "plan_id",    limit: 4
+    t.integer  "semester",   limit: 4
+    t.float    "amount",     limit: 24
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
+
+  add_index "study_zets", ["plan_id"], name: "index_study_zets_on_plan_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "", null: false
     t.string   "encrypted_password",     limit: 255, default: "", null: false
@@ -326,4 +382,6 @@ ActiveRecord::Schema.define(version: 20151105133947) do
   add_foreign_key "people", "education_levels"
   add_foreign_key "people", "marital_statuses"
   add_foreign_key "relatives", "relationships"
+  add_foreign_key "study_plans", "departments"
+  add_foreign_key "study_plans", "directions"
 end
