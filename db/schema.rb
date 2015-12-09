@@ -31,15 +31,6 @@ ActiveRecord::Schema.define(version: 20151207112946) do
     t.datetime "updated_at",             null: false
   end
 
-  create_table "department_hierarchies", id: false, force: :cascade do |t|
-    t.integer "ancestor_id",   limit: 4, null: false
-    t.integer "descendant_id", limit: 4, null: false
-    t.integer "generations",   limit: 4, null: false
-  end
-
-  add_index "department_hierarchies", ["ancestor_id", "descendant_id", "generations"], name: "department_anc_desc_idx", unique: true, using: :btree
-  add_index "department_hierarchies", ["descendant_id"], name: "department_desc_idx", using: :btree
-
   create_table "departments", force: :cascade do |t|
     t.integer  "parent_id",    limit: 4
     t.string   "name",         limit: 255

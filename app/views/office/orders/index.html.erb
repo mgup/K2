@@ -26,7 +26,9 @@
 </div>
 
 <% if params[:q] %>
-  <%= link_to 'вернуться ко всем приказам', url_for(params.except(:q)), class: 'right' %>
+  <%= link_to url_for(params.except(:q)), class: 'right' do %>
+    &larr; вернуться ко всем приказам
+  <% end %>
 
   <p>
     Результаты поиска по запросу

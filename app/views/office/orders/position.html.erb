@@ -1,9 +1,9 @@
 <% if @orders.any? %>
   <table class="table">
-    <caption>Уже зарегистрированные документы (&#177; 1)</caption>
+    <caption>Уже зарегистрированные документы (± 1)</caption>
     <tbody>
     <% @orders.each do |order| %>
-      <tr>
+      <tr style="<%= 'font-style: italic;' if order.number.to_s == params[:number] %>">
         <th><%= order.number %></th>
         <td><%= order.full_number %></td>
         <td><%= l(order.date) %></td>
