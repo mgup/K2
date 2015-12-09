@@ -69,7 +69,7 @@ RSpec.describe Office::OrdersController, type: :controller do
           end
         end
 
-        context 'при поиске по ключевым словам', focus: true, search: true do
+        context 'при поиске по ключевым словам', search: true do
           let(:order_with_keyword) do
             FactoryGirl.create(:office_order, title: 'keyword1 keyword2')
             Sunspot.commit
