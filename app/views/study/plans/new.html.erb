@@ -1,0 +1,12 @@
+<% content_for :title, 'Создание рабочего плана' %>
+
+<%# render 'form' %>
+
+<ul class="button-group even-2">
+    <li>
+        <%= link_to study_study_plans_path(year: params[:year]),
+                    class: 'button secondary' do %>
+          <i class="fa fa-arrow-left"></i> Вернуться к учебным планам
+        <% end %>
+    </li>
+</ul>

@@ -970,14 +970,16 @@ directions = [
     name: 'Информатика и вычислительная техника',
     old_code: '230100',
     old_qualification: 62,
-    ugs_code: '09.00.00'
+    ugs_code: '09.00.00',
+    department_id: 50
   },
   {
     code: '09.03.02',
     name: 'Информационные системы и технологии',
     old_code: '230400',
     old_qualification: 62,
-    ugs_code: '09.00.00'
+    ugs_code: '09.00.00',
+    department_id: 50
   },
   {
     code: '09.03.03',
@@ -7858,7 +7860,8 @@ directions = [
     name: 'Реклама и связи с общественностью',
     old_code: '031600',
     old_qualification: 62,
-    ugs_code: '42.00.00'
+    ugs_code: '42.00.00',
+    department_id: 49
   },
   {
     code: '42.03.02',

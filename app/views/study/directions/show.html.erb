@@ -1,0 +1,15 @@
+<% content_for :title, "Учебный план «#{@direction.full_name}» - #{params[:year]}" %>
+
+<ul class="accordion" data-accordion data-allow-all-closed="true">
+    <% Study::PlanPart.blocks.each do |block| %>
+      <li class="accordion-navigation">
+          <a href="#block<%= block.id %>" role="tab" class="accordion-title" id="panel1d-heading" aria-controls="block<%= block.id %>"><strong><%= block.ind %></strong> <%= block.name %></a>
+          <div id="block<%= block.id %>" class="content" role="tabpanel" data-tab-content aria-labelledby="panel1d-heading">
+            <ul class="no-bullet">
+              <%= render partial: 'part_rows', locals: {parts: block.subparts} %>
+            </ul>
+          </div>
+      </li>
+    <% end %>
+</ul>
+

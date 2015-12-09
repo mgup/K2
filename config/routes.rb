@@ -15,9 +15,14 @@ Rails.application.routes.draw do
     end
   end
 
-  scope ':year', defaults: { year: 2015 } do
-    get 'study_plans' => 'study/plans#study_plans'
+  namespace :study do
+    scope ':year', defaults: { year: 2015 } do
+      resources :directions, only: [:index,:show] do
+        resources :plans
+      end
+    end
   end
+
 
   root 'welcome#index'
 

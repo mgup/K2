@@ -9,4 +9,7 @@ class Study::Plan < ActiveRecord::Base
   belongs_to :department
   belongs_to :direction
 
+  scope :from_admission_year, -> (year) { where(admission_year: year) }
+  scope :from_part_id, -> (part_id) { where(part_id: part_id) }
+
 end

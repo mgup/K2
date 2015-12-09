@@ -1,0 +1,12 @@
+<% parts.each do |p| %>
+  <li>
+      <strong><%= p.ind %></strong> <%= p.name %>
+      <% if @plans.from_part_id(p.id).empty? && p.subparts.empty? %>
+        <p>Нет единиц учебного плана. <%= link_to 'Добавить?', new_study_direction_plan_path(year: params[:year], direction_id: @direction.id, part_id: p.id) %></p>
+      <% else %>
+      <% end %>
+      <% unless p.subparts.empty? %>
+        <ul class="no-bullet"><%= render partial: 'part_rows', locals: {parts: p.subparts} %></ul>
+      <% end %>
+  </li>
+<% end %>

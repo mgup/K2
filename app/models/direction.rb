@@ -6,6 +6,7 @@ class Direction < ActiveRecord::Base
   belongs_to :department
 
   has_many :education_documents
+  has_many :plans, class_name: 'Study::Plan'
 
   validates :direction_category_id, presence: true
 
@@ -16,6 +17,8 @@ class Direction < ActiveRecord::Base
   scope :with_old, lambda {
     unscoped.order(:name, :code, :old_code)
   }
+
+  scope :accredited, -> { where('department_id IS NOT NULL') }
 
   def full_code
     if code.present?
