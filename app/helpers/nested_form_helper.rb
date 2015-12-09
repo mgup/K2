@@ -7,8 +7,9 @@ module NestedFormHelper
       render(association.to_s.singularize + '_fields', f: builder)
     end
 
-    link_to name, '#', onclick: "add_fields(this, '#{association}', "\
-                                "'#{escape_javascript(fields)}')"
+    link_to name, "##{association}",
+            onclick: "add_fields(this, '#{association}', "\
+                     "'#{escape_javascript(fields)}')"
   end
 
   def link_to_remove_fields(name, f)

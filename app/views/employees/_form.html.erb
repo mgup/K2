@@ -102,9 +102,14 @@
 
     <div class="row">
       <div class="large12 columns">
+        <a name="education_documents"></a>
         <%= person_form.fields_for :education_documents do |builder| %>
           <%= render 'education_document_fields', f: builder %>
         <% end %>
+
+        <%= link_to_add_fields '+ Добавить документ об образовании',
+                               person_form, :education_documents %>
+        <br><br>
       </div>
     </div>
   <% end %>

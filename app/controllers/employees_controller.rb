@@ -5,8 +5,6 @@ class EmployeesController < ApplicationController
 
   load_and_authorize_resource
 
-  before_action :set_employee, only: [:show, :edit, :update]
-
   def index
     @employees = Employee.page(params[:page])
   end
@@ -14,7 +12,6 @@ class EmployeesController < ApplicationController
   def new
     @employee.build_person
     2.times { @employee.foreign_languages.build }
-    @employee.education_documents.build
   end
 
   def show
@@ -25,17 +22,12 @@ class EmployeesController < ApplicationController
   end
 
   def edit
-    (2 - @employee.person.foreign_languages.count).times do
-      @employee.person.foreign_languages.build
+    (2 - @employee.foreign_languages.count).times do
+      @employee.foreign_languages.build
     end
-
-    education_documents = @employee.person.education_documents
-    education_documents.build if education_documents.empty?
   end
 
   def create
-    @employee = User.new(user_params)
-
     if @employee.save
       respond_with @employee, location: -> { employees_path }
     else
@@ -52,10 +44,6 @@ class EmployeesController < ApplicationController
   end
 
   private
-
-  def set_employee
-    @employee = Employee.find(params[:id])
-  end
 
   def employee_params
     params
