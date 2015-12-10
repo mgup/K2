@@ -9,5 +9,5 @@ class Study::PlanPart < ActiveRecord::Base
 
   has_many   :plans, class_name: 'Study::Plan'
 
-
+  scope :blocks, -> { where('parent_id IS NULL') }
 end

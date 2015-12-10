@@ -1,0 +1,43 @@
+<% content_for :title, 'Учебные планы' %>
+
+<form>
+  <label>Выберите год начала обучения
+      <%= select_tag :year, options_for_select([2015,2016], params[:year]),
+                     onchange: %q(document.location = '/study/' + $(this).val() + '/directions';) %>
+  </label>
+</form>
+
+<ul class="accordion" data-accordion data-allow-all-closed="true">
+    <% @directions.each do |faculty, subdepartments| %>
+      <li class="accordion-navigation">
+          <a href="#panel<%= faculty.id %>" role="tab" class="accordion-title" id="panel1d-heading" aria-controls="panel<%= faculty.id %>"><%= faculty.name %></a>
+          <div id="panel<%= faculty.id %>" class="content" role="tabpanel" data-tab-content aria-labelledby="panel1d-heading">
+             <% subdepartments.each do |sub, directions| %>
+                <h4 class="text-center"><%= sub.name %></h4>
+                <table class="table full-width">
+                    <thead>
+                      <tr>
+                          <th>Направление/профиль</th>
+                          <th>Группы</th>
+                          <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    <% directions.each do |d| %>
+                      <tr>
+                         <td><%= d.full_name %></td>
+                         <td>названия групп <%# d.groups.collect(&:name).join(', ') %></td>
+                         <td>
+                             <%= link_to study_direction_path(year: params[:year], id: d.id), title: "Добавить учебный план на #{params[:year]} год" do %>
+                               <i class="fa fa-file-text-o"></i>
+                             <% end %>
+                         </td>
+                      </tr>
+                    <% end %>
+                    </tbody>
+                </table>
+             <% end %>
+          </div>
+      </li>
+    <% end %>
+</ul>

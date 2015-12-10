@@ -1,3 +1,4 @@
+require_relative 'seeds/departments'
 require_relative 'seeds/direction_categories'
 require_relative 'seeds/directions'
 
@@ -6,7 +7,7 @@ require_relative 'seeds/relationships'
 
 require_relative 'seeds/employee_categories'
 require_relative 'seeds/hr_qualifications'
-require_relative 'seeds/departments'
+
 
 Office::DocumentType.delete_all
 [
@@ -147,3 +148,4 @@ Employee.create!(
 # )
 
 require_relative 'seeds/hr_positions'
+require_relative 'seeds/study_plan_parts'

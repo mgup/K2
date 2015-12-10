@@ -260,3 +260,34 @@ Department.create!(
   name: 'Редакция журнала «Высшее образование в России»',
   abbreviation: 'Редакция журнала «Высшее образование в России»'
 )
+Department.create!(
+  id: 46,
+  parent_id: 3,
+  name: 'Первый проректор по учебной работе',
+  abbreviation: 'Первый проректор по учебной работе'
+)
+Department.create!(
+  id: 47,
+  parent_id: 46,
+  name: 'Институт принтмедиа и информационных технологий',
+  abbreviation: 'ИПИТ'
+)
+Department.create!(
+  id: 48,
+  parent_id: 46,
+  name: 'Институт коммуникаций и медиабизнеса',
+  abbreviation: 'ИКИМ'
+)
+Department.create!(
+  id: 49,
+  parent_id: 48,
+  name: 'Кафедра "Реклама и связи с общественностью в медиаиндустрии"',
+  abbreviation: 'РиСО'
+)
+Department.create!(
+  id: 50,
+  parent_id: 47,
+  name: 'Кафедра "Информатика и информационные технологии"',
+  abbreviation: 'ИиИТ'
+)
+
