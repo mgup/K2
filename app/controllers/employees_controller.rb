@@ -37,8 +37,7 @@ class EmployeesController < ApplicationController
 
   def update
     if @employee.update(employee_params)
-      # TODO and password_changed?
-      sign_in @employee.user, bypass: true if current_user == @employee.user
+      sign_in_current_user_after_password_changed
 
       respond_with @employee, location: -> { employees_path }
     else
@@ -90,5 +89,13 @@ class EmployeesController < ApplicationController
     [
       :id, :name, :relationship_id, :year_of_birth, :_destroy
     ]
+  end
+
+  def sign_in_current_user_after_password_changed
+    return if employee_params
+              .try(:[], :user_attributes)
+              .try(:[], :password).blank?
+
+    sign_in @employee.user, bypass: true if current_user == @employee.user
   end
 end

@@ -9,14 +9,7 @@ class User < ActiveRecord::Base
 
   belongs_to :userable, polymorphic: true
 
-  # validates_presence_of :password, on: :create
-  # validates_presence_of :password, on: :update, allow_blank: true
-  #
-  # before_update :hash_password, if: :password_changed?
-  #
-  # def hash_password
-  #   self.password = self.password_was if self.password.blank?
-  # end
+  delegate :full_name, to: :userable
 
   def to_param
     "#{id} #{full_name}".parameterize
@@ -26,17 +19,7 @@ class User < ActiveRecord::Base
     full_name
   end
 
-  def full_name
-    return userable.person.full_name
-  end
-
   def employee?
     userable.instance_of?(Employee)
-  end
-
-  protected
-
-  def password_required?
-    !password.blank? && super
   end
 end
