@@ -1,0 +1,26 @@
+.semester-row {
+  padding: 5px 2%;
+  height: 70px;
+  margin-bottom: 15px;
+
+  .columns {
+    height: 30px;
+    width: 14.28%;
+    background: #eee;
+    border: 1px solid #ccc;
+    text-align: center;
+    color: #666;
+    margin-bottom: 3px;
+    cursor: pointer;
+
+    &:hover {
+      background: #aaa;
+      color: #333;
+      border: 2px solid #555;
+    }
+  }
+}
+
+.semester-div {
+  display: none;
+}

@@ -1,0 +1,138 @@
+<%= form_for @plan,
+             url: @plan.persisted? ? @plan : study_direction_plans_path(
+               direction_id: @direction.id, year: params[:year]),
+             data: { abide: true } do |f| %>
+  <%= f.hidden_field :id %>
+  <%= f.hidden_field :part_id, value: @part.id %>
+  <%= f.hidden_field :admission_year, value: @part.id %>
+
+  <% if @plan.errors.any? %>
+    <div class="alert-box alert radius">
+        <p>
+            <%= @plan.errors.count %>
+            <%= Russian::pluralize(@order.errors.count,
+                                   'ошибка', 'ошибки', 'ошибок') %>
+            не позволяют сохранить данные:
+        </p>
+
+        <ul>
+            <% @plan.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+        </ul>
+    </div>
+  <% end %>
+
+  <div class="row">
+      <div class="large-12 columns">
+          <label>
+              Раздел учебного плана
+              <input type="text" value="<%= @part.name %>" disabled>
+          </label>
+      </div>
+  </div>
+
+  <div class="row">
+      <div class="medium-3 columns">
+          <label>
+              Индекс
+              <%= f.text_field :ind, value: "#{@part.ind}.#{@part_plans.length+1}",required: true, class: 'study-plan-ind' %>
+          </label>
+      </div>
+  </div>
+
+  <div class="row">
+      <div class="large-12 columns">
+          <label>
+              Название
+              <%= f.text_field :name, required: true %>
+          </label>
+          <small class="error">Укажите название единицы учебного плана.</small>
+      </div>
+  </div>
+
+  <div class="row">
+      <div class="large-12 columns">
+          <label>
+              Кафедра
+              <!-- TODO оставить только кафедры -->
+              <%= f.select :department_id,
+                      Department.all.map { |el| [el.name, el.id] },
+                      prompt: 'Выберите кафедру' %>
+          </label>
+      </div>
+  </div>
+
+  <fieldset>
+    <legend>Контроль распределения часов</legend>
+    <div class="row semester-row">
+      <% (1..7).each do |n| %>
+      <div class="columns semester-click" id="semester<%= n %>" data-value="<%= n %>">
+        <%= n %> семестр
+      </div>
+      <% end %>
+      <small>Нажмите на семестр, чтобы добавить его в учебный план</small>
+    </div>
+
+
+    <div class="row">
+      <div class="large-6 columns">
+        <h5 class="text-center">Формы контроля</h5>
+        <table class="table full-width">
+          <thead>
+            <tr>
+              <th>Экзамены</th>
+              <th>Зачеты</th>
+              <th>Зачеты с оценкой</th>
+              <th>Курсовые проекты</th>
+              <th>Курсовые работы</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td data-type="exam">0</td>
+              <td data-type="test">0</td>
+              <td data-type="test-mark">0</td>
+              <td data-type="project">0</td>
+              <td data-type="work">0</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+        <div class="large-6 columns">
+          <h5 class="text-center">Всего часов</h5>
+          <table class="table full-width">
+            <thead>
+              <tr>
+                <th>По ЗЕТ</th>
+                <th>По плану</th>
+                <th>Аудиторные часы</th>
+                <th>Самостоятельная работа студента</th>
+                <th>Контроль</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td data-type="zet-h">0</td>
+                <td data-type="plan-h">0</td>
+                <td data-type="class-h">0</td>
+                <td data-type="self-h">0</td>
+                <td data-type="control-h">0</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+    </div>
+  </fieldset>
+
+  <% (1..7).each do |n| %>
+    <%= render partial: 'semester', locals: {f: f, semester: n} %>
+  <% end %>
+
+  <div class="row">
+      <div class="large-12 columns">
+          <%= f.submit class: 'button' %>
+      </div>
+  </div>
+<% end %>

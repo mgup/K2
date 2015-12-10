@@ -1,10 +1,11 @@
-<% content_for :title, 'Создание рабочего плана' %>
+<% content_for :title, "#{@part.ind} - «#{@direction.full_name}» - #{params[:year]}" %>
 
-<%# render 'form' %>
+<h3>Новая единица учебного плана <small><%= @part.name %></small></h3>
+<%= render 'form' %>
 
 <ul class="button-group even-2">
     <li>
-        <%= link_to study_study_plans_path(year: params[:year]),
+        <%= link_to study_direction_path(id: @direction.id, year: params[:year]),
                     class: 'button secondary' do %>
           <i class="fa fa-arrow-left"></i> Вернуться к учебным планам
         <% end %>
