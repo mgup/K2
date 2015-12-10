@@ -2,6 +2,7 @@ ru:
   activerecord:
     models:
       employee: сотрудник
+      user: пользователь
       education_document:
         one: документ об образовании
         other: документы об образовании
@@ -9,6 +10,10 @@ ru:
     attributes:
       employee:
         education_documents: документы об образовании
+      user:
+        email: электронная почта
+        password: пароль
+        password_confirmation: пароль
       employee/education_documents:
         year_of_ending: год окончания в документе об образовании
       office/order:

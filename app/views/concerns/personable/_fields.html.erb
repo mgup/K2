@@ -62,7 +62,7 @@
       Знание иностранного языка
     </label>
     <%= f.fields_for :foreign_languages do |builder| %>
-      <%= render 'personable/foreign_language_fields', f: builder %>
+      <%= render 'concerns/personable/foreign_language_fields', f: builder %>
     <% end %>
   </div>
 </div>
@@ -83,12 +83,13 @@
   <div class="large12 columns">
     <a name="education_documents"></a>
     <%= f.fields_for :education_documents do |builder| %>
-      <%= render 'personable/education_document_fields', f: builder %>
+      <%= render 'concerns/personable/education_document_fields', f: builder %>
     <% end %>
 
     <%= link_to_add_fields '+ Добавить документ об образовании',
                            f, :education_documents,
-                           partial: 'personable/education_document_fields' %>
+                           partial:
+                             'concerns/personable/education_document_fields' %>
     <br><br>
   </div>
 </div>

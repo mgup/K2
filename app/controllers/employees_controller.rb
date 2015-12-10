@@ -37,6 +37,9 @@ class EmployeesController < ApplicationController
 
   def update
     if @employee.update(employee_params)
+      # TODO and password_changed?
+      sign_in @employee.user, bypass: true if current_user == @employee.user
+
       respond_with @employee, location: -> { employees_path }
     else
       render :edit
@@ -48,10 +51,17 @@ class EmployeesController < ApplicationController
   def employee_params
     params
       .require(:employee)
-      .permit(person_attributes: [
-        :id, :last_name, :first_name, :patronymic, :birthdate, :birthplace,
-        :sex, :citizenship_id, :education_level_id, nested_models_attributes
-      ])
+      .permit(
+        user_attributes: user_attributes,
+        person_attributes: [
+          :id, :last_name, :first_name, :patronymic, :birthdate, :birthplace,
+          :sex, :citizenship_id, :education_level_id, nested_models_attributes
+        ]
+      )
+  end
+
+  def user_attributes
+    [:id, :email, :password, :password_confirmation, :_destroy]
   end
 
   def nested_models_attributes

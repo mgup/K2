@@ -1,0 +1,25 @@
+<div class="row fields">
+  <div class="medium-5 columns">
+    <label>
+      Электронная почта
+      <%= f.email_field :email, required: true %>
+    </label>
+    <span class="error">Необходимо указать адрес электронной почты.</span>
+  </div>
+  <div class="medium-3 columns">
+    <label>
+      Пароль
+      <%= f.password_field :password %>
+    </label>
+  </div>
+  <div class="medium-3 columns">
+    <label>
+      Подтверждение пароля
+      <%= f.password_field :password_confirmation %>
+    </label>
+  </div>
+  <div class="medium-1 columns">
+    <br>
+    <%= link_to_remove_fields '&times;'.html_safe, f %>
+  </div>
+</div>

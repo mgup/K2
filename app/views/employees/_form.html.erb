@@ -18,8 +18,20 @@
     </div>
   <% end %>
 
+  <% if can?(:manage, User) %>
+    <%= f.fields_for :user do |builder| %>
+      <%= render 'concerns/userable/fields', f: builder %>
+    <% end %>
+
+    <% if @employee.user.blank? %>
+      <%= link_to_add_fields '+ Сделать сотрудника пользователем системы',
+                             f, :user, partial: 'concerns/userable/fields' %>
+      <br><br>
+    <% end %>
+  <% end %>
+
   <%= f.fields_for :person do |builder| %>
-    <%= render 'personable/fields', f: builder %>
+    <%= render 'concerns/personable/fields', f: builder %>
   <% end %>
 
   <div class="row">

@@ -81,18 +81,16 @@ EducationLevel.create(id: 18, name: 'Высшее образование')
 EducationLevel.create(id: 19, name: 'Послевузовское образование')
 
 User.delete_all
-vshlyaga = User.create!(
-  id: 1,
-  email: 'vshlyaga@acm.org',
-  password: '12345678',
-  password_confirmation: '12345678'
-)
-
 Employee.delete_all
+Hr::ForeignLanguage.delete_all
+
 Employee.create!(
   id: 1,
-  user_id: vshlyaga.id,
-
+  user_attributes: {
+    email: 'vshlyaga@acm.org',
+    password: '12345678',
+    password_confirmation: '12345678'
+  },
   person_attributes: {
     last_name: 'Шляга',
     first_name: 'Виталий',

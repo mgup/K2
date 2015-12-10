@@ -99,12 +99,9 @@ ActiveRecord::Schema.define(version: 20151207112946) do
   end
 
   create_table "employees", force: :cascade do |t|
-    t.integer  "user_id",    limit: 4
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
-
-  add_index "employees", ["user_id"], name: "index_employees_on_user_id", using: :btree
 
   create_table "group_memberships", force: :cascade do |t|
     t.integer  "member_id",       limit: 4
@@ -326,6 +323,8 @@ ActiveRecord::Schema.define(version: 20151207112946) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip",     limit: 255
     t.string   "last_sign_in_ip",        limit: 255
+    t.integer  "userable_id",            limit: 4
+    t.string   "userable_type",          limit: 255
     t.datetime "created_at",                                      null: false
     t.datetime "updated_at",                                      null: false
   end
@@ -358,7 +357,6 @@ ActiveRecord::Schema.define(version: 20151207112946) do
   add_foreign_key "directions", "departments"
   add_foreign_key "directions", "direction_categories"
   add_foreign_key "education_documents", "directions"
-  add_foreign_key "employees", "users"
   add_foreign_key "hr_foreign_languages", "language_proficiencies"
   add_foreign_key "hr_foreign_languages", "languages"
   add_foreign_key "hr_foreign_languages", "people"
