@@ -76,15 +76,11 @@ RSpec.describe DepartmentsController, type: :controller do
 
       describe 'GET-запрос index' do
         it 'должен быть успешным' do
-          skip
-
           get :index
           expect(response).to have_http_status(:success)
         end
 
         it 'отображает верное представление' do
-          skip
-
           get :index
           expect(response).to render_template(:index)
         end

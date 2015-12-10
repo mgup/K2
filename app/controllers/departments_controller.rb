@@ -3,12 +3,12 @@ class DepartmentsController < ApplicationController
   respond_to :html
 
   load_and_authorize_resource
+  skip_load_resource only: [:index]
 
   def index
-    @departments = Department.hash_tree
+    @departments = Department.without_parents
   end
 
   def show
-    @department = Department.find(params[:id])
   end
 end

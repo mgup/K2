@@ -1,8 +1,8 @@
 # Хэлперы для упрощения вывода списка подразделений.
 module DepartmentsHelper
   def departments_tree_for(departments = @departments)
-    res = departments.map do |department, nested_departments|
-      render(department) + nested_part(nested_departments)
+    res = departments.map do |department|
+      render(department) + nested_part(department.children)
     end
 
     res.join.html_safe
