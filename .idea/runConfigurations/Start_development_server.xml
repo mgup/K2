@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="server" type="RailsRunConfigurationType" factoryName="Rails">
+  <configuration default="false" name="Start development server" type="RailsRunConfigurationType" factoryName="Rails" singleton="true">
     <predefined_log_file id="RUBY_RAILS_SERVER" enabled="true" />
     <module name="K2" />
     <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="RUBY_ARGS" VALUE="-e $stdout.sync=true;$stderr.sync=true;load($0=ARGV.shift)" />

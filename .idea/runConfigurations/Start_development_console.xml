@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="console" type="IrbRunConfigurationType" factoryName="IRB console">
+  <configuration default="false" name="Start development console" type="IrbRunConfigurationType" factoryName="IRB console">
     <module name="K2" />
     <IRB_RUN_CONFIG NAME="RUBY_ARGS" VALUE="-e $stdout.sync=true;$stderr.sync=true;load($0=ARGV.shift)" />
     <IRB_RUN_CONFIG NAME="WORK DIR" VALUE="$PROJECT_DIR$" />
