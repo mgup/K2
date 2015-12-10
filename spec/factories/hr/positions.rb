@@ -3,14 +3,20 @@ FactoryGirl.define do
     department
     association :qualification, factory: :hr_qualification
 
-    factory :position_in_otdel_informacionnyh_sistem do
-      before(:create) do
-        unless Department.find_by(id: 1).present?
-          create(:otdel_informacionnyh_sistem)
+    {
+      otdel_informacionnyh_sistem: 1,
+      otdel_kadrov: 38,
+      obschiy_otdel: 40
+    }.each do |department_name, department_id|
+      factory "position_in_#{department_name}".to_sym do
+        before(:create) do
+          unless Department.find_by(id: department_id).present?
+            create(department_name)
+          end
         end
-      end
 
-      department_id 1
+        department_id department_id
+      end
     end
   end
 end

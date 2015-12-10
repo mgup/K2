@@ -24,7 +24,7 @@ RSpec.describe EmployeesController, type: :controller do
 
     context 'не имеющего права доступа к Сотрудникам' do
       before(:each) do
-        sign_in(user)
+        sign_in(employee.user)
       end
 
       describe 'GET-запрос index' do
@@ -42,8 +42,8 @@ RSpec.describe EmployeesController, type: :controller do
 
     context 'имеющего права доступа к Сотрудникам' do
       before(:each) do
-        user.has_role!(:developer)
-        sign_in(user)
+        employee.positions << FactoryGirl.create(:position_in_otdel_kadrov)
+        sign_in(employee.user)
       end
 
       describe 'GET-запрос index' do
@@ -59,7 +59,7 @@ RSpec.describe EmployeesController, type: :controller do
 
         it 'инициализирует список сотрудников' do
           get :index
-          expect(assigns(:employees)).to eq([user])
+          expect(assigns(:employees)).to eq([employee])
         end
       end
     end

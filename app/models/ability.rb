@@ -14,6 +14,7 @@ class Ability
     # end
 
     otdel_informacionnyh_sistem if employee.works_in?(1)
+    otdel_kadrov if employee.works_in?(38)
     obschiy_otdel if employee.works_in?(40)
 
     # Define abilities for the passed in user here. For example:
@@ -45,10 +46,22 @@ class Ability
   end
 
   def otdel_informacionnyh_sistem
+    can :manage, :otdel_informacionnyh_sistem
+
     can :manage, :all
   end
 
+  def otdel_kadrov
+    can :manage, :otdel_kadrov
+
+    can :manage, Department
+    can :manage, Employee
+  end
+
   def obschiy_otdel
+    can :manage, :obschiy_otdel
+
+    can :manage, Office::DocumentType
     can :manage, Office::Order
   end
 end

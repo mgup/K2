@@ -23,8 +23,4 @@ class Employee < ActiveRecord::Base
 
     positions.find_all { |p| department == p.department }.any?
   end
-
-  def has_role!(role)
-    positions.reduce(false) { |result, position| result || position.has_role!() }
-  end
 end

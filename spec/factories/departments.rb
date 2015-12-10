@@ -6,6 +6,10 @@ FactoryGirl.define do
       id 1
     end
 
+    factory :otdel_kadrov do
+      id 38
+    end
+
     factory :obschiy_otdel do
       id 40
     end

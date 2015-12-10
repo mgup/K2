@@ -44,7 +44,7 @@ RSpec.describe Office::OrdersController, type: :controller do
 
     context 'имеющего права доступа к Приказам' do
       before(:each) do
-        employee.positions << FactoryGirl.create(:position_in_otdel_informacionnyh_sistem)
+        employee.positions << FactoryGirl.create(:position_in_obschiy_otdel)
         sign_in(employee.user)
       end
 
