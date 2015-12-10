@@ -5,13 +5,15 @@ class Ability
   def initialize(user)
     user ||= User.new
 
-    if user.employee?
-      employee = user.userable
+    return unless user.employee?
 
-      otdel_informacionnyh_sistem if employee.works_in?(1)
-      otdel_kadrov if employee.works_in?(38)
-      obschiy_otdel if employee.works_in?(40)
-    end
+    # if user.employee?
+    employee = user.userable
+
+    otdel_informacionnyh_sistem if employee.works_in?(1)
+    otdel_kadrov if employee.works_in?(38)
+    obschiy_otdel if employee.works_in?(40)
+    # end
 
     # Define abilities for the passed in user here. For example:
     #

@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="sunspot:solr:run" type="RakeRunConfigurationType" factoryName="Rake">
+  <configuration default="false" name="Start Solr server" type="RakeRunConfigurationType" factoryName="Rake" singleton="true">
     <module name="K2" />
     <RAKE_RUN_CONFIG_SETTINGS_ID NAME="RUBY_ARGS" VALUE="-e $stdout.sync=true;$stderr.sync=true;load($0=ARGV.shift)" />
     <RAKE_RUN_CONFIG_SETTINGS_ID NAME="WORK DIR" VALUE="$PROJECT_DIR$" />

@@ -2,7 +2,7 @@
   <configuration default="false" name="Start development" type="CompoundRunConfigurationType" factoryName="Compound Run Configuration">
     <toRun type="IrbRunConfigurationType" name="Start development console" />
     <toRun type="RailsRunConfigurationType" name="Start development server" />
-    <toRun type="RakeRunConfigurationType" name="sunspot:solr:run" />
+    <toRun type="RakeRunConfigurationType" name="Start Solr server" />
     <method />
   </configuration>
 </component>
