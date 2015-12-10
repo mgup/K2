@@ -1,0 +1,94 @@
+<div class="row">
+  <div class="medium-4 columns">
+    <label>
+      Фамилия
+      <%= f.text_field :last_name, required: true %>
+    </label>
+    <span class="error">Необходимо указать фамилию.</span>
+  </div>
+  <div class="medium-4 columns">
+    <label>
+      Имя
+      <%= f.text_field :first_name, required: true %>
+    </label>
+    <span class="error">Необходимо указать имя.</span>
+  </div>
+  <div class="medium-4 columns">
+    <label>
+      Отчество
+      <%= f.text_field :patronymic %>
+    </label>
+  </div>
+</div>
+
+<div class="row">
+  <div class="medium-4 columns">
+    <label>
+      Дата рождения
+      <div class="date-select">
+        <%= f.date_select :birthdate, start_year: (Time.zone.today.year - 100) %>
+      </div>
+    </label>
+  </div>
+  <div class="medium-4 columns">
+    <label>
+      Место рождения
+      <%= f.text_field :birthplace %>
+    </label>
+  </div>
+  <div class="medium-4 columns">
+    <label>
+      Пол
+      <%= f.select :sex, [['Мужской', :male],
+                          ['Женский', :female]], {},
+                   required: true %>
+    </label>
+    <span class="error">Необходимо указать пол.</span>
+  </div>
+</div>
+
+<div class="row">
+  <div class="medium-4 columns">
+    <label>
+      Гражданство
+      <%= f.select :citizenship_id,
+                   Citizenship.all.map { |c| [c.name, c.id] }, {},
+                   required: true %>
+    </label>
+    <span class="error">Необходимо указать гражданство.</span>
+  </div>
+  <div class="medium-8 columns">
+    <label>
+      Знание иностранного языка
+    </label>
+    <%= f.fields_for :foreign_languages do |builder| %>
+      <%= render 'personable/foreign_language_fields', f: builder %>
+    <% end %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="large-6 columns">
+    <label>
+      Образование
+      <%= f.select :education_level_id,
+                   EducationLevel.all.map { |el| [el.name, el.id] }, {},
+                   required: true %>
+    </label>
+    <span class="error">Необходимо указать уровень образования.</span>
+  </div>
+</div>
+
+<div class="row">
+  <div class="large12 columns">
+    <a name="education_documents"></a>
+    <%= f.fields_for :education_documents do |builder| %>
+      <%= render 'personable/education_document_fields', f: builder %>
+    <% end %>
+
+    <%= link_to_add_fields '+ Добавить документ об образовании',
+                           f, :education_documents,
+                           partial: 'personable/education_document_fields' %>
+    <br><br>
+  </div>
+</div>
