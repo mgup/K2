@@ -1,7 +1,26 @@
 <div class="semester-div" id="study-semester-<%= semester %>">
-  <%= render partial: 'zets_fields', locals: {f: f, semester: semester} %>
-
-  <%= render partial: 'classes_fields', locals: {f: f, semester: semester} %>
-
-  <%= render partial: 'exams_fields', locals: {f: f, semester: semester} %>
+  <fieldset>
+    <legend><%= semester %> семестр</legend>
+    <h6>ЗЕТ</h6>
+    <%= f.fields_for :zets, f.object.zets.build do |builder| %>
+      <%= render partial: 'zets_fields', locals: {f: builder, semester: semester} %>
+    <% end %>
+    <hr>
+    <br>
+    <h6>Часы</h6>
+    <%= f.fields_for :classes do |builder| %>
+        <%= render partial: 'classes_fields', locals: {f: builder, semester: semester} %>
+    <% end %>
+    <%= link_to_add_fields '+ Добавить часы',  f, :classes,
+                           partial: 'classes_fields', locals: {semester: semester} %>
+    <br>
+    <hr>
+    <br>
+    <h6>Контроль</h6>
+    <%= f.fields_for :exams do |builder| %>
+      <%= render partial: 'exams_fields', locals: {f: builder, semester: semester} %>
+    <% end %>
+    <%= link_to_add_fields '+ Добавить форму контроля',  f, :exams,
+                             partial: 'exams_fields', locals: {semester: semester} %>
+  </fieldset>
 </div>
