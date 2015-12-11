@@ -55,7 +55,7 @@
           <% if can?(:read, Office::Order) %>
             <li><label>Общий отдел</label></li>
             <li>
-              <%= link_to 'Приказы и распоряжения',
+              <%= link_to 'Приказы',
                           office_document_type_orders_path(Office::DocumentType.first) %>
             </li>
           <% end %>
