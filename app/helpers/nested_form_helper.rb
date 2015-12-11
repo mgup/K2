@@ -6,7 +6,11 @@ module NestedFormHelper
     new_object = f.object.class.reflect_on_association(association).klass.new
     fields = f.fields_for(association, new_object,
                           child_index: "new_#{association}") do |builder|
-      render(options[:partial], f: builder)
+      if options[:locals]
+        render options[:partial], { f: builder }.merge(options[:locals])
+      else
+        render options[:partial], f: builder
+      end
     end
 
     link_to name, "##{association}",

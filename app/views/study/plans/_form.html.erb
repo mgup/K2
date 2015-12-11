@@ -36,7 +36,7 @@
       <div class="medium-3 columns">
           <label>
               Индекс
-              <%= f.text_field :ind, value: "#{@part.ind}.#{@part_plans.length+1}",required: true, class: 'study-plan-ind' %>
+              <%= f.text_field :ind, value: f.object.ind || "#{@part.ind}.#{@part_plans.length+1}",required: true, class: 'study-plan-ind' %>
           </label>
       </div>
   </div>
@@ -92,7 +92,7 @@
             <tr>
               <td data-type="exam">0</td>
               <td data-type="test">0</td>
-              <td data-type="test-mark">0</td>
+              <td data-type="test_mark">0</td>
               <td data-type="project">0</td>
               <td data-type="work">0</td>
             </tr>

@@ -1,0 +1,30 @@
+<div class="row fields">
+ <div class="panel">
+ <%= f.hidden_field :semester, value: semester %>
+  <div class="row">
+      <div class="large-11 columns">
+          <label>
+              Тип часов
+              <%= f.select :type,[ ['Лекции', :lecture], ['Лабораторные работы', :lab],
+                                 ['Практические занятия', :practice], ['КСР', :self_control],
+                                 ['СРС', :self_work], ['Контроль', :control] ],
+                           required: true %>
+          </label>
+      </div>
+      <div class="small-1 columns">
+          <br>
+          <%= link_to_remove_fields '&times'.html_safe, f %>
+      </div>
+  </div>
+
+  <div class="row">
+      <div class="large-11 columns">
+          <label>
+              Количество часов
+              <%= f.number_field :hours %>
+          </label>
+      </div>
+  </div>
+ </div>
+</div>
+

@@ -1,1 +1,21 @@
-
+<div class="row fields">
+    <div class="panel">
+        <%= f.hidden_field :semester, value: semester %>
+        <div class="row">
+            <div class="large-11 columns">
+                <label>
+                    Форма контроля
+                    <%= f.select :type,[ ['Экзамен', :exam], ['Зачёт', :test],
+                                         ['Зачёт с оценкой', :test_mark],
+                                         ['Курсовой проект', :project],
+                                         ['Курсовая работа', :work] ],
+                                 required: true %>
+                </label>
+            </div>
+            <div class="small-1 columns">
+                <br>
+                <%= link_to_remove_fields '&times'.html_safe, f %>
+            </div>
+        </div>
+    </div>
+</div>
