@@ -1,0 +1,7 @@
+<div class="semester-div" id="study-semester-<%= semester %>">
+  <%= render partial: 'zets_fields', locals: {f: f, semester: semester} %>
+
+  <%= render partial: 'classes_fields', locals: {f: f, semester: semester} %>
+
+  <%= render partial: 'exams_fields', locals: {f: f, semester: semester} %>
+</div>
