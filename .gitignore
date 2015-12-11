@@ -12,6 +12,7 @@
 !/log/.keep
 /tmp
 
+backup/secrets.yml
 config/database.yml
 
 doc/api
