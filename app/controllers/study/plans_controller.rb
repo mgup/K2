@@ -10,5 +10,4 @@ class Study::PlansController < ApplicationController
     @part_plans = @direction.plans.from_part_id(@part_id)
                   .from_admission_year(params[:year])
   end
-
 end

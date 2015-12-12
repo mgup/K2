@@ -14,11 +14,12 @@
 #
 # If --root-path is used on the command line, then all paths set here
 # will be overridden. If a path (like --tmp-path) is not given along with
-# --root-path, that path will use it's default location _relative to --root-path_.
+# --root-path, that path will use it's default location _relative
+# to --root-path_.
 #
-# If --root-path is not used on the command line, a path option (like --tmp-path)
-# given on the command line will override the tmp_path set here, but all other
-# paths set here will be used.
+# If --root-path is not used on the command line, a path option
+# (like --tmp-path) given on the command line will override the tmp_path set
+# here, but all other paths set here will be used.
 #
 # Note that relative paths given on the command line without --root-path
 # are relative to the current directory. The root_path set here only applies

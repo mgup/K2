@@ -3,8 +3,10 @@
 env = ENV['RAILS_ENV'] || 'development'
 
 require 'yaml'
-config = YAML.load_file(File.expand_path('../../../config/database.yml',  __FILE__))
-secrets = YAML.load_file(File.expand_path('../../secrets.yml',  __FILE__))
+config = YAML.load_file(
+  File.expand_path('../../../config/database.yml', __FILE__))
+secrets = YAML.load_file(
+  File.expand_path('../../secrets.yml', __FILE__))
 
 ##
 # Backup Generated: backup_database
@@ -30,7 +32,7 @@ Model.new(:k2, 'Бэкап базы данных K2.') do
     # e.g. ["db_name.table_to_skip", ...]
     # db.skip_tables        = ["skip", "these", "tables"]
     # db.only_tables        = ["only", "these", "tables"]
-    db.additional_options = ["--quick", "--single-transaction"]
+    db.additional_options = %w(--quick --single-transaction)
   end
 
   ##
@@ -39,7 +41,9 @@ Model.new(:k2, 'Бэкап базы данных K2.') do
   store_with Local do |local|
     local.path = secrets[env]['backup_path']
     # local.keep = 10
-    local.keep = Time.now - 60 * 60 * 24 * 30 # Remove all backups older than 1 month.
+
+    # Remove all backups older than 1 month.
+    local.keep = Time.zone.now - 60 * 60 * 24 * 30
   end
 
   ##
