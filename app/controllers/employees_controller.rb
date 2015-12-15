@@ -6,7 +6,7 @@ class EmployeesController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @employees = Employee.page(params[:page])
+    @employees = @employees.page(params[:page])
   end
 
   def new
@@ -16,6 +16,7 @@ class EmployeesController < ApplicationController
 
   def show
     @filename = "Личная карточка сотрудника #{@employee.short_name}.pdf"
+
     (2 - @employee.education_documents.count).times do
       @employee.education_documents.build
     end
