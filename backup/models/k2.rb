@@ -43,7 +43,7 @@ Model.new(:k2, 'Бэкап базы данных K2.') do
     # local.keep = 10
 
     # Remove all backups older than 1 month.
-    local.keep = Time.zone.now - 60 * 60 * 24 * 30
+    local.keep = Time.now - 60 * 60 * 24 * 30
   end
 
   ##
