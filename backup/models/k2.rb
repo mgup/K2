@@ -18,6 +18,14 @@ secrets = YAML.load_file(
 # http://backup.github.io/backup
 #
 Model.new(:k2, 'Бэкап базы данных K2.') do
+  before do
+    system 'sudo mount -t nfs 192.168.200.57:webbackup /mnt/backup'
+  end
+
+  after do
+    system 'sudo umount -l -a /mnt/backup'
+  end
+
   ##
   # MySQL [Database]
   #
@@ -92,20 +100,17 @@ Model.new(:k2, 'Бэкап базы данных K2.') do
     mail.on_warning           = true
     mail.on_failure           = true
 
-    mail.delivery_method = :exim
-    mail.to = 'storkvist@storkvist.net'
-
-  #   mail.from                 = "sender@email.com"
-  #   mail.to                   = "receiver@email.com"
-  #   mail.cc                   = "cc@email.com"
-  #   mail.bcc                  = "bcc@email.com"
-  #   mail.reply_to             = "reply_to@email.com"
-  #   mail.address              = "smtp.gmail.com"
-  #   mail.port                 = 587
-  #   mail.domain               = "your.host.name"
-  #   mail.user_name            = "sender@email.com"
-  #   mail.password             = "my_password"
-  #   mail.authentication       = "plain"
-  #   mail.encryption           = :starttls
+    mail.from                 = 'ois@mgup.ru'
+    mail.to                   = 'vshlyaga@acm.org'
+    # mail.cc                   = 'cc@email.com'
+    # mail.bcc                  = 'bcc@email.com'
+    # mail.reply_to             = 'reply_to@email.com'
+    mail.address              = 'smtp.gmail.com'
+    mail.port                 = 587
+    mail.domain               = 'your.host.name'
+    mail.user_name            = 'sender@email.com'
+    mail.password             = config[env]['mail_password']
+    mail.authentication       = 'plain'
+    mail.encryption           = :starttls
   end
 end
