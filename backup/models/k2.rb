@@ -92,7 +92,7 @@ Model.new(:k2, 'Бэкап базы данных K2.') do
     mail.on_warning           = true
     mail.on_failure           = true
 
-    mail.delivery_method = :sendmail
+    mail.delivery_method = :exim
     mail.to = 'storkvist@storkvist.net'
 
   #   mail.from                 = "sender@email.com"
