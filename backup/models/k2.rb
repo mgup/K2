@@ -18,6 +18,8 @@ secrets = YAML.load_file(
 # http://backup.github.io/backup
 #
 Model.new(:k2, 'Бэкап базы данных K2.') do
+  # В /etc/fstab добавлена строчка:
+  # 192.168.200.57:webbackup /mnt/backup nfs rw,noauto,user 0 0
   before do
     system 'mount /mnt/backup'
   end
@@ -110,7 +112,7 @@ Model.new(:k2, 'Бэкап базы данных K2.') do
     mail.domain               = 'mail.mgup.ru'
     mail.user_name            = 'ois@mgup.ru'
     mail.password             = config[env]['mail_password']
-    # mail.authentication       = 'plain'
-    # mail.encryption           = :starttls
+    mail.authentication       = 'plain'
+    mail.encryption           = :none
   end
 end
