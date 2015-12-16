@@ -77,9 +77,9 @@ Model.new(:k2, 'Бэкап базы данных K2.') do
   # end
 
   ##
-  # Bzip2 [Compressor]
+  # Gzip [Compressor]
   #
-  compress_with Bzip2
+  compress_with Gzip
 
   ##
   # Mail [Notifier]
