@@ -112,7 +112,7 @@ Model.new(:k2, 'Бэкап базы данных K2.') do
     # mail.domain               = 'mgup.ru'
     mail.user_name            = 'ois@mgup.ru'
     mail.password             = config[env]['mail_password']
-    mail.authentication       = :plain
+    mail.authentication       = :login
     mail.encryption           = :none
   end
 end
