@@ -19,11 +19,11 @@ secrets = YAML.load_file(
 #
 Model.new(:k2, 'Бэкап базы данных K2.') do
   before do
-    system 'sudo mount -t nfs 192.168.200.57:webbackup /mnt/backup'
+    system 'mount /mnt/backup'
   end
 
   after do
-    system 'sudo umount -l -a /mnt/backup'
+    system 'umount /mnt/backup'
   end
 
   ##
