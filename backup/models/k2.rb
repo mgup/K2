@@ -77,9 +77,9 @@ Model.new(:k2, 'Бэкап базы данных K2.') do
   # end
 
   ##
-  # Gzip [Compressor]
+  # Bzip2 [Compressor]
   #
-  compress_with Gzip
+  compress_with Bzip2
 
   ##
   # Mail [Notifier]
@@ -87,11 +87,14 @@ Model.new(:k2, 'Бэкап базы данных K2.') do
   # The default delivery method for Mail Notifiers is 'SMTP'.
   # See the documentation for other delivery options.
   #
-  # notify_by Mail do |mail|
+  notify_by Mail do |mail|
   #   mail.on_success           = true
-  #   mail.on_warning           = true
-  #   mail.on_failure           = true
-  #
+    mail.on_warning           = true
+    mail.on_failure           = true
+
+    mail.delivery_method = :sendmail
+    mail.to = 'storkvist@storkvist.net'
+
   #   mail.from                 = "sender@email.com"
   #   mail.to                   = "receiver@email.com"
   #   mail.cc                   = "cc@email.com"
@@ -104,5 +107,5 @@ Model.new(:k2, 'Бэкап базы данных K2.') do
   #   mail.password             = "my_password"
   #   mail.authentication       = "plain"
   #   mail.encryption           = :starttls
-  # end
+  end
 end
