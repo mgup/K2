@@ -33,9 +33,7 @@ Model.new(:k2, 'Бэкап базы данных K2.') do
   #
   database MySQL do |db|
     # To dump all databases, set `db.name = :all` (or leave blank)
-      # db.name = config[env]['k2_db_database']
-      # db.username = config[env]['k2_db_username']
-      # db.password = config[env]['k2_db_password']
+    db.name = config[env]['k2_db_database']
     # Note: when using `skip_tables` with the `db.name = :all` option,
     # table names should be prefixed with a database name.
     # e.g. ["db_name.table_to_skip", ...]
@@ -97,9 +95,9 @@ Model.new(:k2, 'Бэкап базы данных K2.') do
   # See the documentation for other delivery options.
   #
   notify_by Mail do |mail|
-  #   mail.on_success           = true
-    mail.on_warning           = true
-    mail.on_failure           = true
+    mail.on_success = false
+    mail.on_warning = true
+    mail.on_failure = true
 
     mail.from                 = 'ois@mgup.ru'
     mail.to                   = 'vshlyaga@acm.org'
