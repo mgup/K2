@@ -109,10 +109,10 @@ Model.new(:k2, 'Бэкап базы данных K2.') do
     # mail.reply_to             = 'reply_to@email.com'
     mail.address              = 'mail.mgup.ru'
     mail.port                 = 25
-    # mail.domain               = 'mgup.ru'
-    mail.user_name            = 'ois@mgup.ru'
-    mail.password             = config[env]['mail_password']
-    mail.authentication       = :login
+    mail.domain               = 'mgup.ru'
+    # mail.user_name            = 'ois@mgup.ru'
+    # mail.password             = config[env]['mail_password']
+    mail.authentication       = :plain
     mail.encryption           = :none
   end
 end
