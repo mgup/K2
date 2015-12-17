@@ -23,6 +23,7 @@ every 1.day, at: '1:30 am' do
   rake 'sunspot:reindex'
 end
 
-every 1.day, at: '3:30 am' do
+# every 1.day, at: '3:30 am' do
+every 1.day, at: '11:55 am' do
   command 'backup perform --config-file /home/matrix/webapps/k2/current/backup/config.rb --trigger k2'
 end
