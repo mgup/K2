@@ -24,5 +24,5 @@ every 1.day, at: '1:30 am' do
 end
 
 every 1.day, at: '3:30 am' do
-  command 'backup perform --config-file backup/config.rb --trigger k2'
+  command 'backup perform --config-file /home/matrix/webapps/k2/current/backup/config.rb --trigger k2'
 end
