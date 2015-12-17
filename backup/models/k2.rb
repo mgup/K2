@@ -1,5 +1,7 @@
 # encoding: utf-8
 
+require 'time'
+
 env = ENV['RAILS_ENV'] || 'development'
 
 require 'yaml'
