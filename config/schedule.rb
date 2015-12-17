@@ -25,5 +25,5 @@ end
 
 # every 1.day, at: '3:30 am' do
 every 5.minutes do
-  command 'backup perform --config-file /home/matrix/webapps/k2/current/backup/config.rb --trigger k2'
+  command 'RAILS_ENV=production backup perform --config-file /home/matrix/webapps/k2/current/backup/config.rb --trigger k2'
 end
