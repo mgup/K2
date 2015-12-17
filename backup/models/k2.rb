@@ -4,7 +4,7 @@ env = ENV['RAILS_ENV'] || 'development'
 
 require 'yaml'
 config = YAML.load_file(
-  File.expand_path('../../../config/database.yml', __FILE__))
+  File.expand_path('../../../config/secrets.yml', __FILE__))
 secrets = YAML.load_file(
   File.expand_path('../../secrets.yml', __FILE__))
 
@@ -33,10 +33,9 @@ Model.new(:k2, 'Бэкап базы данных K2.') do
   #
   database MySQL do |db|
     # To dump all databases, set `db.name = :all` (or leave blank)
-    db.name = config[env]['database']
-    db.username = config[env]['username']
-    db.password = config[env]['password']
-    db.socket = config[env]['socket']
+    db.name = config[env]['k2_db_database']
+    db.username = config[env]['k2_db_username']
+    db.password = config[env]['k2_db_password']
     # Note: when using `skip_tables` with the `db.name = :all` option,
     # table names should be prefixed with a database name.
     # e.g. ["db_name.table_to_skip", ...]
