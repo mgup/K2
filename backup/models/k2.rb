@@ -33,15 +33,15 @@ Model.new(:k2, 'Бэкап базы данных K2.') do
   #
   database MySQL do |db|
     # To dump all databases, set `db.name = :all` (or leave blank)
-    db.name = config[env]['k2_db_database']
-    db.username = config[env]['k2_db_username']
-    db.password = config[env]['k2_db_password']
+      # db.name = config[env]['k2_db_database']
+      # db.username = config[env]['k2_db_username']
+      # db.password = config[env]['k2_db_password']
     # Note: when using `skip_tables` with the `db.name = :all` option,
     # table names should be prefixed with a database name.
     # e.g. ["db_name.table_to_skip", ...]
     # db.skip_tables        = ["skip", "these", "tables"]
     # db.only_tables        = ["only", "these", "tables"]
-    db.additional_options = %w(--quick --single-transaction)
+    db.additional_options = %w(--defaults-extra-file=/home/matrix/webapps/k2/shared/config/mysql.cnf --quick --single-transaction)
   end
 
   ##
@@ -88,7 +88,7 @@ Model.new(:k2, 'Бэкап базы данных K2.') do
   ##
   # Bzip2 [Compressor]
   #
-  # compress_with Bzip2
+  compress_with Bzip2
 
   ##
   # Mail [Notifier]
