@@ -1,6 +1,7 @@
 AllCops:
   Exclude:
     - '**/Rakefile'
+    - 'backup/**/*'
     - 'bin/**/*'
     - 'db/**/*'
     - 'config/**/*'
