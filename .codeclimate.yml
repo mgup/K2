@@ -8,11 +8,15 @@ engines:
   csslint:
     enabled: false
   duplication:
-    enabled: true
     config:
       languages:
       - ruby
       - javascript
+    enabled: true
+    exclude_fingerprints:
+      - 689b9b135b5a4fc51a53565d81f703ef
+      - 806a7cb23dee2ea8ab3e64a74d14c9b3
+      - 143da1b4c6b5698287b6635a04396a0f
   eslint:
     enabled: true
   fixme:
