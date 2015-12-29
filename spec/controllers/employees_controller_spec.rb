@@ -6,17 +6,7 @@ RSpec.describe EmployeesController, type: :controller do
       expect(subject.current_user).to be_nil
     end
 
-    describe 'GET-запрос index' do
-      it 'не должен быть успешным' do
-        get :index
-        expect(response).not_to have_http_status(:success)
-      end
-
-      it 'должен вызывать переход на главную страницу' do
-        get :index
-        expect(response).to redirect_to(root_path)
-      end
-    end
+    it_behaves_like 'не успешный GET-запрос index'
   end
 
   context 'для авторизованного пользователя' do
@@ -27,17 +17,7 @@ RSpec.describe EmployeesController, type: :controller do
         sign_in(employee.user)
       end
 
-      describe 'GET-запрос index' do
-        it 'не должен быть успешным' do
-          get :index
-          expect(response).not_to have_http_status(:success)
-        end
-
-        it 'должен вызывать переход на главную страницу' do
-          get :index
-          expect(response).to redirect_to(root_path)
-        end
-      end
+      it_behaves_like 'не успешный GET-запрос index'
     end
 
     context 'имеющего права доступа к Сотрудникам' do
