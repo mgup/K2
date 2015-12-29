@@ -31,4 +31,4 @@ exclude_paths:
 - .codeclimate.yml
 - app/assets/stylesheets/application.css.scss
 - backup/**/*
-- db/schema.rb
+- db/**/*
