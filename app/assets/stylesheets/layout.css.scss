@@ -1,3 +1,28 @@
-.main-section  {
-  margin-top: 0.9375rem;
+@import 'settings';
+
+.off-canvas {
+  color: #fff;
+
+  .menu-text {
+    background: #8d0000;
+    border-top: #c00000;
+  }
+
+  a {
+    color: #fff;
+
+    &:hover {
+      background-color: #740000;
+    }
+  }
+}
+
+.off-canvas-content {
+  .title-bar {
+    margin-bottom: 0.9375rem;
+  }
+
+  .title-bar-title {
+    font-family: $header-font-family;
+  }
 }

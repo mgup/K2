@@ -11,10 +11,12 @@
  * file per style scope.
  *
  *= require foundation_and_overrides
+ * require foundation_and_overrides_old.scss
  *
  *= require_tree .
  *= require_self
  */
 
+//@import 'foundation_and_overrides';
 @import 'font-awesome-sprockets';
 @import 'font-awesome';

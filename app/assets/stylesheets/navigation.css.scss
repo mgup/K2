@@ -1,0 +1,31 @@
+@import 'settings';
+
+.menu.sub-menu {
+  font-size: 0.875rem;
+
+  a {
+    color: $dark-gray;
+
+    &:hover {
+      color: $black;
+    }
+  }
+
+  .active {
+    a {
+      color: $primary-color;
+      font-size: 1.25rem;
+      font-weight: bold;
+    }
+  }
+}
+
+//.menu {
+//  .active {
+//    background: $primary-color;
+//
+//    a:hover {
+//      color: #fff;
+//    }
+//  }
+//}

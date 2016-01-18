@@ -24,60 +24,63 @@
 
   <title>K2</title>
 
-  <%= stylesheet_link_tag    'application', media: 'all' %>
-  <%= javascript_include_tag 'vendor/modernizr' %>
+  <%= stylesheet_link_tag 'application' %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-<div class="off-canvas-wrap" data-offcanvas>
-  <div class="inner-wrap">
-    <nav class="tab-bar">
-      <% if signed_in? %>
-        <section class="left-small">
-          <a class="left-off-canvas-toggle menu-icon" href="#"><span></span></a>
-        </section>
-      <% end %>
-
-      <section class="middle tab-bar-section">
-        <h1 class="title"><%= yield :title %></h1>
-      </section>
-
-      <% if signed_in? %>
-        <section class="right-small">
-          <a class="right-off-canvas-toggle menu-icon" href="#"><span></span></a>
-        </section>
-      <% end %>
-    </nav>
-
+<div class="off-canvas-wrapper">
+  <div class="off-canvas-wrapper-inner" data-off-canvas-wrapper>
     <% if signed_in? %>
-      <aside class="left-off-canvas-menu">
-        <ul class="off-canvas-list">
-          <% if can?(:read, Office::Order) %>
-            <li><label>Общий отдел</label></li>
-            <li>
-              <%= link_to 'Приказы',
-                          office_document_type_orders_path(Office::DocumentType.first) %>
-            </li>
-          <% end %>
+      <div class="off-canvas position-left" id="offCanvasLeft" data-off-canvas>
+        <div class="full-height">
+          <ul class="menu vertical">
+            <% if can?(:manage, :obschiy_otdel) %>
+              <li class="menu-text">
+                Общий отдел
+              </li>
+              <% if can?(:read, Office::Order) %>
+                <li>
+                  <%= link_to 'Приказы',
+                              office_document_type_orders_path(Office::DocumentType.first) %>
+                </li>
+              <% end %>
+            <% end %>
 
-          <% if can?(:manage, :otdel_kadrov) %>
-            <li><label>Отдел кадров</label></li>
-            <li><%= link_to 'Подразделения', departments_path %></li>
-            <li><%= link_to 'Сотрудники', employees_path %></li>
-          <% end %>
-        </ul>
-      </aside>
+            <% if can?(:manage, :otdel_kadrov) %>
+              <li class="menu-text">
+                Отдел кадров
+              </li>
+              <li><%= link_to 'Подразделения', departments_path %></li>
+              <li><%= link_to 'Сотрудники', employees_path %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
 
-      <aside class="right-off-canvas-menu">
-        <ul class="off-canvas-list">
-          <li><label>Пользователь</label></li>
-          <li><%= link_to current_user, root_path %></li>
-          <li><%= link_to 'Выйти', destroy_user_session_path, method: :delete %></li>
-        </ul>
-      </aside>
+      <div class="off-canvas position-right" id="offCanvasRight" data-off-canvas data-position="right">
+        <div class="full-height">
+          <ul class="off-canvas-list">
+            <li><label>Пользователь</label></li>
+            <li><%= link_to current_user, root_path %></li>
+            <li><%= link_to 'Выйти', destroy_user_session_path, method: :delete %></li>
+          </ul>
+        </div>
+      </div>
     <% end %>
 
-    <section class="main-section">
+    <div class="off-canvas-content" data-off-canvas-content>
+      <div class="title-bar">
+        <div class="title-bar-left">
+          <button class="menu-icon" type="button" data-open="offCanvasLeft"></button>
+          <span class="title-bar-title">
+            <%= yield :title %>
+          </span>
+        </div>
+        <div class="title-bar-right">
+          <button class="menu-icon" type="button" data-open="offCanvasRight"></button>
+        </div>
+      </div>
+
       <div class="full-height">
         <div class="row">
           <div class="small-12 columns">
@@ -99,14 +102,10 @@
           </div>
         </div>
       </div>
-    </section>
-
-    <a class="exit-off-canvas"></a>
-
+    </div>
   </div>
 </div>
 
-
-  <%= javascript_include_tag 'application' %>
+<%= javascript_include_tag 'application' %>
 </body>
 </html>

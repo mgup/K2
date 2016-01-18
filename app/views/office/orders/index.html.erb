@@ -11,12 +11,12 @@
   <div class="medium-8 columns">
     <form method="get">
       <input type="hidden" name="page" value="1">
-      <div class="row collapse">
-        <div class="small-10 columns">
-          <input type="text" name="q" value="<%= params[:q] %>" placeholder="найти...">
-        </div>
-        <div class="small-2 columns">
-          <button type="submit" class="button postfix">
+
+      <div class="input-group">
+        <input type="text" name="q" value="<%= params[:q] %>"
+               class="input-group-field" placeholder="найти...">
+        <div class="input-group-button">
+          <button type="submit" class="button">
             <i class="fa fa-search"></i>
           </button>
         </div>
