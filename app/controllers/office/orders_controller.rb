@@ -58,6 +58,7 @@ class Office::OrdersController < ApplicationController
   def position
     @number = params[:number].to_i
     @orders = Office::Order
+              .with_document_type(params[:document_type_id])
               .where('number >= ?', @number - 1)
               .where('number <= ?', @number + 1)
 
