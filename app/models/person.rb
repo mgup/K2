@@ -27,8 +27,8 @@ class Person < ActiveRecord::Base
 
   education_document_reject_condition = lambda do |fl|
     fl[:institution].blank? || fl[:name].blank? ||
-    fl[:number].blank? || fl[:year_of_ending].blank? ||
-    fl[:direction_id].blank?
+      fl[:number].blank? || fl[:year_of_ending].blank? ||
+      fl[:direction_id].blank?
   end
   accepts_nested_attributes_for :education_documents,
                                 reject_if: education_document_reject_condition,

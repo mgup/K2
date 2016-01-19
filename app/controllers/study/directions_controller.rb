@@ -6,7 +6,7 @@ class Study::DirectionsController < ApplicationController
 
   def index
     @directions = @directions.accredited.group_by(&:department)
-                  .group_by { |d, _| d.parent }
+                             .group_by { |d, _| d.parent }
   end
 
   def show

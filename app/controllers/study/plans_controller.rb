@@ -8,6 +8,6 @@ class Study::PlansController < ApplicationController
   def new
     @part = Study::PlanPart.find(params[:part_id])
     @part_plans = @direction.plans.from_part_id(@part_id)
-                  .from_admission_year(params[:year])
+                            .from_admission_year(params[:year])
   end
 end

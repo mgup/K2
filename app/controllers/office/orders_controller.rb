@@ -12,7 +12,7 @@ class Office::OrdersController < ApplicationController
       @orders = find_orders_by_query
     else
       @orders = @orders.with_document_type(params[:document_type_id])
-                .page(params[:page])
+                       .page(params[:page])
     end
   end
 
@@ -57,10 +57,9 @@ class Office::OrdersController < ApplicationController
 
   def position
     @number = params[:number].to_i
-    @orders = Office::Order
-              .with_document_type(params[:document_type_id])
-              .where('number >= ?', @number - 1)
-              .where('number <= ?', @number + 1)
+    @orders = @document_type.orders
+                            .where('number >= ?', @number - 1)
+                            .where('number <= ?', @number + 1)
 
     respond_to do |format|
       format.html do

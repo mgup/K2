@@ -5,9 +5,8 @@ AllCops:
     - 'bin/**/*'
     - 'db/**/*'
     - 'config/**/*'
-
-  RunRailsCops: true
-
+Rails:
+  Enabled: true
 Style/AsciiComments:
   Enabled: false
 Style/ClassAndModuleChildren:
