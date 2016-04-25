@@ -41,7 +41,13 @@
               <% if can?(:read, Office::Order) %>
                 <li>
                   <%= link_to 'Приказы',
-                              office_document_type_orders_path(Office::DocumentType.first) %>
+                              office_document_type_orders_path(Office::DocumentType.for_orders.first) %>
+                </li>
+              <% end %>
+              <% if can?(:read, Office::IncomingDocument) %>
+                <li>
+                  <%= link_to 'Входящие',
+                              office_document_type_incoming_documents_path(Office::DocumentType.for_incoming_documents.first) %>
                 </li>
               <% end %>
             <% end %>
@@ -85,16 +91,22 @@
         <div class="row">
           <div class="small-12 columns">
             <% if flash[:notice].present? %>
-              <div data-alert class="alert-box info radius">
+              <div class="primary callout" data-closable>
                 <%= flash[:notice] %>
-                <a href="#" class="close">&times;</a>
+
+                <button class="close-button" data-close>
+                  <span>&times;</span>
+                </button>
               </div>
             <% end %>
 
             <% if flash[:alert].present? %>
-              <div data-alert class="alert-box alert radius">
+              <div class="alert callout" data-closable>
                 <%= flash[:alert] %>
-                <a href="#" class="close">&times;</a>
+
+                <button class="close-button" data-close>
+                  <span>&times;</span>
+                </button>
               </div>
             <% end %>
 

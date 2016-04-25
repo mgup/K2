@@ -5,6 +5,7 @@ gem 'cancancan'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'devise'
 gem 'font-awesome-sass'
+gem 'foundation-icons-sass-rails'
 gem 'foundation-rails'
 gem 'groupify'
 gem 'jbuilder', '~> 2.0'
@@ -40,6 +41,7 @@ group :development do
   gem 'rails-erd', require: false
   gem 'rubocop', require: false
   gem 'sunspot_solr'
+  gem 'thin'
 end
 
 group :test do
@@ -60,6 +62,8 @@ group :doc do
   gem 'sdoc', '~> 0.4.0'
 end
 
-# source 'https://rails-assets.org' do
-#   gem 'rails-assets-air-datepicker'
-# end
+source 'https://rails-assets.org' do
+  # gem 'rails-assets-motion-ui'
+end
+
+ruby '2.3.0'

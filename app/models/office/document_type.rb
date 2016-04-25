@@ -3,6 +3,7 @@ class Office::DocumentType < ActiveRecord::Base
   has_paper_trail
 
   has_many :orders, class_name: 'Office::Order'
+  has_many :incoming_documents, class_name: 'Office::IncomingDocument'
 
   scope :for_orders, lambda {
     where(prefix: %w(01-03 01-03р 01-04 01-05 01-06 01-17 \

@@ -1,0 +1,13 @@
+<% content_for :title, "Редактирование документа #{@incoming_document.full_number} "\
+                       "от #{l(@incoming_document.date)}" %>
+
+<%= render 'form' %>
+
+<ul class="button-group even-2">
+  <li>
+    <%= link_to office_document_type_incoming_documents_path(@document_type),
+                class: 'button secondary' do %>
+      <i class="fa fa-arrow-left"></i> Вернуться к зарегистрированным документам
+    <% end %>
+  </li>
+</ul>

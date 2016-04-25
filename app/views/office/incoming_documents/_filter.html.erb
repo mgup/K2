@@ -1,0 +1,8 @@
+<ul class="menu expanded sub-menu">
+  <% @document_types.each do |type| %>
+    <li class="<%= 'active' if type.id == params[:document_type_id].to_i %>">
+      <%= link_to type.prefix, office_document_type_incoming_documents_path(type.id),
+                  title: type.name %>
+    </li>
+  <% end %>
+</ul>

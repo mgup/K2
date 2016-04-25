@@ -12,6 +12,12 @@ Rails.application.routes.draw do
           get :position
         end
       end
+
+      resources :incoming_documents, except: [:show] do
+        collection do
+          get :position
+        end
+      end
     end
   end
 

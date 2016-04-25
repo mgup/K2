@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151207112946) do
+ActiveRecord::Schema.define(version: 20160208093618) do
 
   create_table "academic_degrees", force: :cascade do |t|
     t.string   "name",       limit: 255, null: false
@@ -186,6 +186,18 @@ ActiveRecord::Schema.define(version: 20151207112946) do
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
+
+  create_table "office_incoming_documents", force: :cascade do |t|
+    t.integer  "document_type_id", limit: 4,   null: false
+    t.integer  "number",           limit: 4,   null: false
+    t.string   "suffix",           limit: 255
+    t.date     "date",                         null: false
+    t.string   "title",            limit: 255, null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+  end
+
+  add_index "office_incoming_documents", ["document_type_id"], name: "index_office_incoming_documents_on_document_type_id", using: :btree
 
   create_table "office_orders", force: :cascade do |t|
     t.integer  "document_type_id",      limit: 4,   null: false
@@ -364,6 +376,7 @@ ActiveRecord::Schema.define(version: 20151207112946) do
   add_foreign_key "hr_positions", "employees"
   add_foreign_key "hr_positions", "hr_qualifications", column: "qualification_id"
   add_foreign_key "hr_qualifications", "employee_categories"
+  add_foreign_key "office_incoming_documents", "office_document_types", column: "document_type_id"
   add_foreign_key "office_orders", "office_document_types", column: "document_type_id"
   add_foreign_key "people", "academic_degrees"
   add_foreign_key "people", "academic_titles"

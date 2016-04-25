@@ -1,0 +1,90 @@
+<%= form_for @incoming_document,
+             url: @incoming_document.persisted? ?
+               @incoming_document : office_document_type_incoming_documents_path(@document_type),
+             data: { abide: true } do |f| %>
+  <%= f.hidden_field :id %>
+  <%= f.hidden_field :document_type_id %>
+
+  <% if @incoming_document.errors.any? %>
+    <div class="alert-box alert radius">
+      <p>
+        <%= @incoming_document.errors.count %>
+        <%= Russian::pluralize(@incoming_document.errors.count,
+                               'ошибка', 'ошибки', 'ошибок') %>
+        не позволяют сохранить данные:
+      </p>
+
+      <ul>
+        <% @incoming_document.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <div class="large-12 columns">
+      <label>
+        Категория документа
+        <input type="text" value="<%= @document_type.name %>" disabled>
+      </label>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="medium-3 columns">
+      <label>
+        Номер
+        <%= f.number_field :number, required: true, class: 'office-incoming_document-number' %>
+      </label>
+    </div>
+    <div class="medium-3 columns">
+      <label>
+        Суффикс
+        <%= f.text_field :suffix %>
+      </label>
+    </div>
+    <div class="medium-6 columns">
+      <label>
+        Дата
+        <div class="date-select">
+          <%= f.date_select :date, required: true %>
+        </div>
+      </label>
+      <small class="error">Укажите дату издания документа.</small>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="large-12 columns">
+      <div id="officeincoming_documentPosition"
+           data-url="<%= position_office_document_type_incoming_documents_path(@document_type) %>">
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="large-12 columns">
+      <label>
+        Название
+        <%= f.text_field :title, required: true %>
+      </label>
+      <small class="error">Укажите название документа.</small>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="large-12 columns">
+      <label>
+        Скан документа
+        <%= f.file_field :document %>
+      </label>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="large-12 columns">
+      <%= f.submit class: 'button' %>
+    </div>
+  </div>
+<% end %>

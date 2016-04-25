@@ -1,0 +1,15 @@
+<% if @incoming_documents.any? %>
+  <table class="table">
+    <caption>Уже зарегистрированные документы (± 1)</caption>
+    <tbody>
+    <% @incoming_documents.each do |incoming_document| %>
+      <tr style="<%= 'font-style: italic;' if incoming_document.number.to_s == params[:number] %>">
+        <th><%= incoming_document.number %></th>
+        <td><%= incoming_document.full_number %></td>
+        <td><%= l(incoming_document.date) %></td>
+        <td><%= incoming_document.title %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+<% end %>

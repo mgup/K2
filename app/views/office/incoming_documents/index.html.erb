@@ -1,0 +1,92 @@
+<% content_for :title, 'Входящие' %>
+
+<%= render 'filter' %>
+
+<div class="row">
+  <div class="medium-4 columns">
+    <%= link_to new_office_document_type_incoming_document_path, class: 'button secondary' do %>
+      <i class="fa fa-plus"></i> Добавить документ
+    <% end %>
+  </div>
+  <div class="medium-8 columns">
+    <form method="get">
+      <input type="hidden" name="page" value="1">
+
+      <div class="input-group">
+        <input type="text" name="q" value="<%= params[:q] %>"
+               class="input-group-field" placeholder="найти...">
+        <div class="input-group-button">
+          <button type="submit" class="button">
+            <i class="fa fa-search"></i>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<% if params[:q] %>
+  <%= link_to url_for(params.except(:q)), class: 'right' do %>
+    &larr; вернуться ко всем приказам
+  <% end %>
+
+  <p>
+    Результаты поиска по запросу
+    &laquo;<strong><%= params[:q] %></strong>&raquo;:
+  </p>
+<% end %>
+
+<% if @incoming_documents.empty? %>
+  <p>Нет зарегистрированных документов.</p>
+<% else %>
+  <%= paginate @incoming_documents %>
+
+  <table class="table full-width">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Номер</th>
+        <th>Дата</th>
+        <th>Название</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @incoming_documents.each do |incoming_document| %>
+        <tr>
+          <th scope="row"><%= incoming_document.number %><%= incoming_document.suffix %></th>
+          <td><%= incoming_document.full_number %></td>
+          <td><%= l(incoming_document.date) %></td>
+          <td><%= incoming_document.title %></td>
+
+          <td>
+            <% if incoming_document.document.exists? %>
+              <%= link_to incoming_document.document.url, target: :blank,
+                          title: 'Открыть документ' do %>
+                <i class="fa fa-file-pdf-o"></i>
+              <% end %>
+            <% end %>
+          </td>
+
+          <td>
+            <%= link_to edit_office_incoming_document_path(incoming_document),
+                        title: 'Редактировать регистрационную запись' do %>
+              <i class="fa fa-pencil"></i>
+            <% end %>
+          </td>
+
+          <td>
+            <%= link_to incoming_document, method: :delete, class: 'alert',
+                        title: 'Удалить регистрационную запись',
+                        data: { confirm: 'Вы уверены?' } do %>
+              <i class="fa fa-trash-o"></i>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <%= paginate @incoming_documents %>
+<% end %>

@@ -2,16 +2,14 @@
   <%= form_for User.new, url: session_path(:user), data: { abide: true } do |f| %>
     <%= f.hidden_field :remember_me, value: true %>
 
-    <div class="row collapse">
+    <div class="row">
       <div class="small-5 columns">
         <%= f.email_field :email, autofocus: true, required: true,
                           placeholder: 'Электронная почта' %>
-        <small class="error">Укажите верный адрес электронной почты.</small>
       </div>
 
       <div class="small-5 columns">
         <%= f.password_field :password, autocomplete: 'off', required: true, placeholder: 'Пароль' %>
-        <small class="error">Укажите пароль.</small>
       </div>
 
       <div class="small-2 columns">
