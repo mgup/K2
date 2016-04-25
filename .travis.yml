@@ -1,6 +1,7 @@
 language: ruby
 rvm:
   - "2.2.3"
+  - "2.3.0"
 before_script:
   - "mysql -e 'create database K2_test;'"
   - "cp ./.travis.database.yml ./config/database.yml"

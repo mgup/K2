@@ -61,5 +61,6 @@ class Ability
 
     can :manage, Office::DocumentType
     can :manage, Office::Order
+    can :manage, Office::IncomingDocument
   end
 end

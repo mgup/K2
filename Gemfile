@@ -66,4 +66,4 @@ source 'https://rails-assets.org' do
   # gem 'rails-assets-motion-ui'
 end
 
-ruby '2.3.0'
+# ruby '2.3.0'
