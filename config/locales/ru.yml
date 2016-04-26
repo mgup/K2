@@ -7,7 +7,7 @@ ru:
         one: документ об образовании
         other: документы об образовании
       office/order: документ
-      office/incoming_document: входящее
+      office/incoming_document: входящий документ
     attributes:
       employee:
         education_documents: документы об образовании
@@ -20,9 +20,8 @@ ru:
       office/order:
         number: регистрационный номер
         suffix: суффикс
-      office/order:
+      office/incoming_document:
         number: регистрационный номер
-        suffix: суффикс
   date:
     formats:
       long: "%d %B %Y г."
