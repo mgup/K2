@@ -5,6 +5,8 @@ class Office::DocumentType < ActiveRecord::Base
   has_many :orders, class_name: 'Office::Order'
   has_many :incoming_documents, class_name: 'Office::IncomingDocument'
 
+  default_scope { order(:prefix, :name) }
+
   scope :for_orders, lambda {
     where(prefix: %w(01-03 01-03р 01-04 01-05 01-06 01-17 \
                      01-26 01-26р 01-36 01-37 01-38))

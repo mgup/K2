@@ -4,6 +4,7 @@ FactoryGirl.define do
     date { Faker::Date.between(1.year.ago, Time.zone.today) }
     title { Faker::Lorem.sentence }
 
+    association :document_source, factory: :office_document_source
     association :document_type, factory: :office_document_type
   end
 end
