@@ -65,8 +65,8 @@
 
       <div class="off-canvas position-right" id="offCanvasRight" data-off-canvas data-position="right">
         <div class="full-height">
-          <ul class="off-canvas-list">
-            <li><label>Пользователь</label></li>
+          <ul class="menu vertical">
+            <li class="menu-text">Пользователь</li>
             <li><%= link_to current_user, root_path %></li>
             <li><%= link_to 'Выйти', destroy_user_session_path, method: :delete %></li>
           </ul>

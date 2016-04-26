@@ -44,9 +44,9 @@
   <table class="table full-width">
     <thead>
       <tr>
-        <th></th>
-        <th>Номер</th>
+        <th>Зарегистрировано</th>
         <th>Дата</th>
+        <th>Номер</th>
         <th>Название</th>
         <th colspan="3"></th>
       </tr>
@@ -55,9 +55,9 @@
     <tbody>
       <% @incoming_documents.each do |incoming_document| %>
         <tr>
-          <th scope="row"><%= incoming_document.number %><%= incoming_document.suffix %></th>
-          <td><%= incoming_document.full_number %></td>
+          <td><%= l(incoming_document.created_at) %></td>
           <td><%= l(incoming_document.date) %></td>
+          <td><%= incoming_document.number %></td>
           <td><%= incoming_document.title %></td>
 
           <td>

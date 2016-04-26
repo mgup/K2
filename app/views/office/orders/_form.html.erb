@@ -32,7 +32,15 @@
   </div>
 
   <div class="row">
-    <div class="medium-3 columns">
+    <div class="medium-5 columns">
+      <label>
+        Дата
+        <div class="date-select">
+          <%= f.date_select :date, required: true %>
+        </div>
+      </label>
+    </div>
+    <div class="medium-4 columns">
       <label>
         Номер
         <%= f.number_field :number, required: true, class: 'office-order-number' %>
@@ -43,15 +51,6 @@
         Суффикс
         <%= f.text_field :suffix %>
       </label>
-    </div>
-    <div class="medium-6 columns">
-      <label>
-        Дата
-        <div class="date-select">
-          <%= f.date_select :date, required: true %>
-        </div>
-      </label>
-      <small class="error">Укажите дату издания документа.</small>
     </div>
   </div>
 
@@ -69,7 +68,6 @@
         Название
         <%= f.text_field :title, required: true %>
       </label>
-      <small class="error">Укажите название документа.</small>
     </div>
   </div>
 

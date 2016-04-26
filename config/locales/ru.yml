@@ -26,3 +26,6 @@ ru:
   date:
     formats:
       long: "%d %B %Y г."
+  time:
+    formats:
+      default: "%d %B %Y, %H:%M"

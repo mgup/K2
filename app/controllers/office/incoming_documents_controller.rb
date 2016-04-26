@@ -59,19 +59,6 @@ class Office::IncomingDocumentsController < ApplicationController
     end
   end
 
-  def position
-    @number = params[:number].to_i
-    @incoming_documents = @document_type.incoming_documents
-                .where('number >= ?', @number - 1)
-                .where('number <= ?', @number + 1)
-
-    respond_to do |format|
-      format.html do
-        render layout: false
-      end
-    end
-  end
-
   private
 
   def incoming_document_params
@@ -79,7 +66,7 @@ class Office::IncomingDocumentsController < ApplicationController
   end
 
   def incoming_document_attributes
-    [:document_type_id, :number, :suffix, :date, :title, :document]
+    [:document_source_id, :document_type_id, :number, :date, :title, :document]
   end
 
   def find_incoming_documents_by_query

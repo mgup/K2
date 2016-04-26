@@ -8,6 +8,15 @@ require_relative 'seeds/relationships'
 require_relative 'seeds/employee_categories'
 require_relative 'seeds/hr_qualifications'
 
+Office::DocumentSource.delete_all
+[
+  { id: 1, name: 'Курьер'},
+  { id: 2, name: 'Почта'},
+  { id: 3, name: 'Служебная записка'},
+  { id: 4, name: 'Факс'},
+  { id: 5, name: 'Факсограмма'},
+  { id: 6, name: 'Электронная почта'}
+].each { |document_source_data| Office::DocumentSource.create(document_source_data) }
 
 Office::DocumentType.delete_all
 [
@@ -18,7 +27,7 @@ Office::DocumentType.delete_all
   { prefix: '01-06',  name: 'Приказы по аспирантуре и докторантуре' },
   { prefix: '01-10',  name: 'Переписка с Минобрнауки' },
   { prefix: '01-11',  name: 'Переписка учёного, диссертационных советов по вопросам деятельности аспирантуры' },
-  { prefix: '01-12',  name: 'Переписка по финансовым и административно=хозяйственным вопросам' },
+  { prefix: '01-12',  name: 'Переписка по финансовым и административно-хозяйственным вопросам' },
   { prefix: '01-13',  name: 'Переписка по арбитражным и судебным искам' },
   { prefix: '01-14',  name: 'Переписка по учебным вопросам' },
   { prefix: '01-15',  name: 'Переписка по научным вопросам' },

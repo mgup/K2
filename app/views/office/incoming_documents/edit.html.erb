@@ -1,5 +1,5 @@
-<% content_for :title, "Редактирование документа #{@incoming_document.full_number} "\
-                       "от #{l(@incoming_document.date)}" %>
+<% content_for :title, "Редактирование документа от #{l(@incoming_document.date)} "\
+                       "№ #{@incoming_document.number}" %>
 
 <%= render 'form' %>
 

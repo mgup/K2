@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160208093618) do
+ActiveRecord::Schema.define(version: 20160426091307) do
 
   create_table "academic_degrees", force: :cascade do |t|
     t.string   "name",       limit: 255, null: false
@@ -180,6 +180,12 @@ ActiveRecord::Schema.define(version: 20160208093618) do
     t.datetime "updated_at",             null: false
   end
 
+  create_table "office_document_sources", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
   create_table "office_document_types", force: :cascade do |t|
     t.string   "prefix",     limit: 255, null: false
     t.string   "name",       limit: 255, null: false
@@ -188,15 +194,20 @@ ActiveRecord::Schema.define(version: 20160208093618) do
   end
 
   create_table "office_incoming_documents", force: :cascade do |t|
-    t.integer  "document_type_id", limit: 4,   null: false
-    t.integer  "number",           limit: 4,   null: false
-    t.string   "suffix",           limit: 255
-    t.date     "date",                         null: false
-    t.string   "title",            limit: 255, null: false
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.integer  "document_source_id",    limit: 4,   null: false
+    t.integer  "document_type_id",      limit: 4,   null: false
+    t.string   "number",                limit: 255, null: false
+    t.date     "date",                              null: false
+    t.string   "title",                 limit: 255, null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.string   "document_file_name",    limit: 255
+    t.string   "document_content_type", limit: 255
+    t.integer  "document_file_size",    limit: 4
+    t.datetime "document_updated_at"
   end
 
+  add_index "office_incoming_documents", ["document_source_id"], name: "index_office_incoming_documents_on_document_source_id", using: :btree
   add_index "office_incoming_documents", ["document_type_id"], name: "index_office_incoming_documents_on_document_type_id", using: :btree
 
   create_table "office_orders", force: :cascade do |t|
@@ -376,6 +387,7 @@ ActiveRecord::Schema.define(version: 20160208093618) do
   add_foreign_key "hr_positions", "employees"
   add_foreign_key "hr_positions", "hr_qualifications", column: "qualification_id"
   add_foreign_key "hr_qualifications", "employee_categories"
+  add_foreign_key "office_incoming_documents", "office_document_sources", column: "document_source_id"
   add_foreign_key "office_incoming_documents", "office_document_types", column: "document_type_id"
   add_foreign_key "office_orders", "office_document_types", column: "document_type_id"
   add_foreign_key "people", "academic_degrees"

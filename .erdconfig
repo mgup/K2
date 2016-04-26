@@ -1,2 +1,9 @@
-filename: "doc/ERD"
-notation: "bachman"
+attributes:
+#  - primary_keys
+#  - foreign_keys
+  - content
+#  - inheritance
+#  - timestamps
+filename: doc/ERD
+notation: bachman
+orientation: vertical

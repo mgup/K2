@@ -25,6 +25,15 @@
   <div class="row">
     <div class="large-12 columns">
       <label>
+        Источник документа
+        <%= f.collection_select :document_source_id, Office::DocumentSource.all, :id, :name %>
+      </label>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="large-12 columns">
+      <label>
         Категория документа
         <input type="text" value="<%= @document_type.name %>" disabled>
       </label>
@@ -32,34 +41,19 @@
   </div>
 
   <div class="row">
-    <div class="medium-3 columns">
-      <label>
-        Номер
-        <%= f.number_field :number, required: true, class: 'office-incoming_document-number' %>
-      </label>
-    </div>
-    <div class="medium-3 columns">
-      <label>
-        Суффикс
-        <%= f.text_field :suffix %>
-      </label>
-    </div>
-    <div class="medium-6 columns">
+    <div class="medium-5 columns">
       <label>
         Дата
         <div class="date-select">
           <%= f.date_select :date, required: true %>
         </div>
       </label>
-      <small class="error">Укажите дату издания документа.</small>
     </div>
-  </div>
-
-  <div class="row">
-    <div class="large-12 columns">
-      <div id="officeincoming_documentPosition"
-           data-url="<%= position_office_document_type_incoming_documents_path(@document_type) %>">
-      </div>
+    <div class="medium-7 columns">
+      <label>
+        Номер
+        <%= f.text_field :number, required: true, class: 'office-incoming_document-number' %>
+      </label>
     </div>
   </div>
 
@@ -69,7 +63,6 @@
         Название
         <%= f.text_field :title, required: true %>
       </label>
-      <small class="error">Укажите название документа.</small>
     </div>
   </div>
 
