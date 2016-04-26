@@ -21,6 +21,8 @@ engines:
     enabled: true
   fixme:
     enabled: true
+  reek:
+    enabled: true
   rubocop:
     enabled: true
   scss-lint:
